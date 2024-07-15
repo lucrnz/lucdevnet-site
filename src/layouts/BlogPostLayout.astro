@@ -2,11 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import BlogPostHeader from "~/components/BlogPost/BlogPostHeader.astro";
-import { LicenseName, AuthorName } from "~/consts";
-import MastodonShare from "~/components/MastodonShare.astro";
-import ShareOnX from "~/components/ShareOnX.astro";
 import BlogPostTags from "~/components/BlogPost/BlogPostTags.astro";
-import OpenToWorkNotice from "~/components/OpenToWorkNotice.astro";
 
 export interface Props {
   post: CollectionEntry<"blog">["data"];
@@ -23,62 +19,28 @@ const {
   title,
   tags,
   pubDate,
-  longDescription,
+  summary,
   coverAlt,
   coverImg,
-  author,
-  license
 } = post;
 
-const licenseName = ((LicenseName as Record<string, string>)[license]) as LicenseName;
-const authorName = ((AuthorName as Record<string, string>)[author]) as AuthorName;
 ---
 
-<BaseLayout title={title} description={longDescription} license={licenseName}>
+<BaseLayout title={title} description={summary}>
   <BlogPostHeader
     title={title}
+    summary={summary}
     publishDate={pubDate}
     coverAlt={coverAlt}
     coverImg={coverImg}
     readTimeMinutes={readTimeMinutes}
-    authorName={authorName}
   />
-  <OpenToWorkNotice />
 
-  <article id={"blog-post-article"} class="blog-post-contents">
+  <article class="prose dark:prose-invert prose-headings:font-display max-w-[unset]">
     <slot />
   </article>
 
-  <div class="blog-post-extra">
+  <div class="mt-4 flex flex-col gap-1">
     <BlogPostTags tags={tags} />
-    <MastodonShare tags={tags} title={title} />
-    <ShareOnX tags={tags} title={title} />
   </div>
 </BaseLayout>
-
-<style>
-  .blog-post-extra {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-</style>
-
-<style is:global lang="scss">
-  article {
-    & > .blog-post-page-contents {
-      margin-bottom: 10px;
-    }
-
-    a,
-    a:active,
-    a:visited {
-      @include link;
-    }
-
-    .twitter-tweet {
-      @include card-common;
-    }
-  }
-</style>

@@ -1,26 +1,11 @@
 ---
-
 ---
 
-<div class="resume-card-grid">
-	<div class="left-side">
+<div class="flex flex-col gap-2 lg:gap-[unset] lg:flex-row mb-4 print:flex-col print:gap-2">
+	<div class="flex flex-col lg:w-1/2">
 		<slot name="left-side" />
 	</div>
-	<div class="right-side">
+	<div class="flex flex-col lg:w-1/2">
 		<slot name="right-side" />
 	</div>
 </div>
-
-<style lang="scss">
-	@use "~/styles/resume-common.scss" as *;
-
-	.resume-card-grid {
-		@include resume-card-config;
-		@include resume-card-contents-wrapper;
-		& > .left-side,
-		& > .right-side {
-			@include resume-card-contents;
-			@include  resume-card-contents-grid;
-		}
-	}
-</style>

@@ -2,7 +2,7 @@
 title: "Site update: Static generated"
 pubDate: "2022-10-12"
 description: "Just a site update"
-longDescription: "Article describing the updates on this website including going static-generated and changing hosting provider."
+summary: "Article describing the updates on this website including going static-generated and changing hosting provider."
 tags: "webdev"
 ---
 

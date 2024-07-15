@@ -1,0 +1,44 @@
+---
+import type { BreadCrumbNavigation } from "~/types/breadcrumb";
+
+export type Props = {
+  items: BreadCrumbNavigation;
+};
+
+const { items } = Astro.props;
+---
+
+<ol class="flex flex-row items-center flew-wrap mb-8 custom-style text-gray-600">
+  {
+    items.map((item, index) =>
+      index === items.length - 1 ? (
+        <li aria-current="page">
+          <span>{item.title}</span>
+        </li>
+      ) : item.urlPath ? (
+        <li>
+          <a
+            href={item.urlPath}
+            class="underline hover:text-cyan-600 hover:dark:text-cyan-400"
+          >
+            {item.title}
+          </a>
+        </li>
+      ) : (
+        <li>
+          <span>{item.title}</span>
+        </li>
+      )
+    )
+  }
+</ol>
+
+<style>
+  .custom-style > li > a {
+    color: #4f46e5;
+  }
+
+  .custom-style > li + li:before {
+    content: ">";
+  }
+</style>

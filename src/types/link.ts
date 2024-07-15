@@ -1,8 +1,7 @@
-export type LinkSection = "main" | "contact" | "crypto" | "resume";
+export type LinkSection = "main" | "resume";
 
 export type LinkData = {
   name: string;
   url: string;
-  description?: string;
-  section: LinkSection | LinkSection[];
+  section?: LinkSection
 };

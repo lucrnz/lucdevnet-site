@@ -10,16 +10,13 @@ const posts = (await getCollection("blog"))
 ---
 
 <BaseLayout
-  title="Blog"
-  description={"My personal blog including articles about programming, tech, personal experiences and reflections."}
+  title="Blog Articles"
+  description="My personal blog including articles about programming, tech, personal experiences and reflections."
 >
-  <div class="blog-post-page-contents">
-    <h2>Blog</h2>
-    <p>
-      You can find my blog posts here. I write about programming, tech, personal
-      experiences and reflections.
-    </p>
-  </div>
+  <h1 class="font-display text-3xl font-medium mb-4">Blog Articles</h1>
+  <p class="mb-8">
+    These are all my blog posts. I write mostly about software development and share what I can to make devs life easier.
+  </p>
 
   <BlogPostCardList posts={posts} />
 </BaseLayout>

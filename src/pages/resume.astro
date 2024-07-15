@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
-import { LicenseName } from "~/consts";
 import { resumeData } from "~/data/resume/resumeData";
 import ResumeBody from "~/components/resume/ResumeBody.astro";
 ---
@@ -8,8 +7,6 @@ import ResumeBody from "~/components/resume/ResumeBody.astro";
 <BaseLayout
   title={"Resume"}
   description="My professional resume."
-  hideFun={true}
-  license={LicenseName["CC-BY-SA-4.0"]}
 >
   <ResumeBody data={resumeData} />
 </BaseLayout>

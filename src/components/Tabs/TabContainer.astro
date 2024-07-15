@@ -1,159 +1,96 @@
 ---
 export interface Props {
-    tabs: string[];
+  tabs: string[];
 }
 
 const { tabs: title } = Astro.props;
 ---
 
-<div class="container" data-tab-container>
-    <div class="tabs-buttons">
-        {
-            title.map((title, index) => (
-                <button
-                    data-tab-target={index}
-                    data-selected={index === 0 ? "true" : "false"}
-                >
-                    {title}
-                </button>
-            ))
-        }
-    </div>
+<div class="contents print:hidden" data-tab-container>
+  <div class="flex flex-row items-center gap-4">
+    {
+      title.map((title, index) => (
+        <button
+          class="transition-all duration-200 ease-in-out rounded-lg text-gray-500 dark:text-gray-300 bg-gray-100 h-10 px-4 border-b-2 border-transparent hover:text-blue-600 hover:cursor-pointer data-[selected=true]:text-blue-600 data-[selected=true]:border-blue-600 dark:bg-neutral-800 hover:dark:text-sky-300 data-[selected=true]:dark:text-sky-300 data-[selected=true]:dark:border-sky-300"
+          data-tab-target={index}
+          data-selected={index === 0 ? "true" : "false"}
+        >
+          {title}
+        </button>
+      ))
+    }
+  </div>
 
-    <div class="templates" data-tab-templates>
-        <tamplate data-tab-content><slot name="tab-1" /></tamplate>
-        <tamplate data-tab-content><slot name="tab-2" /></tamplate>
-        <tamplate data-tab-content><slot name="tab-3" /></tamplate>
-        <tamplate data-tab-content><slot name="tab-4" /></tamplate>
-        <tamplate data-tab-content><slot name="tab-5" /></tamplate>
-        <tamplate data-tab-content><slot name="tab-6" /></tamplate>
-    </div>
+  <div class="hidden" data-tab-templates>
+    <template data-tab-content><slot name="tab-1" /></template>
+    <template data-tab-content><slot name="tab-2" /></template>
+    <template data-tab-content><slot name="tab-3" /></template>
+    <template data-tab-content><slot name="tab-4" /></template>
+    <template data-tab-content><slot name="tab-5" /></template>
+    <template data-tab-content><slot name="tab-6" /></template>
+  </div>
 
-    <div class="tabs-content" data-selected-tab>
-        <div data-tab-content><slot name="tab-1" /></div>
-    </div>
+  <div class="tabs-content" data-selected-tab>
+    <div data-tab-content><slot name="tab-1" /></div>
+  </div>
 
-    <input type="hidden" value="0" data-selected-tab-index />
+  <input type="hidden" value="0" data-selected-tab-index />
 </div>
 
-<div class="print-contents">
-    {
-        title[0] && (
-            <div class="print-tab">
-                <span>{title[0]}</span>
-                <slot name="tab-1" />
-            </div>
-        )
-    }
-    {
-        title[1] && (
-            <div class="print-tab">
-                <span>{title[1]}</span>
-                <slot name="tab-2" />
-            </div>
-        )
-    }
-    {
-        title[2] && (
-            <div class="print-tab">
-                <span>{title[2]}</span>
-                <slot name="tab-3" />
-            </div>
-        )
-    }
-    {
-        title[3] && (
-            <div class="print-tab">
-                <span>{title[3]}</span>
-                <slot name="tab-4" />
-            </div>
-        )
-    }
-    {
-        title[4] && (
-            <div class="print-tab">
-                <span>{title[4]}</span>
-                <slot name="tab-5" />
-            </div>
-        )
-    }
-    {
-        title[5] && (
-            <div class="print-tab">
-                <span>{title[5]}</span>
-                <slot name="tab-6" />
-            </div>
-        )
-    }
+<div class="hidden print:block">
+  {
+    title[0] && (
+      <div class="print:flex flex-col gap-1">
+        <span class="print:font-medium">{title[0]}</span>
+        <slot name="tab-1" />
+      </div>
+    )
+  }
+  {
+    title[1] && (
+      <div class="print:flex flex-col gap-1">
+        <span class="print:font-medium">{title[1]}</span>
+        <slot name="tab-2" />
+      </div>
+    )
+  }
+  {
+    title[2] && (
+      <div class="print:flex flex-col gap-1">
+        <span class="print:font-medium">{title[2]}</span>
+        <slot name="tab-3" />
+      </div>
+    )
+  }
+  {
+    title[3] && (
+      <div class="print:flex flex-col gap-1">
+        <span class="print:font-medium">{title[3]}</span>
+        <slot name="tab-4" />
+      </div>
+    )
+  }
+  {
+    title[4] && (
+      <div class="print:flex flex-col gap-1">
+        <span class="print:font-medium">{title[4]}</span>
+        <slot name="tab-5" />
+      </div>
+    )
+  }
+  {
+    title[5] && (
+      <div class="print:flex flex-col gap-1">
+        <span class="print:font-medium">{title[5]}</span>
+        <slot name="tab-6" />
+      </div>
+    )
+  }
 </div>
-
-<style lang="scss">
-    .templates {
-        display: none;
-    }
-
-    .container,
-    .tabs-content > [data-tab-content] {
-        display: contents;
-    }
-
-    @media screen {
-        .print-contents {
-            display: none;
-        }
-        .tabs-buttons {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 1rem;
-
-            & > button {
-                transition: all 0.2s ease-in-out;
-                color: scale-color($accent-2-color, $alpha: -50%);
-                background-color: $forth-color;
-                max-width: fit-content;
-                border: none;
-                height: 2.5rem;
-                border-bottom: 0.1rem solid transparent;
-
-                &:hover {
-                    cursor: pointer;
-                    color: $accent-2-color;
-                }
-
-                &[data-selected="true"] {
-                    color: $accent-2-color;
-                    border-bottom: 0.1rem solid $accent-2-color;
-                }
-            }
-        }
-    }
-
-    @media print {
-        .container {
-            display: none;
-        }
-        .print-contents {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-
-            & > .print-tab {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-
-                & > span {
-                    font-weight: 500;
-                }
-            }
-        }
-    }
-</style>
 
 <script>
-    import { setupScript } from "../../scripts/setupScript";
-    import { setupTabContainers } from "../../scripts/tabContainer";
+  import { setupScript } from "~/scripts/setupScript";
+  import { setupTabContainers } from "~/scripts/tabContainer";
 
-    await setupScript({name: "tab-containers", setup: setupTabContainers});
+  await setupScript({ name: "tab-containers", setup: setupTabContainers });
 </script>

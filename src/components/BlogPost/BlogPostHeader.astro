@@ -1,86 +1,37 @@
 ---
+import BlogPostShareButtons from "./BlogPostShareButtons.astro";
 import BlogPostSubtitle from "./BlogPostSubtitle.astro";
-import type { AuthorName } from "~/consts";
 
 export interface Props {
   publishDate: Date;
   title: string;
+  summary: string;
   coverAlt?: string;
   coverImg?: string;
   readTimeMinutes: number;
-  authorName?: AuthorName;
 }
 
-const { publishDate, title, coverAlt, coverImg, readTimeMinutes, authorName } =
+const { publishDate, title, summary, coverAlt, coverImg, readTimeMinutes } =
   Astro.props;
-
+  
 const coverImageAvailable =
   coverImg && coverAlt && coverImg.length > 0 && coverAlt.length > 0;
 ---
 
-<div class="blog-post-header">
+<div>
   {
     coverImageAvailable && (
-      <div class="blog-post-cover">
-        <img src={coverImg} alt={coverAlt} />
+      <div class="mb-8">
+        <img src={coverImg} alt={coverAlt} class="rounded-lg" />
       </div>
     )
   }
 
-  <h1 class="blog-post-title">{title}</h1>
+  <h1 class="text-3xl md:text-4xl font-bold font-display mb-8">{title}</h1>
   <BlogPostSubtitle
     publishDate={publishDate}
     readTimeMinutes={readTimeMinutes}
-    authorName={authorName}
-  />
+  >
+    <BlogPostShareButtons title={title} summary={summary} />
+  </BlogPostSubtitle>
 </div>
-
-<style lang="scss">
-  .blog-post-header {
-    margin-bottom: 40px;
-
-    & > .blog-post-cover {
-      height: 300px;
-      overflow: hidden;
-
-      & > img {
-        object-fit: cover;
-      }
-
-      @media (max-width: $mobile-xl-breakpoint) {
-        height: 200px;
-      }
-    }
-
-    & > .blog-post-title {
-      margin-top: 10px;
-      margin-bottom: 10px;
-
-      @media screen and (max-width: $mobile-breakpoint) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-      }
-    }
-
-    & > .blog-post-subtitle {
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      gap: 20px;
-      margin-bottom: 20px;
-
-      & > span {
-        @include flex-center;
-        gap: 8px;
-      }
-
-      @media (max-width: $mobile-xl-breakpoint) {
-        gap: 10px;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-  }
-</style>

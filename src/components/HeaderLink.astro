@@ -1,28 +1,11 @@
 ---
+// I don't know if this component is relevant anymore to be honest..
+
 export interface Props extends astroHTML.JSX.AnchorHTMLAttributes {}
 
 const { href, class: className, ...props } = Astro.props;
-
-// const { pathname } = Astro.url;
-// const isActive = href === pathname || href === pathname.replace(/\/$/, "");
 ---
 
-<a href={href} class:list={[className]} {...props}>
+<a class="flex flex-col items-center justify-center relative flex-1" href={href} class:list={[className]} {...props}>
   <slot />
 </a>
-
-<style lang="scss">
-  a {
-    @include flex-center;
-    color: $text-color;
-    position: relative;
-    height: $nav-bar-height;
-    text-decoration: none;
-    padding: 0 20px;
-    flex: 1; // Take all space
-
-    &:hover {
-      background-color: lighten($primary-color, 10%);
-    }
-  }
-</style>

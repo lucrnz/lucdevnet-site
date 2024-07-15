@@ -43,7 +43,7 @@ class TimeDifferenceWrapper extends HTMLElement {
   }
 }
 
-export default function setupTimeDifferenceWrapper() {
+export function setupTimeDifferenceWrapper() {
   const tag = "time-difference-wrapper";
   if (customElements.get(tag) === undefined) {
     customElements.define(tag, TimeDifferenceWrapper);

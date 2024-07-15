@@ -1,27 +1,21 @@
 ---
-import Icon from "~/components/Icon.astro";
-import Link from "~/components/Link.astro";
-
+import { Picture } from "astro:assets";
+import profilePictureSmall from "~/assets/profile_picture_small.png";
+import { authorName, authorProfilePicAlt } from "~/consts";
 import {
   formatDateTime,
   DateTimeFormattingConfig
 } from "~/helpers/formatDateTime";
-import { type AuthorName, AUTHOR_INFORMATION, DEFAULT_AUTHOR } from "~/consts";
 
 export interface Props {
   publishDate: Date;
   readTimeMinutes: number;
-  authorName?: AuthorName;
 }
 
 const {
   publishDate,
   readTimeMinutes,
-  authorName: providedAuthorName
 } = Astro.props;
-
-const authorName = providedAuthorName ?? DEFAULT_AUTHOR;
-const authorUrl = AUTHOR_INFORMATION[authorName].url;
 
 const formatedDate = formatDateTime(
   publishDate,
@@ -33,51 +27,18 @@ const minuteWord = readTimeMinutes === 1 ? "minute" : "minutes";
 const readTimeString = `${readTimeMinutes} ${minuteWord} read.`;
 ---
 
-<section class="blog-post-subtitle">
-  <span class="blog-post-subtitle-author title-and-icon">
-    <Icon name="mdi:user-circle" alt="User icon" />
-    By: <Link name={authorName} url={authorUrl} />
-  </span>
-  <span class="blog-post-subtitle-date title-and-icon">
-    <Icon name="mdi:calendar-month" alt="Calendar icon" />
-    <span class="span-field">{formatedDate}</span>
-  </span>
-  <span class="blog-post-subtitle-read-time title-and-icon">
-    <Icon name="mdi:clock" alt="Clock icon" />
-    <span class="span-field">{readTimeString}</span>
-  </span>
-  <!-- <span id="views" class="blog-post-subtitle-read-time title-and-icon">
-    <Icon name="mdi:eye" />
-    <span></span>
-  </span> -->
+<section class="mb-8 ml-2 flex flex-col gap-2 max-w-fit">
+  <div class="flex flex-row items-center gap-2">
+    <Picture
+    src={profilePictureSmall}
+    alt={authorProfilePicAlt}
+    formats={["avif", "webp"]}
+    height={32}
+    width={32}
+    class="rounded-full"
+    />
+    <a href="/" target="_blank">By: {authorName.join(" ")}</a>
+  </div>
+  <span>{formatedDate} - {readTimeString}</span>
+  <slot />
 </section>
-
-<style lang="scss">
-  .blog-post-subtitle {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-
-    @media screen and (max-width: $mobile-breakpoint) {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-
-  .title-and-icon {
-    @media screen {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-  }
-
-  .span-field {
-    display: contents;
-  }
-
-  #views {
-    display: none;
-  }
-</style>

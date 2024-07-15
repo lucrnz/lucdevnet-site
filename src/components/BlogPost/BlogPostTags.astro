@@ -8,26 +8,7 @@ const { tags } = Astro.props;
 
 <section>
   <span>Tags:</span>
-  <ul>
-    {tags.map((tag) => <li>{tag}</li>)}
+  <ul class="list-none pl-0 inline-flex flex-row gap-[0.75ch]">
+    {tags.map((tag) => <li class="inline-block"><span class="italic">{"#"}</span><span>{tag}</span></li>)}
   </ul>
 </section>
-
-<style lang="scss">
-  section,
-  ul {
-    display: flex;
-    flex-direction: row;
-    gap: 0.25rem;
-    align-items: center;
-  }
-
-  ul {
-    list-style: none;
-    padding-left: 0;
-  }
-
-  ul > li:before {
-    content: "#";
-  }
-</style>

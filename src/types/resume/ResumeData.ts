@@ -1,21 +1,8 @@
-import type { DateTimeDifference } from "~/helpers/DateDifference";
-import type { LinkData } from "~/types/link";
 import type { JobCompany } from "./JobCompany";
 import type { JobLocation } from "./JobLocation";
 import type { JobLocationType } from "./JobLocationType";
 import type { JobTitle } from "./JobTitle";
-import type { Skill, SkillExperienceAggregator } from "./Skill";
-
-type Paragraphs = string[];
-
-type ResumePerson = {
-  firstName: string;
-  lastName: string;
-  headline: string;
-  avatarUrl: string;
-  avatarAlt: string;
-  links: LinkData[];
-};
+import type { Skill } from "./Skill";
 
 type ResumeExperience = {
   title: JobTitle;
@@ -39,18 +26,7 @@ type ResumeCertificate = {
   includesPractice: boolean;
 };
 
-type ResumeSkillSet = {
-  main: Skill[];
-  side: Skill[];
-  expAggregator?: SkillExperienceAggregator;
-};
-
 export type ResumeData = {
-  person: ResumePerson;
-  summary: Paragraphs;
-  industry: string;
-  interestedIn: JobTitle;
-  skills: ResumeSkillSet;
   experience: ResumeExperience[];
   certifications: ResumeCertificate[];
 };

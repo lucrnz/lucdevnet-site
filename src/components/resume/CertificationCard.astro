@@ -1,6 +1,4 @@
 ---
-import Icon from "~/components/Icon.astro";
-import Link from "~/components/Link.astro";
 import BulletPoints from "./BulletPoints.astro";
 import ResumeCardGrid from "./ResumeCardGrid.astro";
 
@@ -28,66 +26,45 @@ const {
 ---
 
 <ResumeCardGrid>
-  <div slot="left-side">
-    <div class="cert-info">
-      <h4>{title}</h4>
-      <span class="title-and-icon"
-        ><Icon name="mdi:office-building" alt="Office icon" /> {issuedBy}</span
-      >
+  <Fragment slot="left-side">
+    <div class="lg:max-w-[40ch] h-full flex flex-col mb-2 gap-2 print:max-w-[unset]">
+      <h4 class="text-xl font-medium font-display print:font-serif print:font-bold">{title}</h4>
+      <span>
+        <svg aria-label="Company icon" class="inline-block print:hidden" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M18 15h-2v2h2m0-6h-2v2h2m2 6h-8v-2h2v-2h-2v-2h2v-2h-2V9h8M10 7H8V5h2m0 6H8V9h2m0 6H8v-2h2m0 6H8v-2h2M6 7H4V5h2m0 6H4V9h2m0 6H4v-2h2m0 6H4v-2h2m6-10V3H2v18h20V7z"/></svg>
+        {issuedBy}
+      </span>
       {
         length && (
-          <span class="title-and-icon">
-            <Icon name="mdi:clock" alt="Clock icon" />
+          <span class="flex flex-row gap-1 items-center">
+            <svg aria-label="Clock icon" class="inline-block print:hidden" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M12 20a8 8 0 0 0 8-8a8 8 0 0 0-8-8a8 8 0 0 0-8 8a8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10a10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67l-.75 1.23L11 13V7z"/></svg>
             {`Length: ${length}${includesPractice ? " + Practice" : ""}`}
           </span>
         )
       }
-      <span class="title-and-icon"
-        ><Icon name="mdi:calendar-month" alt="Calendar icon" /> Issued: {
-          issuedDate
-        }</span
-      >
+      <span>
+        <svg aria-label="Calendar icon" class="inline-block print:hidden" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12h5v5h-5zm7-9h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 2v2H5V5zM5 19V9h14v10z"/></svg>
+        Issued: {issuedDate}
+      </span>
+
+      <span>
+        <svg aria-label="Link icon" class="inline-block print:hidden" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 20 20"><g fill="currentColor"><path d="M12.232 4.232a2.5 2.5 0 0 1 3.536 3.536l-1.225 1.224a.75.75 0 0 0 1.061 1.06l1.224-1.224a4 4 0 0 0-5.656-5.656l-3 3a4 4 0 0 0 .225 5.865a.75.75 0 0 0 .977-1.138a2.5 2.5 0 0 1-.142-3.667z"/><path d="M11.603 7.963a.75.75 0 0 0-.977 1.138q.072.062.142.131a2.5 2.5 0 0 1 0 3.536l-3 3a2.5 2.5 0 0 1-3.536-3.536l1.225-1.224a.75.75 0 0 0-1.061-1.06l-1.224 1.224a4 4 0 1 0 5.656 5.656l3-3a4 4 0 0 0-.225-5.865"/></g></svg>
+        <a href={certUrl} target="_blank" class="underline hover:text-cyan-600 hover:dark:text-cyan-400 print:hidden">View Certificate</a>
+        <span class="print:inline-block hidden">Certificate:</span>
+        <a href={certUrl} target="_blank" class="print:inline-block hidden underline text-sky-700">{certUrl}</span>
+      </span>
     </div>
-    <div class="cert-link">
-      <Link url={certUrl} name="View Certificate" />
-    </div>
-  </div>
-  <div slot="right-side">
-    <div class="title">
-      <h4>{itemsTitle}</h4>
-    </div>
-    <div class="lists">
+  </Fragment>
+  <Fragment slot="right-side">
+    <h4 class="text-xl font-medium mb-4 font-display print:font-serif print:font-bold">{itemsTitle}</h4>
+    <div class="flex flex-row gap-2">
       {
         items &&
           items.map((itemList) => (
-            <div class="list" role="list">
+            <ul class="flex flex-col gap-2">
               <BulletPoints items={itemList} />
-            </div>
+            </ul>
           ))
       }
     </div>
-  </div>
+  </Fragment>
 </ResumeCardGrid>
-
-<style lang="scss">
-  @use "~/styles/resume-common.scss" as *;
-
-  .lists {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-
-    & > .list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-  }
-  .title-and-icon {
-    @media screen {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-  }
-</style>

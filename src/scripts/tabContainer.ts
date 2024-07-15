@@ -7,11 +7,14 @@ export function setupTabContainers() {
     const buttons = Array.from(
       tabContainer.querySelectorAll("button[data-tab-target]")
     ) as HTMLButtonElement[];
+
     const allTabs = Array.from(
       tabContainer.querySelectorAll(
-        "[data-tab-templates] > tamplate[data-tab-content]"
+        "[data-tab-templates] > template[data-tab-content]"
       )
     ) as HTMLTemplateElement[];
+
+    console.log(allTabs);
 
     for (const button of buttons) {
       button.addEventListener("click", (_) => {

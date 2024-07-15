@@ -9,7 +9,7 @@ export interface Props {
 const { posts } = Astro.props;
 ---
 
-<div class="blog-post-card-list" aria-label="List of blog posts">
+<ul class="flex flex-col gap-8">
   {
     posts.map((post) => (
       <BlogPostCard
@@ -20,4 +20,4 @@ const { posts } = Astro.props;
       />
     ))
   }
-</div>
+</ul>

@@ -1,20 +1,8 @@
 ---
 import CertificationCard from "~/components/resume/CertificationCard.astro";
-import SummaryCard from "~/components/resume/SummaryCard.astro";
 import PersonCard from "~/components/resume/PersonCard.astro";
 import ExperienceCard from "~/components/resume/ExperienceCard.astro";
 import type { ResumeData } from "~/types/resume/ResumeData";
-import { aggregateDateTimePeriods } from "~/helpers/aggregateDateTimePeriods";
-import {
-  printDateTimeDifferenceYears,
-  sumDateTimeDifferences,
-  roundDateDifference
-} from "~/helpers/DateDifference";
-import ProInfoCardTag from "./ProInfoCardTag.astro";
-import type { Skill } from "~/types/resume/Skill";
-import type { DateTimeDifference } from "~/helpers/DateDifference";
-import ResumeCardGrid from "./ResumeCardGrid.astro";
-import SkillsCard from "./SkillsCard.astro";
 
 export interface Props {
   data: ResumeData;
@@ -24,150 +12,59 @@ const {
   data: {
     certifications,
     experience,
-    person,
-    summary,
-    industry,
-    interestedIn,
-    skills
   }
 } = Astro.props;
-
-const timeInIndustry = roundDateDifference(
-  aggregateDateTimePeriods(experience)
-);
-const timeInInterestedRole = roundDateDifference(
-  aggregateDateTimePeriods(experience.filter((x) => x.title === interestedIn))
-);
-
-let skillsExperience: Partial<Record<Skill, DateTimeDifference>> = {};
-
-for (const skill of [...skills.main, ...skills.side]) {
-  skillsExperience[skill] = roundDateDifference(
-    aggregateDateTimePeriods(experience.filter((x) => x.skills.includes(skill)))
-  );
-}
-
-if (skills.expAggregator) {
-  for (const [key, addExp] of Object.entries(skills.expAggregator)) {
-    // I love TypeScript but this is the fastest way to cast this value.
-    const skill = key as unknown as Skill;
-    const currentExpValue = skillsExperience[skill];
-    skillsExperience[skill] = currentExpValue
-      ? sumDateTimeDifferences(currentExpValue, addExp)
-      : addExp;
-  }
-}
 ---
 
-<PersonCard
-  fullName={`${person.firstName} ${person.lastName}`}
-  subtitle={person.headline}
-  avatarUrl={person.avatarUrl}
-  avatarAlt={person.avatarAlt}
-  links={person.links}
-/>
+<PersonCard  />
 
-<article>
-  <section id="summary">
-    <div class="resume-section-title">
-      <h3>Summary</h3>
+<article class="flex flex-col gap-4">
+  <section>
+    <h3 class="text-2xl font-medium mb-4 font-display print:font-serif print:font-bold">Summary</h3>
+    <div class="flex flex-col print:items-start">
+      <p>Experienced web developer who loves using the latest tech to make apps work well and grow easily.</p>
+      <p>I'm good at making code better and processes smoother so things run their best and are easy to keep up.</p>
+      <p>I always keep learning about what's new in my field to make sure my work is top-notch.</p>
     </div>
-    <SummaryCard paragraphs={summary} />
+  </section>
 
-    <div class="sections-wrapper">
-      <section id="professional-info">
-        <h3>Professional Information</h3>
-        <ResumeCardGrid>
-          <ProInfoCardTag
-            slot="left-side"
-            label=`Experience in ${industry}``
-            title="Total time in the industry"
-            value={printDateTimeDifferenceYears(timeInIndustry)}
+  <section>
+    <h3 class="text-2xl font-medium mb-4 font-display print:font-serif print:font-bold">Work Experience</h3>
+    <div class="flex flex-col gap-4">
+    {
+      experience.map((item) => (
+        <ExperienceCard
+          title={item.title}
+          companyName={item.companyName}
+          startDate={item.startDate}
+          endDate={item.endDate}
+          location={item.location}
+          locationType={item.locationType}
+          bulletPoints={item.bulletPoints}
+          skills={item.skills}
+        />
+      ))
+    }
+    </div>
+  </section>
+
+  <section>
+    <h3 class="text-2xl font-medium mb-4 font-display print:font-serif print:font-bold">Education</h3>
+    <div class="flex flex-col gap-4">
+      {
+        certifications.map((item) => (
+          <CertificationCard
+            issuedBy={item.issuedBy}
+            certUrl={item.certUrl}
+            title={item.title}
+            issuedDate={item.issuedDate}
+            length={item.length}
+            includesPractice={item.includesPractice}
+            itemsTitle={item.itemsTitle}
+            items={item.items}
           />
-          <ProInfoCardTag
-            slot="right-side"
-            label="Interested in"
-            title={interestedIn}
-            value={printDateTimeDifferenceYears(timeInInterestedRole)}
-          />
-        </ResumeCardGrid>
-      </section>
-
-      <section id="skills">
-        <h3>Skills</h3>
-        <SkillsCard mainSkills={skills.main} sideSkills={skills.side} skillsExperience={skillsExperience} />
-      </section>
-
-      <section id="experience">
-        <div class="resume-section-title">
-          <h3>Work Experience</h3>
-        </div>
-        {
-          experience.map((item) => (
-            <ExperienceCard
-              title={item.title}
-              companyName={item.companyName}
-              startDate={item.startDate}
-              endDate={item.endDate}
-              location={item.location}
-              locationType={item.locationType}
-              bulletPoints={item.bulletPoints}
-              skills={item.skills}
-            />
-          ))
-        }
-      </section>
-
-      <section id="education">
-        <div class="resume-section-title">
-          <h3>Education</h3>
-        </div>
-
-        {
-          certifications.map((item) => (
-            <CertificationCard
-              issuedBy={item.issuedBy}
-              certUrl={item.certUrl}
-              title={item.title}
-              issuedDate={item.issuedDate}
-              length={item.length}
-              includesPractice={item.includesPractice}
-              itemsTitle={item.itemsTitle}
-              items={item.items}
-            />
-          ))
-        }
-      </section>
+        ))
+      }
     </div>
   </section>
 </article>
-
-<style lang="scss">
-  @use "~/styles/resume-common.scss" as *;
-  .resume {
-    & > section:not(:first-child) {
-      margin-top: 20px;
-    }
-  }
-
-  .resume-section-title {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    @media screen and (min-width: $tablet-breakpoint) {
-      align-items: flex-start;
-    }
-
-    @media print {
-      align-items: flex-start;
-      margin-left: 0.5rem;
-    }
-  }
-
-  .sections-wrapper {
-    display: flex;
-    flex-direction: column;
-  }
-</style>

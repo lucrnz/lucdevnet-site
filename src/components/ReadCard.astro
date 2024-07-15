@@ -1,7 +1,4 @@
 ---
-import Icon from "./Icon.astro";
-import Link from "./Link.astro";
-
 import {
   formatDateTime,
   DateTimeFormattingConfig
@@ -21,51 +18,16 @@ const dateFormatted = formatDateTime(
 );
 ---
 
-<div class="read-card">
-  <div class="read-card-header">
-    <div class="read-card-date">
-      <Icon name="mdi:calendar-month" width="22px" alt="Calendar icon" />
-      {dateFormatted}
+<li class="flex flex-col gap-2">
+  <article class="contents">
+    <span class="max-w-fit">
+      <svg aria-label="Calendar icon" class="opacity-75 inline-block print:hidden" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12h5v5h-5zm7-9h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 2v2H5V5zM5 19V9h14v10z"/></svg>
+      <span>{dateFormatted}</span>
+    </span>
+    <a href={url} target="_blank" class="mb-2 max-w-fit"><h2 class="text-2xl underline font-medium hover:text-cyan-600 hover:dark:text-cyan-400">{title}</h2></a>
+    
+    <div class="prose dark:prose-invert prose-headings:font-display">
+      <slot />
     </div>
-    <div class="read-card-title">
-      <Link url={url} name={title} />
-    </div>
-  </div>
-  <div class="read-card-contents">
-    <slot />
-  </div>
-</div>
-
-<style lang="scss">
-  .read-card {
-    @include card-common;
-    gap: 10px;
-
-    @media print {
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
-
-    & > .read-card-header {
-      display: flex;
-      flex-direction: row;
-      gap: 15px;
-
-      @media (max-width: $tablet-breakpoint) {
-        flex-direction: column;
-      }
-
-      @media screen {
-        & > .read-card-date {
-          @include flex-center;
-          gap: 5px;
-        }
-      }
-    }
-
-    & > .read-card-contents {
-      max-width: 80ch;
-      word-break: break-word;
-    }
-  }
-</style>
+  </article>
+</li>
