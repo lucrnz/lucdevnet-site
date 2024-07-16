@@ -1,5 +1,4 @@
 ---
-// Fonts
 import "@fontsource-variable/cabin";
 import "@fontsource-variable/exo-2";
 
@@ -15,16 +14,10 @@ export type Props = {
   };
 }
 
-const { description, heroImg } = Astro.props;
+const { description, heroImg, title: articleTitle } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const title: string =
-  Astro.props["title"] === siteTitle
-    ? siteTitle
-    : `${Astro.props["title"]} - Lucdev`;
-
-// @TODO: Compress share icon / favicon / all images to Webp.
-// @TODO: Favicon is not correct, need to create a new one!!
+const pageTitle = articleTitle === siteTitle ? siteTitle : `${Astro.props["title"]} - Lucdev`;
 
 const isDev = import.meta.env.DEV;
 const baseUrl = isDev ? new URL(Astro.url.origin) : Astro.site ? new URL(Astro.site) : new URL(Astro.url.origin);
@@ -34,29 +27,27 @@ const heroImageUrl = heroImg ? new URL(heroImg.src, baseUrl) : undefined;
 ---
 
 <meta charset="utf-8" />
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
-<title>{title}</title>
 <link rel="icon" type="image/svg+xml" href={favIcon} />
 <link rel="sitemap" href={new URL("/sitemap-index.xml", baseUrl)} />
-<meta name="generator" content={Astro.generator} />
-
 <link rel="alternate" type="application/rss+xml" title={siteTitle} href={new URL("/rss.xml", baseUrl)} />
-
 <link rel="canonical" href={canonicalURL} />
-<meta name="description" content={description} />
-<meta name="name" content={title} />
+
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:description" content={description} />
 { heroImageUrl && <meta property="og:image" content={heroImageUrl} /> }
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content={title} />
-<meta property="og:title" content={title} />
+<meta property="og:site_name" content={siteTitle} />
+<meta property="og:title" content={articleTitle} />
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content={`@${xUserName}`} />
 <meta name="twitter:creator" content={`@${xUserName}`} />
-<meta property="twitter:title" content={title} />
+<meta property="twitter:title" content={articleTitle} />
 <meta property="twitter:description" content={description} />
 { heroImageUrl && <meta name="twitter:image" content={heroImageUrl} /> }
 
+<meta name="generator" content={Astro.generator} />
 <ViewTransitions fallback="animate" />
