@@ -128,12 +128,14 @@ const endDateRendered = endDate
 </style>
 
 <script>
-  const { setupScript } = await import("~/scripts/setupScript");
-  const { setupTimeDifferenceWrapper } = await import("~/scripts/Elements/TimeDifferenceWrapper");
-  
-  await setupScript({
-    name: "webcomponent-time-difference-wrapper",
-    setup: setupTimeDifferenceWrapper,
-    once: true
-  });
+  (async () => {
+    const { setupScript } = await import("~/scripts/setupScript");
+    const { setupTimeDifferenceWrapper } = await import("~/scripts/Elements/TimeDifferenceWrapper");
+    
+    await setupScript({
+      name: "webcomponent-time-difference-wrapper",
+      setup: setupTimeDifferenceWrapper,
+      once: true
+    });
+  })();
 </script>

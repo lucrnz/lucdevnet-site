@@ -1,5 +1,3 @@
-let scrollEvSet = false;
-
 export function setupMobileMenu() {
   const header = document.querySelector("#main-page-header") as HTMLDivElement;
 

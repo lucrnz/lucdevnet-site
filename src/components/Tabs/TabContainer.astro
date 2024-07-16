@@ -89,8 +89,9 @@ const { tabs: title } = Astro.props;
 </div>
 
 <script>
-  import { setupScript } from "~/scripts/setupScript";
-  import { setupTabContainers } from "~/scripts/tabContainer";
-
-  await setupScript({ name: "tab-containers", setup: setupTabContainers });
+  (async () => {
+    const { setupScript } = await import("~/scripts/setupScript");
+    const { setupTabContainers } = await import("~/scripts/tabContainer");
+    await setupScript({ name: "tab-containers", setup: setupTabContainers });
+  })();
 </script>

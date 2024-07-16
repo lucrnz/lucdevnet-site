@@ -67,11 +67,13 @@ import { siteTitle } from "~/consts";
 </style>
 
 <script>
-  const { setupScript } = await import("~/scripts/setupScript");
-  const { setupMobileMenu } = await import("~/scripts/mobileMenuScript");
-
-  await setupScript({
-    name: "mobile-menu",
-    setup: setupMobileMenu
-  });
+  (async () => {
+    const { setupScript } = await import("~/scripts/setupScript");
+    const { setupMobileMenu } = await import("~/scripts/mobileMenuScript");
+  
+    await setupScript({
+      name: "mobile-menu",
+      setup: setupMobileMenu
+    });
+  })();
 </script>

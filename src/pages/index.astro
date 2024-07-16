@@ -62,17 +62,19 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 </BaseLayout>
 
 <script>
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!prefersReducedMotion) {
-    const { homePageScript } = await import("~/scripts/homePageScript");
-    const { setupScript } = await import("~/scripts/setupScript");
-
-    const { cleanup, setup } = homePageScript();
-    
-    await setupScript({
-      name: "home-script",
-      setup,
-      cleanup
-    });
-  }
+  (async () => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+      const { homePageScript } = await import("~/scripts/homePageScript");
+      const { setupScript } = await import("~/scripts/setupScript");
+  
+      const { cleanup, setup } = homePageScript();
+      
+      await setupScript({
+        name: "home-script",
+        setup,
+        cleanup
+      });
+    }
+  })();
 </script>
