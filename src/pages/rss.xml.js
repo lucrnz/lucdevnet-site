@@ -1,6 +1,6 @@
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
-import { siteTitle, siteDescription } from "~/consts";
+import { siteTitle, siteDescription, authorName } from "~/consts";
 
 export async function GET(context) {
   const posts = (await getCollection("blog")).filter(
@@ -11,7 +11,10 @@ export async function GET(context) {
     description: siteDescription,
     site: context.site,
     items: posts.map((post) => ({
-      ...post.data,
+      title: post.data.title,
+      pubDate: post.data.datePublished,
+      author: authorName.join(" "),
+      description: post.data.summary,
       link: `/blog/${post.slug}/`
     }))
   });
