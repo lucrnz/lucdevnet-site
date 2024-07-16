@@ -22,7 +22,7 @@ const coverImageAvailable =
   {
     coverImageAvailable && (
       <div class="mb-8">
-        <img src={coverImg} alt={coverAlt} class="rounded-lg" />
+        <img src={coverImg} alt={coverAlt} decoding="async" loading="lazy" class="rounded-lg" />
       </div>
     )
   }
