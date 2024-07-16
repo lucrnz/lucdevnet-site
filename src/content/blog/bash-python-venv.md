@@ -92,7 +92,7 @@ touch src/main.py
 
 > This is how the folder structure should look like:
 >
-> ![Folder structure](/images/blog/bash-python-venv/folder-structure.png)
+> ![Folder structure](/images/blog/bash-python-venv/folder-structure.webp)
 
 Let's start coding:
 
