@@ -18,21 +18,31 @@ if (!post) {
 const {
   title,
   tags,
-  pubDate,
+  datePublished,
+  dateModified,
+  metaDescription,
   summary,
-  coverAlt,
-  coverImg,
+  imageAlt,
+  image,
 } = post;
 
 ---
 
-<BaseLayout title={title} description={summary} heroImg={ (coverImg && coverAlt) ? { src: coverImg, alt: coverAlt } : undefined }>
+<BaseLayout
+  title={title}
+  metaDescription={metaDescription}
+  image={image}
+  imageAlt={imageAlt}
+  datePublished={datePublished}
+  dateModified={dateModified}
+  isArticle={true}>
+
   <BlogPostHeader
     title={title}
     summary={summary}
-    publishDate={pubDate}
-    coverAlt={coverAlt}
-    coverImg={coverImg}
+    datePublished={datePublished}
+    image={image}
+    imageAlt={imageAlt}
     readTimeMinutes={readTimeMinutes}
   />
 

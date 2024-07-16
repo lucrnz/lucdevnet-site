@@ -1,17 +1,19 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import BlogPostCardList from "../../components/BlogPost/BlogPostCardList.astro";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import BlogPostCardList from "~/components/BlogPost/BlogPostCardList.astro";
 import { getCollection } from "astro:content";
+import { siteCreationDate } from "~/consts";
 
 const posts = (await getCollection("blog"))
   .filter((post) => post.data.published)
-  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
+  .sort((a, b) => a.data.datePublished.valueOf() - b.data.datePublished.valueOf())
   .reverse();
 ---
 
 <BaseLayout
   title="Blog Articles"
-  description="My personal blog including articles about programming, tech, personal experiences and reflections."
+  metaDescription="My personal blog including articles about programming, tech, personal experiences and reflections."
+  datePublished={siteCreationDate}
 >
   <h1 class="font-display text-3xl font-medium mb-4">Blog Articles</h1>
   <p class="mb-8">

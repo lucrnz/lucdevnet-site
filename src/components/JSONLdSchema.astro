@@ -1,0 +1,224 @@
+---
+import { type CollectionEntry } from "astro:content";
+import { authorProfilePictureAlt } from "~/consts";
+import { authorProfilePicture } from "~/consts";
+
+type BlogPost = CollectionEntry<"blog">['data'];
+
+import {
+	siteTitle,
+	siteCreationDate,
+	siteDescription,
+	authorName,
+	authorDescription,
+	authorSocialMedia,
+	authorGender
+} from "~/consts";
+
+import type { MetaHeadSEO } from "~/types/head-seo";
+
+type Props = Pick<BlogPost, "title" | "metaDescription"> &
+	Partial<
+		Pick<BlogPost, "image" | "imageAlt"> &
+			Partial<MetaHeadSEO> & {
+				language?: string;
+			}
+	>;
+
+const {
+	title,
+	metaDescription: description,
+	keywords,
+	image: providedImage,
+	imageAlt,
+	datePublished,
+	dateModified: providedDateModified,
+	breadCrumbNavigation,
+	isArticle = false,
+	language = "en-US",
+} = Astro.props;
+
+const image = providedImage ? providedImage.includes("https") ? providedImage : new URL(providedImage, Astro.site).toString() : undefined;
+
+const dateModified = providedDateModified ?? datePublished;
+
+const authorSlug = authorName.map((x) => x.toLowerCase()).join("-");
+
+type JSONLDThing = Partial<{
+	"@type": string;
+	"@id": string | URL;
+	name: string;
+	summary: string;
+	url: string | URL;
+}>;
+
+type JSONLDImageObject = {
+	"@type": "ImageObject";
+	contentUrl: URL | string;
+	height?: string | number;
+	width?: string | number;
+	caption?: string;
+};
+
+type JSONLDItem<T> = JSONLDThing & T;
+
+const schema = (() => {
+	const currentDate = new Date();
+	const authorRef = { "@id": `${Astro.site}#${authorSlug}` };
+	const copyrightNotice = `© ${currentDate.getFullYear()} ${authorName.join(" ")}. All rights reserved.`;
+
+	const commonSchema = {
+		copyrightNotice: copyrightNotice,
+		copyrightHolder: authorRef,
+		copyrightYear: currentDate.getFullYear(),
+		publisher: authorRef,
+		creditText: copyrightNotice,
+		acquireLicensePage: new URL("/copyright-policy/", Astro.site).toString(),
+		license: new URL("/copyright-policy/", Astro.site).toString(),
+	};
+
+	const pageUrl = new URL(Astro.url.pathname, Astro.site);
+
+	const graph: JSONLDItem<Record<string, unknown>>[] = [];
+
+	if (isArticle) {
+		// Add Article
+		graph.push({
+			"@type": "Article",
+			"@id": `${pageUrl}#article`,
+			isPartOf: { "@id": pageUrl }, // Is part of WebPage
+			url: pageUrl,
+			headline: title,
+			name: title,
+			description,
+			...(keywords && keywords.length > 0
+				? { keywords: keywords.join(", ") }
+				: {}),
+			...(image ? { image: { "@id": `${pageUrl}#primaryimage` }, thumbnailUrl: image } : {}),
+			author: authorRef,
+			creator: authorRef,
+			mainEntityOfPage: {
+        "@id": pageUrl
+      },
+			...commonSchema,
+			...(datePublished ? { datePublished: datePublished.toISOString() } : {}),
+			...(dateModified ? { dateModified: dateModified.toISOString() } : {}),
+			inLanguage: language,
+			potentialAction: [
+				{
+					"@type": "ReadAction",
+					target: {
+						"@type": "EntryPoint",
+						urlTemplate: pageUrl,
+					},
+				},
+			],
+		});
+	}
+
+	// Add WebPage
+	graph.push({
+		"@type": "WebPage",
+		"@id": pageUrl,
+		url: pageUrl,
+		name: title,
+		isPartOf: { "@id": `${Astro.site}#website` },
+		...commonSchema,
+		author: authorRef,
+		creator: authorRef,
+		...(image ? { image: { "@id": `${pageUrl}#primaryimage` }, thumbnailUrl: image } : {}),
+		...(dateModified ? { dateModified: dateModified.toISOString() } : {}),
+		...(datePublished ? { datePublished: datePublished.toISOString() } : {}),
+		...(breadCrumbNavigation
+			? { breadcrumb: { "@id": `${pageUrl}#breadcrumb` } }
+			: {}),
+		...(isArticle
+			? {}
+			: {
+					description,
+					...(keywords && keywords.length > 0
+						? { keywords: keywords.join(", ") }
+						: {}),
+				}),
+		inLanguage: language,
+		potentialAction: [
+			{
+				"@type": "ReadAction",
+				target: {
+					"@type": "EntryPoint",
+					urlTemplate: pageUrl,
+				},
+			},
+		],
+	});
+
+	// Add hero image
+	if (image) {
+		graph.push({
+			"@type": "ImageObject",
+			"@id": `${pageUrl}#primaryimage`,
+			contentUrl: image.toString(),
+			...(imageAlt ? { caption: imageAlt } : {}),
+			...commonSchema,
+			inLanguage: language
+			});
+	}
+
+	// Add Breadcrumbs
+	if (breadCrumbNavigation && breadCrumbNavigation.length > 0) {
+		graph.push({
+			"@type": "BreadcrumbList",
+			"@id": `${pageUrl}#breadcrumb`,
+			itemListElement: breadCrumbNavigation.map((item, index) => ({
+				"@type": "ListItem",
+				position: index + 1,
+				name: item.title,
+				...(item.urlPath ? {item: new URL(item.urlPath, Astro.site)} : {})
+			})),
+		});
+	}
+
+	// Add WebSite
+	graph.push({
+		"@type": "WebSite",
+		"@id": `${Astro.site}#website`,
+		url: Astro.site,
+		name: siteTitle,
+		description: siteDescription,
+		datePublished: siteCreationDate.toISOString(),
+		...commonSchema,
+		author: authorRef,
+		creator: authorRef,
+	});
+	
+	// Add Website Author
+	graph.push({
+		"@type": "Person",
+		"@id": `${Astro.site}#author-${authorSlug}`,
+		name: authorName.join(" "),
+		url: Astro.site,
+		description: authorDescription.join("\n"),
+		gender: authorGender,
+		sameAs: authorSocialMedia,
+		image: {
+			"@type": "ImageObject",
+			"@id": `${Astro.site}#author-${authorSlug}/image`,
+			contentUrl: new URL(authorProfilePicture, Astro.site),
+			caption: authorProfilePictureAlt,
+		} as JSONLDImageObject,
+	});
+
+	const jsonLDSchema = {
+		"@context": "https://schema.org/",
+		"@graph": graph,
+	};
+
+	return jsonLDSchema;
+})();
+---
+
+<script
+	type="application/ld+json"
+	is:inline
+	set:html={JSON.stringify(schema)}
+/>

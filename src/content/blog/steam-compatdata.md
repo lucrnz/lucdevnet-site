@@ -1,10 +1,10 @@
 ---
 title: "Live compressing the Steam compat data to save space on the drive"
-pubDate: "2023-01-10"
-description: "Taking advantage of btrfs"
-summary: "Learn how to compress your Steam compatiblity data and gain more free-space on your device."
-coverImg: "/images/blog/steam-compatdata/steam-compatdata-hero.webp"
-coverAlt: "Steam logo showing a compress icon"
+datePublished: "2023-01-10"
+summary: "Taking advantage of btrfs"
+metaDescription: "Learn how to compress your Steam compatiblity data and gain more free-space on your device."
+image: "/images/blog/steam-compatdata/steam-compatdata-hero.webp"
+imageAlt: "Steam logo showing a compress icon"
 tags: "linux, steam"
 ---
 

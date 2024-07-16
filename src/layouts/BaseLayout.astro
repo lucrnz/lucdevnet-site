@@ -1,24 +1,30 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import BaseHead from "~/components/BaseHead.astro";
 import Footer from "~/components/Footer.astro";
 import Header from "~/components/Header.astro";
+import type { MetaHeadSEO } from "~/types/head-seo";
 
-export interface Props {
-  title: string;
-  description: string;
-  heroImg?: {
-    src: string;
-    alt: string;
-  };
-}
+type BlogPost = CollectionEntry<"blog">['data'];
 
-const { title, description, heroImg } = Astro.props;
+export type Props = Pick<BlogPost, "title" | "metaDescription" | "image" | "imageAlt" | "datePublished" | "dateModified"> & Partial<MetaHeadSEO>;
+
+const { title, metaDescription, image, imageAlt, datePublished, dateModified, isArticle, keywords  } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} heroImg={heroImg} />
+    <BaseHead
+      title={title}
+      metaDescription={metaDescription}
+      image={image}
+      imageAlt={imageAlt}
+      datePublished={datePublished}
+      dateModified={dateModified}
+      isArticle={isArticle}
+      keywords={keywords}
+    />
     <style is:global>
       html {
         width: min(100vw, 100%);

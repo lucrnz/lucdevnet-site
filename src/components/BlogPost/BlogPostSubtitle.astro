@@ -1,44 +1,33 @@
 ---
-import { Picture } from "astro:assets";
-import profilePictureSmall from "~/assets/profile_picture_small.png";
-import { authorName, authorProfilePicAlt } from "~/consts";
-import {
-  formatDateTime,
-  DateTimeFormattingConfig
-} from "~/helpers/formatDateTime";
+import { type CollectionEntry } from "astro:content";
+import { authorName, authorProfilePictureAlt, authorProfilePictureSmall } from "~/consts";
+import { formatDateTime, DateTimeFormattingConfig } from "~/helpers/formatDateTime";
 
-export interface Props {
-  publishDate: Date;
-  readTimeMinutes: number;
-}
+type BlogPost = CollectionEntry<"blog">['data'];
+
+export type Props = Pick<BlogPost, "datePublished"> & { readTimeMinutes: number; }
 
 const {
-  publishDate,
+  datePublished,
   readTimeMinutes,
 } = Astro.props;
 
-const formatedDate = formatDateTime(
-  publishDate,
-  DateTimeFormattingConfig.DayShortMonthYear
-);
-
 const minuteWord = readTimeMinutes === 1 ? "minute" : "minutes";
-
-const readTimeString = `${readTimeMinutes} ${minuteWord} read.`;
 ---
 
 <section class="mb-8 ml-2 flex flex-col gap-2 max-w-fit">
   <div class="flex flex-row items-center gap-2">
-    <Picture
-    src={profilePictureSmall}
-    alt={authorProfilePicAlt}
-    formats={["avif", "webp"]}
-    height={32}
-    width={32}
-    class="rounded-full"
+    <img
+      src={authorProfilePictureSmall}
+      alt={authorProfilePictureAlt}
+      height={32}
+      width={32}
+      class="rounded-full"
+      loading="lazy"
+      decoding="async"
     />
     <a href="/" target="_blank">By: {authorName.join(" ")}</a>
   </div>
-  <span>{formatedDate} - {readTimeString}</span>
+  <span>{formatDateTime(datePublished,DateTimeFormattingConfig.DayShortMonthYear)} - {`${readTimeMinutes} ${minuteWord} read.`}</span>
   <slot />
 </section>

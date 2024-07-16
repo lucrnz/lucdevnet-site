@@ -1,35 +1,31 @@
 ---
+import { type CollectionEntry } from "astro:content";
 import BlogPostShareButtons from "./BlogPostShareButtons.astro";
 import BlogPostSubtitle from "./BlogPostSubtitle.astro";
 
-export interface Props {
-  publishDate: Date;
-  title: string;
-  summary: string;
-  coverAlt?: string;
-  coverImg?: string;
-  readTimeMinutes: number;
-}
+type BlogPost = CollectionEntry<"blog">['data'];
 
-const { publishDate, title, summary, coverAlt, coverImg, readTimeMinutes } =
+export type Props = Pick<BlogPost, "title" | "summary" | "image" | "imageAlt" | "datePublished">  & { readTimeMinutes: number; }
+
+const { datePublished, title, summary, imageAlt, image, readTimeMinutes } =
   Astro.props;
   
 const coverImageAvailable =
-  coverImg && coverAlt && coverImg.length > 0 && coverAlt.length > 0;
+  image && imageAlt && image.length > 0 && imageAlt.length > 0;
 ---
 
 <div>
   {
     coverImageAvailable && (
       <div class="mb-8">
-        <img src={coverImg} alt={coverAlt} decoding="async" loading="lazy" class="rounded-lg" />
+        <img src={image} alt={imageAlt} decoding="async" loading="lazy" class="rounded-lg" />
       </div>
     )
   }
 
   <h1 class="text-3xl md:text-4xl font-bold font-display mb-8">{title}</h1>
   <BlogPostSubtitle
-    publishDate={publishDate}
+    datePublished={datePublished}
     readTimeMinutes={readTimeMinutes}
   >
     <BlogPostShareButtons title={title} summary={summary} />

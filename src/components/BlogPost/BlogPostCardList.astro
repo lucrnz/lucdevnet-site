@@ -15,8 +15,8 @@ const { posts } = Astro.props;
       <BlogPostCard
         slug={post.slug}
         title={post.data.title}
-        description={post.data.description}
-        publishDate={post.data.pubDate}
+        summary={post.data.summary}
+        datePublished={post.data.datePublished}
       />
     ))
   }

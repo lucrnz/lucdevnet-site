@@ -1,10 +1,10 @@
 ---
 title: "Hello World: The suffering of modern web development"
-pubDate: "2022-09-28"
-description: "My experience building this site and how modern web development is"
-summary: "Article describing my experience building a website as a single-page-application, including reflection on technologies like Svelte, TypeScript and Express"
-coverImg: "/images/blog/20220928-hello-world/hello-world-hero.webp"
-coverAlt: "Illustration showing Wave emoji"
+datePublished: "2022-09-28"
+summary: "My experience building this site and how modern web development is"
+metaDescription: "Article describing my experience building a website as a single-page-application, including reflection on technologies like Svelte, TypeScript and Express"
+image: "/images/blog/20220928-hello-world/hello-world-hero.webp"
+imageAlt: "Illustration showing Wave emoji"
 tags: "webdev, javascript"
 ---
 

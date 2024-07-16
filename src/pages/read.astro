@@ -1,11 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ReadCard from "../components/ReadCard.astro";
+import { siteCreationDate } from "~/consts";
 ---
 
 <BaseLayout
   title="Read Articles"
-  description="Page containing links to articles I read and a comment on those posts."
+  metaDescription="Page containing links to articles I read and a comment on those posts."
+  datePublished={siteCreationDate}
 >
   <h1 class="font-display text-3xl font-medium mb-4">Read Articles</h2>
   <p class="mb-4">

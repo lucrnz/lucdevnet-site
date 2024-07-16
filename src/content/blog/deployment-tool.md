@@ -1,10 +1,10 @@
 ---
 title: "Tale of my own deployment tool"
-pubDate: "2023-01-31"
-description: "The missing gear for my projects"
-summary: "In this article I describe my experience building a deployment API tool from design to development."
-coverImg: "/images/blog/deployment-tool/hero-image.webp"
-coverAlt: "White rocket being launched"
+datePublished: "2023-01-31"
+summary: "The missing gear for my projects"
+metaDescription: "In this article I describe my experience building a deployment API tool from design to development."
+image: "/images/blog/deployment-tool/hero-image.webp"
+imageAlt: "White rocket being launched"
 tags: "devops, programming"
 ---
 

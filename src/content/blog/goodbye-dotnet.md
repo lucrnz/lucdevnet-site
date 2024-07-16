@@ -1,10 +1,10 @@
 ---
 title: "On becoming a Web-first dev"
-pubDate: "2023-05-07"
-description: "Why I am focusing on Web technologies"
-summary: "In this article, the author talks about their experiences in focusing only on doing web development."
-coverImg: "/images/blog/goodbye-dotnet/hero.webp"
-coverAlt: "An illustration showing that I am happy working either as full-stack or front-end"
+datePublished: "2023-05-07"
+summary: "Why I am focusing on Web technologies"
+metaDescription: "In this article, the author talks about their experiences in focusing only on doing web development."
+image: "/images/blog/goodbye-dotnet/hero.webp"
+imageAlt: "An illustration showing that I am happy working either as full-stack or front-end"
 tags: "career"
 ---
 

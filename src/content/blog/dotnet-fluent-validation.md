@@ -1,8 +1,8 @@
 ---
 title: "How to setup FluentValidation in a .NET Web Api"
-pubDate: "2023-12-21"
-description: "Learn to setup FluentValidation for Automatic Validation in your .NET Api."
-summary: "Building a .NET Core Web API with FluentValidation for Automatic Validation"
+datePublished: "2023-12-21"
+summary: "Learn to setup FluentValidation for Automatic Validation in your .NET Api."
+metaDescription: "Building a .NET Core Web API with FluentValidation for Automatic Validation"
 tags: "dotnet, programming"
 ---
 
