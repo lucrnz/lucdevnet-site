@@ -37,11 +37,11 @@ We are gonna use [GitHub](https://github.com), to take advantage of their CI/CD 
 
 Let's create a new repository:
 
-![Screenshot from Github showing the create dropdown menu, the mouse cursor is highlighting the New repository button](/images/blog/cf-pages-tutorial/gh-create-repo.png)
+![Screenshot from Github showing the create dropdown menu, the mouse cursor is highlighting the New repository button](/images/blog/cf-pages-tutorial/gh-create-repo.webp)
 
 You can name it whatever you want! You are free to choose private or public repo too.
 
-![Screenshot from Github showing the create repo page. The name of the repo is typed as my-website. Bellow, there is a description box that says: Hopefully, you will have a better name for it](/images/blog/cf-pages-tutorial/gh-create-repo-2.png)
+![Screenshot from Github showing the create repo page. The name of the repo is typed as my-website. Bellow, there is a description box that says: Hopefully, you will have a better name for it](/images/blog/cf-pages-tutorial/gh-create-repo-2.webp)
 
 Go ahead and copy the clone URL that is shown on top of the screen.
 
@@ -371,7 +371,7 @@ You can now open the website at [http://localhost:8000](http://localhost:8000)
 
 It should look like this:
 
-![Screenshot of the website](/images/blog/cf-pages-tutorial/website-screenshot.png)
+![Screenshot of the website](/images/blog/cf-pages-tutorial/website-screenshot.webp)
 
 ## Taking care of the deployment
 
@@ -437,15 +437,22 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Build project
         run: bash scripts/build.sh
@@ -470,17 +477,17 @@ Go to the [Cloudflare API Tokens page](https://dash.cloudflare.com/profile/api-t
 
 In the section called Account Resources, select the account that you want to deploy to.
 
-![Screenshot of the create custom token button](/images/blog/cf-pages-tutorial/cf-pages-create-token.png)
+![Screenshot of the create custom token button](/images/blog/cf-pages-tutorial/cf-pages-create-token.webp)
 
-![Screenshot of the permissions](/images/blog/cf-pages-tutorial/cf-pages-token-permissions.png)
+![Screenshot of the permissions](/images/blog/cf-pages-tutorial/cf-pages-token-permissions.webp)
 
 Now that you have created the token, go to the Github secrets page:
 
 - Navigate to the repository settings, then to the secrets page and click on `New repository secret`
 
-![Screenshot of the secrets tabs](/images/blog/cf-pages-tutorial/github-secrets-tab.png)
+![Screenshot of the secrets tabs](/images/blog/cf-pages-tutorial/github-secrets-tab.webp)
 
-![Screenshot of the new secret button](/images/blog/cf-pages-tutorial/github-secrets-create.png)
+![Screenshot of the new secret button](/images/blog/cf-pages-tutorial/github-secrets-create.webp)
 
 Name it `CLOUDFLARE_API_TOKEN` and paste the token you created earlier.
 
@@ -498,7 +505,7 @@ git push origin main
 
 Open GitHub Actions to see the workflow running, it should take a few minutes to deploy the website.
 
-![Screenshot of the Github Actions workflow](/images/blog/cf-pages-tutorial/github-actions-deploy-success.png)
+![Screenshot of the Github Actions workflow](/images/blog/cf-pages-tutorial/github-actions-deploy-success.webp)
 
 > 💡 To avoid hitting the free build limit, you can make changes to the website in a new branch and then merge it to the main branch when you are done developing those changes.
 
