@@ -27,7 +27,7 @@ When looking for a hosting solution for a static website that has a free tier, t
 
 ## Let's start
 
-![Black and silver laptop computer on a table](/images/blog/cf-pages-tutorial/clement-helardot-95YRwf6CNw8-unsplash.jpg)
+![Black and silver laptop computer on a table](/images/blog/cf-pages-tutorial/clement-helardot-95YRwf6CNw8-unsplash.webp)
 
 > Photo by [Clément Hélardot](https://unsplash.com/@clemhlrdt) on [Unsplash](https://unsplash.com/photos/95YRwf6CNw8)
 
