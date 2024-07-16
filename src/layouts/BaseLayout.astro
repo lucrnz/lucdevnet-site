@@ -6,16 +6,19 @@ import Header from "~/components/Header.astro";
 export interface Props {
   title: string;
   description: string;
-  hideFun?: boolean;
+  heroImg?: {
+    src: string;
+    alt: string;
+  };
 }
 
-const { title, description } = Astro.props;
+const { title, description, heroImg } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} heroImg={heroImg} />
     <style is:global>
       html {
         width: min(100vw, 100%);

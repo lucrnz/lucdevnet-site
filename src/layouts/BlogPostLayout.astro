@@ -26,7 +26,7 @@ const {
 
 ---
 
-<BaseLayout title={title} description={summary}>
+<BaseLayout title={title} description={summary} heroImg={ (coverImg && coverAlt) ? { src: coverImg, alt: coverAlt } : undefined }>
   <BlogPostHeader
     title={title}
     summary={summary}
