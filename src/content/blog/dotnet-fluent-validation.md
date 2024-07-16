@@ -21,7 +21,7 @@ code TodoApi
 
 This will launch Visual Studio code on the new created project.
 
-![Visual Studio code opening the newly createad project](/images/blog/dotnet-fluent-validation/vscode-newly-created-api.png)
+![Visual Studio code opening the newly createad project](/images/blog/dotnet-fluent-validation/vscode-newly-created-api.webp)
 
 As you might see in our command line code, we are gonna use SQLite for this example program.
 
@@ -199,7 +199,7 @@ dotnet run
 
 Take notice of the port it is running, in my case it is 5019, but it varies on project creation.
 
-![Visual Studio showing that the Api is running on port 5019](/images/blog/dotnet-fluent-validation/vscode-running-api-port.png)
+![Visual Studio showing that the Api is running on port 5019](/images/blog/dotnet-fluent-validation/vscode-running-api-port.webp)
 
 > Notice: When the testing ends, press `Control+C` (or `⌘+C` on Apple computers) to stop the Api.
 
@@ -230,7 +230,7 @@ Should print the same response.
 
 ## Adding Validations
 
-![The moment you been waiting for](/images/blog/dotnet-fluent-validation/the-moment-you-been-waiting-for.png)
+![The moment you been waiting for](/images/blog/dotnet-fluent-validation/the-moment-you-been-waiting-for.webp)
 
 First we will create a validator for our TodoItem entity:
 
