@@ -15,15 +15,15 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
       />
     </div>
     <div class="flex flex-col gap-1 items-center ml:items-start">
-      <h1 class="font-display text-2xl sm:text-3xl lg:text-4xl">{authorName.join(" ")}</h1>
+      <h1 class="font-display text-2xl sm:text-3xl lg:text-4xl ml-[2px]">{authorName.join(" ")}</h1>
       <h2 class="font-display text-3xl sm:text-6xl lg:text-7xl font-medium bg-gradient-to-r from-sky-600 to-emerald-800 dark:from-sky-400 dark:to-emerald-600 text-transparent bg-clip-text pb-1" data-type-values="Web developer,Entrepreneur">
         <span data-type-content>Web developer</span>
       </h2>
     </div>
   </div>
   <article>
-    <p class="mb-4">Welcome to my personal website!</p>
-    <section class="flex flex-col gap-2">
+    <h3 class="font-display text-xl font-medium mb-4">Welcome to my personal website!</h3>
+    <section class="flex flex-col gap-2 mb-4">
       {authorDescription.map((val) => <p class="max-w-fit">{val}</p>)}
     </section>
     <ul class="flex flex-col gap-2 max-w-min">
