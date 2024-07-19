@@ -8,7 +8,7 @@ const typescriptUdemy: Certification = {
   certUrl:
     "https://www.udemy.com/certificate/UC-7cf4e6d7-e79f-46a1-8d56-c4731b0136d8/",
   title: "Understanding TypeScript",
-  issuedDate: "Jul 2022",
+  issuedDate: "Feb 2023",
   length: "15 hours",
   includesPractice: true,
   itemsTitle: "Skills Trained",
