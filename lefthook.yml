@@ -3,6 +3,11 @@
 
 pre-commit:
   commands:
-    check:
+    format:
       glob: "*.{ts,js,scss,css,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
       run: pnpm exec prettier --write --ignore-unknown {push_files}
+
+pre-push:
+  commands:
+    astro-check:
+      run: pnpm exec astro check
