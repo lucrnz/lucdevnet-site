@@ -6,7 +6,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro build",
+    "lint": "astro check && eslint . --ext .astro,.js,.jsx,.ts,.tsx",
     "preview": "astro preview",
     "deploy": "pnpm exec wrangler pages deploy dist --project-name=lucdev",
     "prepare": "lefthook install"

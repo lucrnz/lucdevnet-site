@@ -23,6 +23,8 @@ jobs:
         cache: 'pnpm'
     - name: Install dependencies
       run: pnpm install
+    - name: ESLint + Astro check
+      run: pnpm run lint
     - name: Build project
       run: pnpm run build
     - name: Deploy
