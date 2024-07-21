@@ -49,6 +49,7 @@ const config = {
     ".*.cjs",
     "*.config.mjs",
     "*.yaml",
+    "*.yml",
     "*.json"
   ]
 };
