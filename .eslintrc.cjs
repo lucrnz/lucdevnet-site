@@ -4,14 +4,29 @@ const config = {
   parserOptions: {
     project: true
   },
-  plugins: ["prettier", "@typescript-eslint", "astro"],
+  plugins: ["@typescript-eslint", "astro"],
   extends: [
     "plugin:astro/recommended",
     "plugin:@typescript-eslint/recommended-type-checked",
-    "plugin:@typescript-eslint/stylistic-type-checked"
+    "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:prettier/recommended"
+  ],
+  overrides: [
+    {
+      files: ["*.astro"],
+      parser: "astro-eslint-parser",
+      parserOptions: {
+        parser: "@typescript-eslint/parser",
+        extraFileExtensions: [".astro"]
+      },
+      rules: {
+        // override/add rules settings here, such as:
+        // "astro/no-set-html-directive": "error"
+        "prettier/prettier": "off"
+      }
+    }
   ],
   rules: {
-    "prettier/prettier": "error",
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/consistent-type-imports": [
