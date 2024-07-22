@@ -4,7 +4,6 @@ import ExperienceCard from "~/components/resume/ExperienceCard.astro";
 import PersonCard from "~/components/resume/PersonCard.astro";
 import ResumeBody from "~/components/resume/ResumeBody.astro";
 import { siteCreationDate } from "~/consts";
-import { resumeData } from "~/data/resume/resumeData";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { JobCompany } from "~/types/resume/company";
 import { JobLocation, JobLocationType } from "~/types/resume/location";
@@ -21,7 +20,7 @@ const lastUpdated = new Date("2024-07-22T21:05:11.401Z");
     datePublished={siteCreationDate}
     dateModified={lastUpdated}
   />
-  <ResumeBody data={resumeData}>
+  <ResumeBody>
     <PersonCard slot="person-card">
       <Fragment slot="headline">
         <span>Front-end & Web Developer</span>
