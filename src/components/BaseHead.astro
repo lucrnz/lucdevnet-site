@@ -4,25 +4,47 @@ import type { CollectionEntry } from "astro:content";
 import "@fontsource-variable/cabin";
 import "@fontsource-variable/exo-2";
 
-type BlogPost = CollectionEntry<"blog">['data'];
+type BlogPost = CollectionEntry<"blog">["data"];
 
 import { ViewTransitions } from "astro:transitions";
 import { siteTitle, xUserName } from "~/consts";
 import type { MetaHeadSEO } from "~/types/head-seo";
 
-export type Props = Pick<BlogPost, "title" | "metaDescription" | "image" | "imageAlt" | "datePublished" | "dateModified"> &
+export type Props = Pick<
+  BlogPost,
+  | "title"
+  | "metaDescription"
+  | "image"
+  | "imageAlt"
+  | "datePublished"
+  | "dateModified"
+> &
   Partial<MetaHeadSEO>;
 
-const { metaDescription, image, imageAlt, title: articleTitle, datePublished, dateModified, keywords, isArticle = false } = Astro.props;
+const {
+  metaDescription,
+  image,
+  imageAlt,
+  title: articleTitle,
+  datePublished,
+  dateModified,
+  keywords,
+  isArticle = false
+} = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const pageTitle = articleTitle === siteTitle ? siteTitle : `${articleTitle} - Lucdev`;
+const pageTitle =
+  articleTitle === siteTitle ? siteTitle : `${articleTitle} - Lucdev`;
 
 const isDev = import.meta.env.DEV;
-const baseUrl = isDev ? new URL(Astro.url.origin) : Astro.site ? new URL(Astro.site) : new URL(Astro.url.origin);
+const baseUrl = isDev
+  ? new URL(Astro.url.origin)
+  : Astro.site
+    ? new URL(Astro.site)
+    : new URL(Astro.url.origin);
 
 const favIcon = new URL("/favicon.svg", baseUrl);
-const heroImageUrl = (image && imageAlt) ? new URL(image, baseUrl) : undefined;
+const heroImageUrl = image && imageAlt ? new URL(image, baseUrl) : undefined;
 ---
 
 <meta charset="utf-8" />
@@ -38,15 +60,23 @@ const heroImageUrl = (image && imageAlt) ? new URL(image, baseUrl) : undefined;
   isArticle={isArticle}
 />
 <meta name="description" content={metaDescription} />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content"
+/>
 <link rel="icon" type="image/svg+xml" href={favIcon} />
 <link rel="sitemap" href={new URL("/sitemap-index.xml", baseUrl)} />
-<link rel="alternate" type="application/rss+xml" title={siteTitle} href={new URL("/rss.xml", baseUrl)} />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={siteTitle}
+  href={new URL("/rss.xml", baseUrl)}
+/>
 <link rel="canonical" href={canonicalURL} />
 
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:description" content={metaDescription} />
-{ heroImageUrl && <meta property="og:image" content={heroImageUrl} /> }
+{heroImageUrl && <meta property="og:image" content={heroImageUrl} />}
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content={siteTitle} />
 <meta property="og:title" content={articleTitle} />
@@ -56,7 +86,9 @@ const heroImageUrl = (image && imageAlt) ? new URL(image, baseUrl) : undefined;
 <meta name="twitter:creator" content={`@${xUserName}`} />
 <meta property="twitter:title" content={articleTitle} />
 <meta property="twitter:description" content={metaDescription} />
-{ heroImageUrl && <meta name="twitter:image" content={heroImageUrl} /> }
+{heroImageUrl && <meta name="twitter:image" content={heroImageUrl} />}
 
+<meta name="color-scheme" content="light dark" />
 <meta name="generator" content={Astro.generator} />
+
 <ViewTransitions fallback="animate" />
