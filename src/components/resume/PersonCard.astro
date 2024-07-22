@@ -15,7 +15,7 @@ const linkedInUrl = authorSocialMedia.find((x) => x.includes("linkedin.com/"))!;
     decoding="async"
     loading="lazy"
     src={authorProfilePicture}
-    class="aspect-square rounded-full w-[100px] border-emerald-600 border-2"
+    class="aspect-square rounded-full w-[100px] border-emerald-600 border-2 print:border-none"
     alt={authorProfilePictureAlt}
     class="rounded-full aspect-square w-28"
   />
@@ -26,7 +26,7 @@ const linkedInUrl = authorSocialMedia.find((x) => x.includes("linkedin.com/"))!;
       {authorName.join(" ")}
     </h1>
     <div class="flex flex-col gap-1 ml-[2px]">
-      <span>Full-Stack Web Developer</span>
+      <slot name="headline" />
       <ul class="flex flex-row gap-2 items-center md:max-h-8 print:hidden">
         <li>
           <a

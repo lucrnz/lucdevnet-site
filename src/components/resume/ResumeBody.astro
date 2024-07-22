@@ -1,70 +1,36 @@
----
-import CertificationCard from "~/components/resume/CertificationCard.astro";
-import PersonCard from "~/components/resume/PersonCard.astro";
-import ExperienceCard from "~/components/resume/ExperienceCard.astro";
-import type { ResumeData } from "~/types/resume/ResumeData";
-
-export interface Props {
-  data: ResumeData;
-}
-
-const {
-  data: {
-    certifications,
-    experience,
-  }
-} = Astro.props;
----
-
-<PersonCard  />
-
 <article class="flex flex-col gap-4">
-  <section>
-    <h3 class="text-2xl font-medium mb-4 font-display print:font-serif print:font-bold">Summary</h3>
-    <div class="flex flex-col print:items-start">
-      <p>Experienced web developer who loves using the latest tech to make apps work well and grow easily.</p>
-      <p>I'm good at making code better and processes smoother so things run their best and are easy to keep up.</p>
-      <p>I always keep learning about what's new in my field to make sure my work is top-notch.</p>
+  <slot name="person-card" />
+
+  <section class="mb-4">
+    <h3
+      class="text-2xl font-medium mb-4 font-display print:font-serif print:font-bold"
+    >
+      Summary
+    </h3>
+    <div class="flex flex-col gap-2 print:items-start">
+      <slot name="summary" />
     </div>
   </section>
 
-  <section>
-    <h3 class="text-2xl font-medium mb-4 font-display print:font-serif print:font-bold">Work Experience</h3>
+  <section class="mb-4">
+    <h3
+      class="text-2xl font-medium mb-4 font-display print:font-serif print:font-bold"
+    >
+      Professional Experience
+    </h3>
     <div class="flex flex-col gap-4">
-    {
-      experience.map((item) => (
-        <ExperienceCard
-          title={item.title}
-          companyName={item.companyName}
-          startDate={item.startDate}
-          endDate={item.endDate}
-          location={item.location}
-          locationType={item.locationType}
-          bulletPoints={item.bulletPoints}
-          skills={item.skills}
-        />
-      ))
-    }
+      <slot name="experience-cards" />
     </div>
   </section>
 
-  <section>
-    <h3 class="text-2xl font-medium mb-4 font-display print:font-serif print:font-bold">Education</h3>
+  <section class="mb-4">
+    <h3
+      class="text-2xl font-medium mb-4 font-display print:font-serif print:font-bold"
+    >
+      Certifications
+    </h3>
     <div class="flex flex-col gap-4">
-      {
-        certifications.map((item) => (
-          <CertificationCard
-            issuedBy={item.issuedBy}
-            certUrl={item.certUrl}
-            title={item.title}
-            issuedDate={item.issuedDate}
-            length={item.length}
-            includesPractice={item.includesPractice}
-            itemsTitle={item.itemsTitle}
-            items={item.items}
-          />
-        ))
-      }
+      <slot name="certification-cards" />
     </div>
   </section>
 </article>

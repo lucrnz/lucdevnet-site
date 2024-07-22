@@ -1,11 +1,16 @@
 ---
-import BaseLayout from "~/layouts/BaseLayout.astro";
 import Head from "~/components/Head.astro";
-import { resumeData } from "~/data/resume/resumeData";
+import ExperienceCard from "~/components/resume/ExperienceCard.astro";
+import PersonCard from "~/components/resume/PersonCard.astro";
 import ResumeBody from "~/components/resume/ResumeBody.astro";
 import { siteCreationDate } from "~/consts";
+import { resumeData } from "~/data/resume/resumeData";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { JobCompany } from "~/types/resume/company";
+import { JobLocation, JobLocationType } from "~/types/resume/location";
+import { JobTitle } from "~/types/resume/title";
 
-const lastUpdated = new Date("2024-07-19T17:14:23Z");
+const lastUpdated = new Date("2024-07-22T21:05:11.401Z");
 ---
 
 <BaseLayout>
@@ -16,5 +21,235 @@ const lastUpdated = new Date("2024-07-19T17:14:23Z");
     datePublished={siteCreationDate}
     dateModified={lastUpdated}
   />
-  <ResumeBody data={resumeData} />
+  <ResumeBody data={resumeData}>
+    <PersonCard slot="person-card">
+      <Fragment slot="headline">
+        <span>Front-end & Web Developer</span>
+      </Fragment>
+    </PersonCard>
+    <Fragment slot="summary">
+      <p>
+        Skilled front-end developer with over 5 years of experience in web
+        development, specializing in modern JavaScript frameworks and libraries.
+      </p>
+      <p>
+        They have extensive expertise in React, Next.js, and TypeScript,
+        complemented by proficiency in CSS frameworks like Tailwind CSS.
+      </p>
+      <p>
+        Luciano has contributed to diverse projects, ranging from static
+        websites to innovative applications, with a focus on translating Figma
+        UI designs into functional, responsive interfaces.
+      </p>
+      <p>
+        Their experience spans both freelance work and roles at prominent
+        companies like Cognizant Softvision, where they focused on creating
+        reusable, type-safe components and improving application architecture.
+      </p>
+    </Fragment>
+    <Fragment slot="experience-cards">
+      <ExperienceCard
+        title={JobTitle.frontend_dev}
+        companyName={JobCompany.free}
+        startDate={new Date("2024-05-24T13:45:11-03:00")}
+        location={JobLocation.mdq}
+        locationType={JobLocationType.remote}
+        projectName="HamsterKombo"
+      >
+        <li>
+          Developed a responsive, mobile-first, static website for Web3 Games
+          using Astro.js, Tailwind CSS, and TypeScript, that reached over 1
+          million users in 30 days
+        </li>
+        <li>
+          Developed the user-interface using the Figma design alongside to
+          ensure the best looking and friendly experience
+        </li>
+        <li>
+          Optimizing performance by leveraging modern image formats (WebP, AVIF)
+          and loading scripts and stylesheets asynchronously
+        </li>
+        <li>
+          Implemented SEO best practices including meta descriptions, OpenGraph
+          and Twitter card information, and optimal page word count
+        </li>
+        <li>
+          Implemented AdSense for monetization and Google Analytics for
+          user-behavior analysis
+        </li>
+        <li>Leveraging Github Actions for CI/CD</li>
+      </ExperienceCard>
+
+      <ExperienceCard
+        title={JobTitle.fullstack_dev}
+        companyName={JobCompany.free}
+        startDate={new Date("2023-10-01T00:00:00.000Z")}
+        location={JobLocation.mdq}
+        locationType={JobLocationType.remote}
+        projectName="CommentsApp"
+      >
+        <li>
+          Pioneered an in-progress platform to empower developers to integrate
+          widgets into their products, built with Next.js, TypeScript, Tailwind
+          CSS, and PostgreSQL database
+        </li>
+        <li>
+          Implemented best React.js optimization practices, such as memorizing
+          components and callbacks
+        </li>
+        <li>
+          Leveraged a code editor using Monaco for enhanced development
+          experience
+        </li>
+        <li>
+          Created custom components including a Toaster notification using
+          Framer Motion for swift animations
+        </li>
+        <li>
+          Utilized Next.js App Router and Zustand for efficient state management
+        </li>
+        <li>
+          Developed authentication and authorization manually using JWT tokens
+          and Next.js API routes
+        </li>
+        <li>
+          Validated forms using react-hook-form and Zod for robust schema
+          checking
+        </li>
+        <li>Leveraged Docker containers for streamlined deployment</li>
+      </ExperienceCard>
+
+      <ExperienceCard
+        title={JobTitle.frontend_dev}
+        ,
+        startDate={new Date("2023-01-01T00:00:00.000Z")}
+        ,
+        endDate={new Date("2023-06-15T00:00:00.000Z")}
+        ,
+        location={JobLocation.bsas}
+        ,
+        locationType={JobLocationType.remote}
+        ,
+        companyName={JobCompany.cognizant}
+      >
+        <li>
+          Developed a responsive web application to track employees' career
+          history, training, and skills, built using Next.js, TypeScript, and
+          CSS Modules
+        </li>
+        <li>
+          Collaborated in an Agile team (Kanban style) using Azure DevOps board
+          for project management
+        </li>
+        <li>
+          Translated Figma UI designs into efficient, type-safe React components
+        </li>
+        <li>
+          Proactively assisted team members to deliver high-quality features on
+          schedule
+        </li>
+        <li>
+          Implemented Webpack module federation to integrate remote Web
+          Components into the React application
+        </li>
+        <li>
+          Utilized React Context for state management and Vercel's SWR for
+          efficient data fetching
+        </li>
+        <li>
+          Implemented Docker containerization to enhance deployment efficiency
+          and environment reproducibility
+        </li>
+      </ExperienceCard>
+
+      <ExperienceCard
+        title={JobTitle.frontend_dev}
+        companyName={JobCompany.cognizant}
+        startDate={new Date("2021-08-01T00:00:00.000Z")}
+        endDate={new Date("2023-01-01T00:00:00.000Z")}
+        location={JobLocation.bsas}
+        locationType={JobLocationType.remote}
+      >
+        <li>
+          Contributed to the development and success of a Single Page
+          Application (SPA) for document management, built in React.js, for a
+          major client in the audits sector (Big 4)
+        </li>
+        <li>
+          Collaborated in an international, English-speaking Agile team using
+          Kanban methodology and Azure DevOps for project management
+        </li>
+        <li>
+          Estimated user stories and authored in-depth technical design
+          documents prior to assignment commencement
+        </li>
+
+        <li>
+          Delivered high-quality React components and refactored legacy code to
+          adhere to new functional component standards and best practices
+        </li>
+
+        <li>
+          Implemented and normalized React-Redux store for efficient state
+          management
+        </li>
+
+        <li>
+          Utilized Axios and Axios interceptors for fetching back-end API data
+        </li>
+
+        <li>
+          Styled components atomically using styled-components library with SCSS
+          pre-processor
+        </li>
+
+        <li>
+          Utilized modern Web Platform APIs to capture desktop screenshots,
+          enabling users to annotate and incorporate images into documents
+        </li>
+
+        <li>
+          Developed a print-friendly page for specific components to meet
+          client's physical documentation needs
+        </li>
+
+        <li>
+          Mentored a new team member in React.js and modern web development
+          practices, accelerating their onboarding and enhancing overall team
+          productivity
+        </li>
+      </ExperienceCard>
+
+      <ExperienceCard
+        title={JobTitle.frontend_dev}
+        companyName={JobCompany.kimn}
+        startDate={new Date("2015-03-01T00:00:00.000Z")}
+        endDate={new Date("2018-12-01T00:00:00.000Z")}
+        location={JobLocation.mdq}
+        locationType={JobLocationType.insite}
+      >
+        <li>
+          Navigated and refactored extensive legacy codebase for an insurance
+          system, enhancing system performance and maintainability while
+          developing advanced problem-solving and debugging skills
+        </li>
+        <li>
+          Fixing front-end bugs in a big legacy codebase using PHP, HTML4 and
+          CSS
+        </li>
+        <li>Porting old jQuery code into efficient vanilla JavaScript</li>
+        <li>
+          Spearheaded the transition from manual FTP file uploads to Git version
+          control, leading the migration process and mentoring team members on
+          Git best practices
+        </li>
+        <li>
+          Championed the adoption of Agile methodologies, leading the transition
+          from traditional workflows and mentoring team members on Agile
+          principles and practices
+        </li>
+      </ExperienceCard>
+    </Fragment>
+    <Fragment slot="certification-cards"> </Fragment>
+  </ResumeBody>
 </BaseLayout>

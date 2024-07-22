@@ -1,9 +1,4 @@
-import type { ArrayElementType } from "~/types/ElementType";
-import type { ResumeData } from "~/types/resume/ResumeData";
-
-type Certification = ArrayElementType<ResumeData["certifications"]>;
-
-const typescriptUdemy: Certification = {
+const typescriptUdemy = {
   issuedBy: "Academind (via Udemy)",
   certUrl:
     "https://www.udemy.com/certificate/UC-7cf4e6d7-e79f-46a1-8d56-c4731b0136d8/",
@@ -39,7 +34,7 @@ const typescriptUdemy: Certification = {
   ]
 };
 
-const reactUdemy: Certification = {
+const reactUdemy = {
   issuedBy: "Academind (via Udemy)",
   certUrl:
     "https://www.udemy.com/certificate/UC-b40f930d-d308-4c47-bd31-c3b98fcce89d/",
@@ -54,7 +49,7 @@ const reactUdemy: Certification = {
   ]
 };
 
-const postgresUdemy: Certification = {
+const postgresUdemy = {
   title: "The Complete SQL Bootcamp",
   issuedBy: "Pierian Training (via Udemy)",
   certUrl:
@@ -69,7 +64,7 @@ const postgresUdemy: Certification = {
   ]
 };
 
-const englishEFSet: Certification = {
+const englishEFSet = {
   title: "EF SET English Certificate",
   issuedBy: "EF Standard English Test",
   certUrl: "https://www.efset.org/cert/HbTawN",
@@ -84,10 +79,3 @@ const englishEFSet: Certification = {
     ]
   ]
 };
-
-export const resumeCertifications: ResumeData["certifications"] = [
-  typescriptUdemy,
-  reactUdemy,
-  postgresUdemy,
-  englishEFSet
-];

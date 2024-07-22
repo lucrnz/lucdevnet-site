@@ -1,6 +1,10 @@
 export enum DateTimeFormattingConfig {
   MonthYearOnly = 0,
-  DayShortMonthYear = 1
+  DayShortMonthYear = 1,
+  MonthLongDayNumeric = 2,
+  DayNumericMonthLongYearFull = 3,
+  FullDateTime = 4,
+  MonthLongYearOnly = 5
 }
 
 type DateTimeFormattingOptions = {
@@ -9,7 +13,7 @@ type DateTimeFormattingOptions = {
   replacer?: (arg1: string) => string;
 };
 
-const ConfigMonthYearOnly: DateTimeFormattingOptions = {
+const configMonthYearOnly: DateTimeFormattingOptions = {
   locale: "en-US",
   options: {
     month: "short",
@@ -17,29 +21,71 @@ const ConfigMonthYearOnly: DateTimeFormattingOptions = {
   }
 };
 
-const ConfigDayShortMonthYear: DateTimeFormattingOptions = {
+const configDayShortMonthYear: DateTimeFormattingOptions = {
   locale: "en-US",
   options: {
     day: "numeric",
     month: "short",
     year: "numeric"
+  }
+};
+
+const configMonthLongDayNumeric: DateTimeFormattingOptions = {
+  locale: "en-US",
+  options: {
+    day: "numeric",
+    month: "long"
+  }
+};
+
+const configDayNumericMonthLongYearFull: DateTimeFormattingOptions = {
+  locale: "en-US",
+  options: {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }
+};
+
+const configFullDateTime: DateTimeFormattingOptions = {
+  locale: "en-US",
+  options: {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23"
   },
-  replacer: (dateString: string) => dateString.replace(",", " ")
+  replacer: (x: string) => x.replace("at", "-")
+};
+
+const configMonthLongYearOnly: DateTimeFormattingOptions = {
+  locale: "en-US",
+  options: {
+    month: "long",
+    year: "numeric"
+  }
 };
 
 const configEnumMap: {
   [key in DateTimeFormattingConfig]: DateTimeFormattingOptions;
 } = {
-  [DateTimeFormattingConfig.MonthYearOnly]: ConfigMonthYearOnly,
-  [DateTimeFormattingConfig.DayShortMonthYear]: ConfigDayShortMonthYear
+  [DateTimeFormattingConfig.MonthYearOnly]: configMonthYearOnly,
+  [DateTimeFormattingConfig.DayShortMonthYear]: configDayShortMonthYear,
+  [DateTimeFormattingConfig.MonthLongDayNumeric]: configMonthLongDayNumeric,
+  [DateTimeFormattingConfig.DayNumericMonthLongYearFull]:
+    configDayNumericMonthLongYearFull,
+  [DateTimeFormattingConfig.FullDateTime]: configFullDateTime,
+  [DateTimeFormattingConfig.MonthLongYearOnly]: configMonthLongYearOnly
 };
 
-const defaultConfig = ConfigDayShortMonthYear;
+const defaultConfig = configDayNumericMonthLongYearFull;
 
 export const formatDateTime = (
   date: Date,
   config: DateTimeFormattingOptions | DateTimeFormattingConfig = defaultConfig,
-  timeZone = "UTC"
+  timeZone: string = "UTC"
 ) => {
   const applyConfig = (config: DateTimeFormattingOptions) => {
     const { locale, options, replacer } = config;
