@@ -1,16 +1,22 @@
 ---
 import { type CollectionEntry } from "astro:content";
-import { authorName, authorProfilePictureAlt, authorProfilePictureSmall } from "~/consts";
-import { formatDateTime, DateTimeFormattingConfig } from "~/helpers/formatDateTime";
+import {
+  authorName,
+  authorProfilePictureAlt,
+  authorProfilePictureSmall
+} from "~/consts";
+import {
+  formatDateTime,
+  DateTimeFormattingConfig
+} from "~/helpers/formatDateTime";
 
-type BlogPost = CollectionEntry<"blog">['data'];
+type BlogPost = CollectionEntry<"blog">["data"];
 
-export type Props = Pick<BlogPost, "datePublished"> & { readTimeMinutes: number; }
+export type Props = Pick<BlogPost, "datePublished"> & {
+  readTimeMinutes: number;
+};
 
-const {
-  datePublished,
-  readTimeMinutes,
-} = Astro.props;
+const { datePublished, readTimeMinutes } = Astro.props;
 
 const minuteWord = readTimeMinutes === 1 ? "minute" : "minutes";
 ---
@@ -26,8 +32,16 @@ const minuteWord = readTimeMinutes === 1 ? "minute" : "minutes";
       loading="lazy"
       decoding="async"
     />
-    <a href="/" target="_blank">By: {authorName.join(" ")}</a>
+    <a
+      href="/"
+      target="_blank"
+      class="underline hover:text-cyan-600 hover:dark:text-cyan-400"
+      >By: {authorName.join(" ")}</a
+    >
   </div>
-  <span>{formatDateTime(datePublished,DateTimeFormattingConfig.DayShortMonthYear)} - {`${readTimeMinutes} ${minuteWord} read.`}</span>
+  <span
+    >{formatDateTime(datePublished, DateTimeFormattingConfig.DayShortMonthYear)}
+    - {`${readTimeMinutes} ${minuteWord} read.`}</span
+  >
   <slot />
 </section>
