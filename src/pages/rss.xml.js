@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import { siteTitle, siteDescription, authorName } from "~/consts";

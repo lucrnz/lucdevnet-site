@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { getRandomInt } from "./randomInt";
 
 type TypewriterOptions = {
@@ -6,7 +8,7 @@ type TypewriterOptions = {
   cursorBlinkSpeed: number;
   timeBetweenCycleMs: number;
   initialDelayMs?: number;
-}
+};
 
 class Typewriter {
   private elements: HTMLElement[];
@@ -19,12 +21,19 @@ class Typewriter {
   }
 
   private getElementsAndValues(): [HTMLElement[], string[][]] {
-    const elements = Array.from(document.querySelectorAll(`${this.options.selector} > span[data-type-content]`)) as HTMLElement[];
-    const typeValues = elements.map(el => {
-      const parent = el.parentElement!;
-      const values = parent.getAttribute('data-type-values');
-      return values ? values.split(',').map(v => v.trim()) : [el.innerText];
-    }).filter((x) => x !== null);
+    const elements = Array.from(
+      document.querySelectorAll(
+        `${this.options.selector} > span[data-type-content]`
+      )
+    ) as HTMLElement[];
+
+    const typeValues = elements
+      .map((el) => {
+        const parent = el.parentElement!;
+        const values = parent.getAttribute("data-type-values");
+        return values ? values.split(",").map((v) => v.trim()) : [el.innerText];
+      })
+      .filter((x) => x !== null);
 
     return [elements, typeValues];
   }
@@ -32,7 +41,15 @@ class Typewriter {
   private async typeText(element: HTMLElement, text: string) {
     for (let i = 0; i < text.length; i++) {
       element.innerText = text.substring(0, i + 1);
-      await new Promise(resolve => setTimeout(resolve, getRandomInt(this.options.keystrokeSpeed[0], this.options.keystrokeSpeed[1]) ));
+      await new Promise((resolve) =>
+        setTimeout(
+          resolve,
+          getRandomInt(
+            this.options.keystrokeSpeed[0],
+            this.options.keystrokeSpeed[1]
+          )
+        )
+      );
     }
   }
 
@@ -40,18 +57,23 @@ class Typewriter {
     let iteration = 0;
     let runLoop = true;
 
-    const timeout = setTimeout((async () => {
-      while (runLoop) {
-        for (const text of texts) {
-          if (iteration > 0) {
-            await this.typeText(element, text);
-            await new Promise(resolve => setTimeout(resolve, this.options.timeBetweenCycleMs));
+    const timeout = setTimeout(
+      (async () => {
+        while (runLoop) {
+          for (const text of texts) {
+            if (iteration > 0) {
+              await this.typeText(element, text);
+              await new Promise((resolve) =>
+                setTimeout(resolve, this.options.timeBetweenCycleMs)
+              );
+            }
+            iteration++;
+            await this.eraseText(element);
           }
-          iteration++;
-          await this.eraseText(element);
         }
-      }
-    }).bind(this), this.options.initialDelayMs);
+      }).bind(this),
+      this.options.initialDelayMs
+    );
 
     return () => {
       runLoop = false;
@@ -64,15 +86,21 @@ class Typewriter {
     for (let i = text.length; i > 0; i--) {
       const targetValue = text.substring(0, i - 1);
       element.innerText = targetValue;
-      await new Promise(resolve => setTimeout(resolve, this.options.keystrokeSpeed[1] / 2));
+      await new Promise((resolve) =>
+        setTimeout(resolve, this.options.keystrokeSpeed[1] / 2)
+      );
     }
   }
 
   private setupCursorBlink(element: HTMLElement) {
-    const existingElement = element.parentElement!.querySelector("span[data-type-cursor]");
-    const cursor = existingElement ? existingElement as HTMLSpanElement : document.createElement('span');
+    const existingElement = element.parentElement!.querySelector(
+      "span[data-type-cursor]"
+    );
+    const cursor = existingElement
+      ? (existingElement as HTMLSpanElement)
+      : document.createElement("span");
 
-    cursor.textContent = '|';
+    cursor.textContent = "|";
     if (!cursor.classList.contains("opacity-100")) {
       cursor.classList.add("opacity-100");
     }
@@ -93,23 +121,32 @@ class Typewriter {
   }
 
   public async start() {
-    
-    const stopFns = await Promise.all(this.elements.map(async (element, index) => {
-      const interval = this.setupCursorBlink(element);
-      const stopCycle = await this.cycleTexts(element, this.typeValues[index]);
+    const stopFns = await Promise.all(
+      this.elements.map(async (element, index) => {
+        const interval = this.setupCursorBlink(element);
+        const stopCycle = await this.cycleTexts(
+          element,
+          this.typeValues[index]
+        );
 
-      return () => { clearInterval(interval); stopCycle(); };
-    }));
+        return () => {
+          clearInterval(interval);
+          stopCycle();
+        };
+      })
+    );
 
     return {
       stop: () => stopFns.forEach((x) => x())
-    }
+    };
   }
 }
 
 export function homePageScript() {
-  let cleanupResolve : (val: () => void) => void;
-  const cleanup = new Promise<() => void>((resolve) => {cleanupResolve = resolve;});
+  let cleanupResolve: (val: () => void) => void;
+  const cleanup = new Promise<() => void>((resolve) => {
+    cleanupResolve = resolve;
+  });
 
   const setup = async () => {
     const { stop: stopFn } = await new Typewriter({
@@ -121,7 +158,7 @@ export function homePageScript() {
     }).start();
 
     cleanupResolve(stopFn);
-  }
+  };
 
-  return { setup, cleanup }
+  return { setup, cleanup };
 }

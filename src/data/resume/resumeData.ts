@@ -4,5 +4,5 @@ import { resumeExperience } from "./experience";
 
 export const resumeData: ResumeData = {
   experience: resumeExperience,
-  certifications: resumeCertifications,
+  certifications: resumeCertifications
 };

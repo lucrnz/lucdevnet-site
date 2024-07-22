@@ -1,13 +1,15 @@
 export function setupMobileMenu() {
-  const header = document.querySelector("#main-page-header") as HTMLDivElement;
+  const header = document.querySelector("#main-page-header")!;
 
-  const btn = header.querySelector("#mobile-menu-btn") as HTMLButtonElement;
+  const btn = header.querySelector("#mobile-menu-btn")!;
 
   btn.addEventListener("click", () => {
     const isMenuOpen = header.getAttribute("data-menu-is-open") === "true";
 
-    header.setAttribute("data-menu-is-open" , isMenuOpen ? "false" : "true");
+    header.setAttribute("data-menu-is-open", isMenuOpen ? "false" : "true");
   });
 
-  window.addEventListener("scroll", () => header.setAttribute("data-menu-is-open", "false"));
+  window.addEventListener("scroll", () =>
+    header.setAttribute("data-menu-is-open", "false")
+  );
 }

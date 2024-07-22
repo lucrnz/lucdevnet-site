@@ -9,7 +9,7 @@ export interface Props {
   readTimeMinutes: number;
 }
 
-const { post, readTimeMinutes } = Astro.props as Props;
+const { post, readTimeMinutes } = Astro.props;
 
 if (!post) {
   throw new Error("Post not supplied!");
@@ -23,9 +23,8 @@ const {
   metaDescription,
   summary,
   imageAlt,
-  image,
+  image
 } = post;
-
 ---
 
 <BaseLayout
@@ -35,8 +34,8 @@ const {
   imageAlt={imageAlt}
   datePublished={datePublished}
   dateModified={dateModified}
-  isArticle={true}>
-
+  isArticle={true}
+>
   <BlogPostHeader
     title={title}
     summary={summary}
@@ -46,7 +45,9 @@ const {
     readTimeMinutes={readTimeMinutes}
   />
 
-  <article class="prose dark:prose-invert prose-headings:font-display max-w-[unset]">
+  <article
+    class="prose dark:prose-invert prose-headings:font-display max-w-[unset]"
+  >
     <slot />
   </article>
 

@@ -2,9 +2,7 @@
 import HeaderLink from "./HeaderLink.astro";
 
 export interface Props extends astroHTML.JSX.HTMLAttributes {
-  items: {
-    [key: string]: string;
-  };
+  items: Record<string, string>;
 }
 
 const { items } = Astro.props;

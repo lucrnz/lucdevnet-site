@@ -5,7 +5,7 @@ import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
 
 type Props = CollectionEntry<"blog">;
 
-const post = Astro.props as Props;
+const post = Astro.props;
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");

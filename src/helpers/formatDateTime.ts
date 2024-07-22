@@ -39,7 +39,7 @@ const defaultConfig = ConfigDayShortMonthYear;
 export const formatDateTime = (
   date: Date,
   config: DateTimeFormattingOptions | DateTimeFormattingConfig = defaultConfig,
-  timeZone: string = "UTC"
+  timeZone = "UTC"
 ) => {
   const applyConfig = (config: DateTimeFormattingOptions) => {
     const { locale, options, replacer } = config;

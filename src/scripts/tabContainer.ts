@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 export function setupTabContainers() {
   const tabsContainers = Array.from(
     document.querySelectorAll("[data-tab-container]")

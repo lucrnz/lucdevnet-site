@@ -10,7 +10,10 @@ const blog = defineCollection({
     summary: z.string(),
     // Transform string to Date object
     datePublished: z.string().transform((val) => new Date(val)),
-    dateModified: z.string().optional().transform((val) => val ? new Date(val) : undefined),
+    dateModified: z
+      .string()
+      .optional()
+      .transform((val) => (val ? new Date(val) : undefined)),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
     published: z.boolean().optional().default(true),
