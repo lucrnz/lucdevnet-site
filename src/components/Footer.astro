@@ -3,5 +3,7 @@ const currentYear = new Date().getUTCFullYear();
 ---
 
 <footer class="flex flex-col gap-2">
-  <p>Copyright &copy; {currentYear} - {(Astro.site ?? Astro.url).host}</p> 
+  <a href="/copyright-policy" class="hover:underline"
+    >Copyright &copy; {currentYear} - {(Astro.site ?? Astro.url).host}</a
+  >
 </footer>
