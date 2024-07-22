@@ -166,10 +166,15 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    if (!prefersReducedMotion) {
-      const { homePageScript } = await import("~/scripts/homePageScript");
-      const { setupScript } = await import("~/scripts/setupScript");
 
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    const { homePageScript } = await import("~/scripts/homePageScript");
+    const { setupScript } = await import("~/scripts/setupScript");
+
+    const setupScriptWrapped = async () => {
       const { cleanup, setup } = homePageScript();
 
       await setupScript({
@@ -177,6 +182,24 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
         setup,
         cleanup
       });
-    }
+    };
+
+    let setupTriggered = false;
+    let timer: ReturnType<typeof setTimeout>;
+    const initialDelayMs = 5000;
+
+    const triggerSetup = async () => {
+      if (!setupTriggered) {
+        setupTriggered = true;
+        clearTimeout(timer);
+        await setupScriptWrapped();
+      }
+    };
+
+    document.addEventListener("touchstart", triggerSetup, { once: true });
+    document.addEventListener("scroll", triggerSetup, { once: true });
+    document.addEventListener("mousemove", triggerSetup, { once: true });
+
+    timer = setTimeout(triggerSetup, initialDelayMs);
   })();
 </script>
