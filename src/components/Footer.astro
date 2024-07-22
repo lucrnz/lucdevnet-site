@@ -1,9 +1,10 @@
 ---
 const currentYear = new Date().getUTCFullYear();
+const siteDomain = (Astro.site ?? Astro.url).host;
 ---
 
-<footer class="flex flex-col gap-2">
-  <a href="/copyright-policy" class="hover:underline"
-    >Copyright &copy; {currentYear} - {(Astro.site ?? Astro.url).host}</a
+<footer class="flex flex-col gap-2 max-w-fit">
+  <a href="/copyright-policy" target="_blank" class="hover:underline"
+    >Copyright &copy; {currentYear} - {siteDomain}</a
   >
 </footer>
