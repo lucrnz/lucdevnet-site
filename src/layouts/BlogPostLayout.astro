@@ -4,6 +4,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 import BlogPostHeader from "~/components/BlogPost/BlogPostHeader.astro";
 import BlogPostTags from "~/components/BlogPost/BlogPostTags.astro";
 import Head from "~/components/Head.astro";
+import ProseContainer from "~/components/ProseContainer.astro";
 
 export interface Props {
   post: CollectionEntry<"blog">["data"];
@@ -48,11 +49,9 @@ const {
     readTimeMinutes={readTimeMinutes}
   />
 
-  <article
-    class="prose dark:prose-invert prose-headings:font-display max-w-[unset]"
-  >
+  <ProseContainer tagElement="article">
     <slot />
-  </article>
+  </ProseContainer>
 
   <div class="mt-4 flex flex-col gap-1">
     <BlogPostTags tags={tags} />

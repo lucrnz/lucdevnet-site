@@ -1,0 +1,28 @@
+---
+export type Props = {
+  class?: string;
+  tagElement?: "div" | "article";
+};
+
+const { class: className = "", tagElement = "div" } = Astro.props;
+---
+
+{
+  tagElement === "div" && (
+    <div
+      class={`${className} prose dark:prose-invert prose-headings:font-display prose-headings:font-medium max-w-[unset]`}
+    >
+      <slot />
+    </div>
+  )
+}
+
+{
+  tagElement === "article" && (
+    <article
+      class={`${className} prose dark:prose-invert prose-headings:font-display prose-headings:font-medium max-w-[unset]`}
+    >
+      <slot />
+    </article>
+  )
+}

@@ -6,6 +6,7 @@ import {
 import { authorName, siteTitle } from "~/consts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Head from "~/components/Head.astro";
+import ProseContainer from "~/components/ProseContainer.astro";
 const title = "Copyright Policy";
 const datePublished = new Date("2024-07-16T20:08:40.899Z");
 const dateModified = new Date("2024-07-16T20:08:40.899Z");
@@ -27,7 +28,7 @@ const lastUpdatedFormatted = formatDateTime(
     dateModified={dateModified}
   />
   <h1 class="font-display text-3xl font-medium mb-4">{title}</h1>
-  <div class="prose dark:prose-invert prose-headings:font-display">
+  <ProseContainer tagElement="article">
     <em>Last Updated: {lastUpdatedFormatted}</em>
     <p>
       Welcome to {siteTitle}, operated by {siteAuthorFullName}, hereinafter
@@ -75,5 +76,5 @@ const lastUpdatedFormatted = formatDateTime(
       The website owner reserves the right to update this policy at any time.
       Please review this page periodically for changes.
     </p>
-  </div>
+  </ProseContainer>
 </BaseLayout>
