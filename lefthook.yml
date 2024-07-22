@@ -7,15 +7,9 @@ pre-commit:
       glob: "*.{astro,ts,js,css,cjs,mjs,jsx,tsx,json}"
       run: pnpm exec prettier --write --ignore-unknown {staged_files}
       stage_fixed: true
-    lint:
-      glob: "*.{astro,ts,js,css,cjs,mjs,jsx,tsx,json}"
-      run: pnpm exec eslint --fix {staged_files}
-      stage_fixed: true
 
 pre-push:
   parallel: true
   commands:
     lint:
-      run: pnpm exec eslint {push_files}
-    astro-check:
-      run: pnpm exec astro check
+      run: pnpm run lint
