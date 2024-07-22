@@ -4,6 +4,8 @@ import Head from "~/components/Head.astro";
 import { resumeData } from "~/data/resume/resumeData";
 import ResumeBody from "~/components/resume/ResumeBody.astro";
 import { siteCreationDate } from "~/consts";
+
+const lastUpdated = new Date("2024-07-19T17:14:23Z");
 ---
 
 <BaseLayout>
@@ -12,6 +14,7 @@ import { siteCreationDate } from "~/consts";
     title="Resume"
     metaDescription="My professional resume."
     datePublished={siteCreationDate}
+    dateModified={lastUpdated}
   />
   <ResumeBody data={resumeData} />
 </BaseLayout>
