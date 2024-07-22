@@ -10,16 +10,8 @@ import { ViewTransitions } from "astro:transitions";
 import { siteTitle, xUserName } from "~/consts";
 import type { MetaHeadSEO } from "~/types/head-seo";
 
-export type Props = Pick<
-  BlogPost,
-  | "title"
-  | "metaDescription"
-  | "image"
-  | "imageAlt"
-  | "datePublished"
-  | "dateModified"
-> &
-  Partial<MetaHeadSEO>;
+// prettier-ignore
+export type Props = Pick<BlogPost, "title" | "metaDescription" | "image" | "imageAlt" | "datePublished" | "dateModified"> & Partial<MetaHeadSEO>;
 
 const {
   metaDescription,
