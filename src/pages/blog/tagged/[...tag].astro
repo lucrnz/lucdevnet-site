@@ -1,0 +1,62 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import BlogPostCardList from "~/components/BlogPost/BlogPostCardList.astro";
+import Head from "~/components/Head.astro";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+
+type BlogPost = CollectionEntry<"blog">;
+
+type Props = { posts: BlogPost[] };
+
+export async function getStaticPaths() {
+  // First get all tags from all posts
+  const posts = await getCollection("blog");
+  const tags = posts.flatMap((post) => post.data.tags);
+
+  // Then remove duplicates
+  const uniqueTags = [...new Set(tags)];
+
+  // Get all posts by tag, then generate a path for each tag
+  return uniqueTags.map((tag) => {
+    const filteredPosts = posts.filter((post) => post.data.tags.includes(tag));
+    return {
+      params: { tag },
+      props: { posts: filteredPosts }
+    };
+  });
+}
+
+const { posts } = Astro.props;
+const { tag } = Astro.params;
+
+// Get the oldest post in the collection
+const oldestPost = [...posts].sort(
+  (a, b) => a.data.datePublished.valueOf() - b.data.datePublished.valueOf()
+)[0];
+
+// Get the most recent post in the collection
+const newestPost = [...posts].sort(
+  (a, b) => b.data.datePublished.valueOf() - a.data.datePublished.valueOf()
+)[0];
+
+const { datePublished } = oldestPost.data;
+
+const dateModified =
+  newestPost.data.dateModified ?? newestPost.data.datePublished;
+---
+
+<BaseLayout>
+  <Head
+    slot="head"
+    title={`Posts tagged with ${tag}`}
+    metaDescription={`Blog articles tagged with ${tag}`}
+    datePublished={datePublished}
+    dateModified={dateModified}
+  />
+
+  <h1 class="font-display text-3xl font-medium mb-8">
+    Blog Articles tagged with <span class="italic">#{tag}</span>
+  </h1>
+
+  <BlogPostCardList posts={posts} />
+</BaseLayout>
