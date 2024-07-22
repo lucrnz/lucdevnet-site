@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import BlogPostHeader from "~/components/BlogPost/BlogPostHeader.astro";
 import BlogPostTags from "~/components/BlogPost/BlogPostTags.astro";
+import Head from "~/components/Head.astro";
 
 export interface Props {
   post: CollectionEntry<"blog">["data"];
@@ -27,15 +28,17 @@ const {
 } = post;
 ---
 
-<BaseLayout
-  title={title}
-  metaDescription={metaDescription}
-  image={image}
-  imageAlt={imageAlt}
-  datePublished={datePublished}
-  dateModified={dateModified}
-  isArticle={true}
->
+<BaseLayout>
+  <Head
+    slot="head"
+    title={title}
+    metaDescription={metaDescription}
+    image={image}
+    imageAlt={imageAlt}
+    datePublished={datePublished}
+    dateModified={dateModified}
+    isArticle={true}
+  />
   <BlogPostHeader
     title={title}
     summary={summary}

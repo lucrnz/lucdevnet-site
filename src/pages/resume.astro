@@ -1,14 +1,17 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
+import Head from "~/components/Head.astro";
 import { resumeData } from "~/data/resume/resumeData";
 import ResumeBody from "~/components/resume/ResumeBody.astro";
 import { siteCreationDate } from "~/consts";
 ---
 
-<BaseLayout
-  title={"Resume"}
-  metaDescription="My professional resume."
-  datePublished={siteCreationDate}
->
+<BaseLayout>
+  <Head
+    slot="head"
+    title="Resume"
+    metaDescription="My professional resume."
+    datePublished={siteCreationDate}
+  />
   <ResumeBody data={resumeData} />
 </BaseLayout>

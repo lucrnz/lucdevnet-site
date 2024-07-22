@@ -1,15 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ReadCard from "../components/ReadCard.astro";
+import Head from "~/components/Head.astro";
+import ReadCard from "~/components/ReadCard.astro";
 import { siteCreationDate } from "~/consts";
 ---
 
-<BaseLayout
-  title="Read Articles"
-  metaDescription="Page containing links to articles I read and a comment on those posts."
-  datePublished={siteCreationDate}
->
-  <h1 class="font-display text-3xl font-medium mb-4">Read Articles</h2>
+<BaseLayout>
+  <Head
+    slot="head"
+    title="Read Articles"
+    metaDescription="Page containing links to articles I read and a comment on those posts."
+    datePublished={siteCreationDate}
+  />
+  <h1 class="font-display text-3xl font-medium mb-4">Read Articles</h1>
   <p class="mb-4">
     Articles that I read lately and felt the need to share/ I agreed with them.
     The date corresponds to the time I read it, not the time article was
@@ -23,77 +26,93 @@ import { siteCreationDate } from "~/consts";
   </p>
 
   <ul class="flex flex-col gap-8">
-    <ReadCard date={new Date("2024-07-20T00:00:00Z")} title="Google Now Defaults to Not Indexing Your Content" url="https://www.vincentschmalbach.com/google-now-defaults-to-not-indexing-your-content/">
-      This article is about how Goole does its indexing in the current era of artifical Intelligence content.
-      I heavily reccomend reading it since it is great for those who need to rank their content in this search engine.
+    <ReadCard
+      date={new Date("2024-07-20T00:00:00Z")}
+      title="Google Now Defaults to Not Indexing Your Content"
+      url="https://www.vincentschmalbach.com/google-now-defaults-to-not-indexing-your-content/"
+    >
+      This article is about how Goole does its indexing in the current era of
+      artifical Intelligence content. I heavily reccomend reading it since it is
+      great for those who need to rank their content in this search engine.
     </ReadCard>
 
-    <ReadCard date={new Date("2024-04-19T00:00:00Z")} title="Redis is forked" url="https://newsletter.vickiboykis.com/archive/redis-is-forked/">
+    <ReadCard
+      date={new Date("2024-04-19T00:00:00Z")}
+      title="Redis is forked"
+      url="https://newsletter.vickiboykis.com/archive/redis-is-forked/"
+    >
       Article about the forking of redis because it turned propietary software.
-      My opinion: It seems that the project Valkey is more focused on improving the project while redic has a more "free software philosophy" approach.
-      I advice to do your own research before migrating to an alternative if you need to.
+      My opinion: It seems that the project Valkey is more focused on improving
+      the project while redic has a more "free software philosophy" approach. I
+      advice to do your own research before migrating to an alternative if you
+      need to.
     </ReadCard>
-  
-    <ReadCard date={new Date("2024-04-13T00:00:00Z")} title="React, Solid, htmx" url="https://bobaekang.com/blog/react-solid-htmx/">
-      An interesting read about the history of the latest front-end frameworks and comparasion between their fundamentals.
+
+    <ReadCard
+      date={new Date("2024-04-13T00:00:00Z")}
+      title="React, Solid, htmx"
+      url="https://bobaekang.com/blog/react-solid-htmx/"
+    >
+      An interesting read about the history of the latest front-end frameworks
+      and comparasion between their fundamentals.
     </ReadCard>
-  
+
     <ReadCard
       date={new Date("2024-03-27T00:00:00Z")}
       title="How Next.js breaks React Fundamentals"
       url="https://ondrejvelisek.github.io/how-nextjs-breaks-react-fundamentals/"
     >
-      A great read about the struggles of React Server Components on the Next.js metaframework.
+      A great read about the struggles of React Server Components on the Next.js
+      metaframework.
     </ReadCard>
-  
+
     <ReadCard
       date={new Date("2023-09-11T00:00:00Z")}
       title="Bun 1.0 - Release"
       url="https://bun.sh/blog/bun-v1.0"
     >
-      Bun is a JavaScript (and TypeScript) runtime, bundler, test runner and package manager.
-      A complete alternative to Node, NPM, ESBuild, Webpack and other tools.
-      The amazing performance it has means a lot for me.
-  
-      I am super excited for this release, I want this tool to success and become the new standard.
-  
-      If you are used to Node and npm please check it out, it will blow your mind!
+      Bun is a JavaScript (and TypeScript) runtime, bundler, test runner and
+      package manager. A complete alternative to Node, NPM, ESBuild, Webpack and
+      other tools. The amazing performance it has means a lot for me. I am super
+      excited for this release, I want this tool to success and become the new
+      standard. If you are used to Node and npm please check it out, it will
+      blow your mind!
     </ReadCard>
-  
+
     <ReadCard
       date={new Date("2023-07-04T00:00:00Z")}
       title="CommonJS is hurting JavaScript"
       url="https://deno.com/blog/commonjs-is-hurting-javascript"
     >
       Excellent read that talks about the experiences of JavaScript developers
-      that try to support both ES-modules and CommonJS at the same time.
-      
-      I really hope we can transition to only ES-modules soon.
+      that try to support both ES-modules and CommonJS at the same time. I
+      really hope we can transition to only ES-modules soon.
     </ReadCard>
-  
+
     <ReadCard
-    date={new Date("2023-06-06T00:00:00Z")}
-    title="Why SQLite is so great for the edge"
-    url="https://blog.turso.tech/why-sqlite-is-so-great-for-the-edge-ee00a3a9a55f"
+      date={new Date("2023-06-06T00:00:00Z")}
+      title="Why SQLite is so great for the edge"
+      url="https://blog.turso.tech/why-sqlite-is-so-great-for-the-edge-ee00a3a9a55f"
     >
-    I love SQLite, I think it is a great database, but I always been told that
-    "you don't go to production" with it. Now seeing it becoming "a great option for the Edge"
-    where people are aiming to deploy right now, it is surreal for me.
-    I am very happy for the team that worked on it, and I hope that people can find more use cases for it!.
+      I love SQLite, I think it is a great database, but I always been told that
+      "you don't go to production" with it. Now seeing it becoming "a great
+      option for the Edge" where people are aiming to deploy right now, it is
+      surreal for me. I am very happy for the team that worked on it, and I hope
+      that people can find more use cases for it!.
     </ReadCard>
-  
+
     <ReadCard
       date={new Date("2023-02-12T00:00:00Z")}
       title="<3 Deno"
       url="https://matklad.github.io/2023/02/12/a-love-letter-to-deno.html"
     >
-      Deno is a fantastic tool that gives new breath to the JavaScript ecosystem,
-      I like how you can just download one binary and start using it, no need to
-      install Node.js or any other package manager. However, I still need to learn
-      how to properly setup a full project with just Deno. Right now, I use it for
-      small scripts and tools.
+      Deno is a fantastic tool that gives new breath to the JavaScript
+      ecosystem, I like how you can just download one binary and start using it,
+      no need to install Node.js or any other package manager. However, I still
+      need to learn how to properly setup a full project with just Deno. Right
+      now, I use it for small scripts and tools.
     </ReadCard>
-  
+
     <ReadCard
       date={new Date("2022-11-09T00:00:00Z")}
       title="most programming languages are fine, actually"
@@ -102,7 +121,7 @@ import { siteCreationDate } from "~/consts";
       Agreed on this, tools fits needs, there cannot be an ultimate problem
       solver.
     </ReadCard>
-  
+
     <ReadCard
       date={new Date("2022-10-14T00:00:00Z")}
       title="Blasts from the past"
@@ -111,7 +130,7 @@ import { siteCreationDate } from "~/consts";
       All you need to know about creating a blog, from choosing a generator to
       deploying it.
     </ReadCard>
-  
+
     <ReadCard
       date={new Date("2022-10-11T00:00:00Z")}
       title="Bitcoin and economic nihilism"
@@ -123,7 +142,7 @@ import { siteCreationDate } from "~/consts";
       transaction fees, third-parties and required KYC verifications. Overall, I
       enjoyed this article, I recommend reading it while taking breaks.
     </ReadCard>
-  
+
     <ReadCard
       date={new Date("2022-10-04T00:00:00Z")}
       title="There is no 'software supply chain"

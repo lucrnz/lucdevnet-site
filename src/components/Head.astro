@@ -1,0 +1,110 @@
+---
+import JSONLdSchema from "./JSONLdSchema.astro";
+import type { CollectionEntry } from "astro:content";
+import "@fontsource-variable/cabin";
+import "@fontsource-variable/exo-2";
+
+type BlogPost = CollectionEntry<"blog">["data"];
+
+import { ViewTransitions } from "astro:transitions";
+import { siteCreationDate, siteTitle, xUserName } from "~/consts";
+import type { MetaHeadSEO } from "~/types/head-seo";
+
+// prettier-ignore
+export type Props = Partial<Pick<BlogPost, "title" | "metaDescription" | "image" | "imageAlt" | "datePublished" | "dateModified"> & MetaHeadSEO>;
+
+const {
+  metaDescription: description,
+  image,
+  imageAlt,
+  title: articleTitle,
+  datePublished = siteCreationDate,
+  dateModified,
+  keywords,
+  isArticle = false
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const pageTitle =
+  articleTitle === siteTitle
+    ? siteTitle
+    : articleTitle
+      ? `${articleTitle} - ${siteTitle}`
+      : siteTitle;
+
+const baseUrl = import.meta.env.DEV
+  ? new URL(Astro.url.origin)
+  : Astro.site
+    ? new URL(Astro.site)
+    : new URL(Astro.url.origin);
+
+const favIcon = new URL("/favicon.svg", baseUrl);
+const heroImageUrl = image && imageAlt ? new URL(image, baseUrl) : undefined;
+---
+
+<meta charset="utf-8" />
+<title>{pageTitle}</title>
+
+{
+  description && articleTitle && (
+    <>
+      <JSONLdSchema
+        title={articleTitle}
+        metaDescription={description}
+        image={image}
+        imageAlt={imageAlt}
+        datePublished={datePublished}
+        dateModified={dateModified}
+        keywords={keywords}
+        isArticle={isArticle}
+      />
+      <meta name="description" content={description} />
+      <link rel="canonical" href={canonicalURL} />
+
+      <meta property="og:url" content={canonicalURL} />
+      <meta property="og:description" content={description} />
+      {heroImageUrl && <meta property="og:image" content={heroImageUrl} />}
+      <meta property="og:type" content="website" />
+      <meta property="og:site_name" content={siteTitle} />
+      <meta property="og:title" content={articleTitle} />
+
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:site" content={`@${xUserName}`} />
+      <meta name="twitter:creator" content={`@${xUserName}`} />
+      <meta property="twitter:title" content={articleTitle} />
+      <meta property="twitter:description" content={description} />
+      {heroImageUrl && <meta name="twitter:image" content={heroImageUrl} />}
+    </>
+  )
+}
+
+{
+  !description && !articleTitle && (
+    <meta name="robots" content="noindex, nofollow" />
+  )
+}
+<link rel="sitemap" href={new URL("/sitemap-index.xml", baseUrl)} />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={siteTitle}
+  href={new URL("/rss.xml", baseUrl)}
+/>
+<link rel="icon" type="image/svg+xml" href={favIcon} />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content"
+/>
+<meta name="color-scheme" content="light dark" />
+
+<meta name="generator" content={Astro.generator} />
+
+<style is:global>
+  html {
+    width: min(100vw, 100%);
+  }
+</style>
+
+<ViewTransitions fallback="animate" />
+
+<slot />

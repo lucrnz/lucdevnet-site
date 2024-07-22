@@ -1,23 +1,29 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
+import Head from "~/components/Head.astro";
 import BlogPostCardList from "~/components/BlogPost/BlogPostCardList.astro";
 import { getCollection } from "astro:content";
 import { siteCreationDate } from "~/consts";
 
 const posts = (await getCollection("blog"))
   .filter((post) => post.data.published)
-  .sort((a, b) => a.data.datePublished.valueOf() - b.data.datePublished.valueOf())
+  .sort(
+    (a, b) => a.data.datePublished.valueOf() - b.data.datePublished.valueOf()
+  )
   .reverse();
 ---
 
-<BaseLayout
-  title="Blog Articles"
-  metaDescription="My personal blog including articles about programming, tech, personal experiences and reflections."
-  datePublished={siteCreationDate}
->
+<BaseLayout>
+  <Head
+    slot="head"
+    title="Blog Articles"
+    metaDescription="My personal blog including articles about programming, tech, personal experiences and reflections."
+    datePublished={siteCreationDate}
+  />
   <h1 class="font-display text-3xl font-medium mb-4">Blog Articles</h1>
   <p class="mb-8">
-    These are all my blog posts. I write mostly about software development and share what I can to make devs life easier.
+    These are all my blog posts. I write mostly about software development and
+    share what I can to make devs life easier.
   </p>
 
   <BlogPostCardList posts={posts} />
