@@ -1,13 +1,25 @@
 ---
 import Head from "~/components/Head.astro";
 import ExperienceCard from "~/components/resume/ExperienceCard.astro";
+import CertificationCard from "~/components/resume/CertificationCard.astro";
 import PersonCard from "~/components/resume/PersonCard.astro";
 import ResumeBody from "~/components/resume/ResumeBody.astro";
+import CertificateLegacyNameNote from "~/components/resume/CertificateLegacyNameNote.astro";
 import { siteCreationDate } from "~/consts";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { JobCompany } from "~/types/resume/company";
 import { JobLocation, JobLocationType } from "~/types/resume/location";
 import { JobTitle } from "~/types/resume/title";
+import { compressImage } from "~/helpers/imageHelper";
+import tsCertImgJpg from "~/assets/resume/certificates/understanding-typescript.jpg";
+import reactCertImgJpg from "~/assets/resume/certificates/react-complete-guide.jpg";
+import postgresCertImgJpg from "~/assets/resume/certificates/complete-sql-bootcamp.jpg";
+import efSetEnglishCertImgPng from "~/assets/resume/certificates/ef-set-english.png";
+
+const tsCertImg = await compressImage(tsCertImgJpg);
+const reactCertImg = await compressImage(reactCertImgJpg);
+const postgresCertImg = await compressImage(postgresCertImgJpg);
+const efSetEnglishCertImg = await compressImage(efSetEnglishCertImgPng);
 
 const lastUpdated = new Date("2024-07-22T21:05:11.401Z");
 ---
@@ -26,7 +38,7 @@ const lastUpdated = new Date("2024-07-22T21:05:11.401Z");
         <span>Front-end & Web Developer</span>
       </Fragment>
     </PersonCard>
-    <Fragment slot="summary">
+    <Fragment slot="career-summary">
       <p>
         Skilled front-end developer with over 5 years of experience in web
         development, specializing in modern JavaScript frameworks and libraries.
@@ -46,6 +58,36 @@ const lastUpdated = new Date("2024-07-22T21:05:11.401Z");
         reusable, type-safe components and improving application architecture.
       </p>
     </Fragment>
+    <div
+      slot="qualifications-summary"
+      class="grid grid-cols-2 sm:grid-cols-3 gap-2"
+    >
+      <ul class="list-disc list-inside flex flex-col gap-2">
+        <li>JavaScript</li>
+        <li>TypeScript</li>
+        <li>React</li>
+        <li>Next.js</li>
+      </ul>
+      <ul class="list-disc list-inside flex flex-col gap-2">
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>Sass/SCSS</li>
+        <li>Tailwind CSS</li>
+      </ul>
+      <ul class="list-disc list-inside flex flex-col gap-2">
+        <li>Docker</li>
+        <li>Git</li>
+        <li>GitHub Actions</li>
+        <li>PostgreSQL</li>
+      </ul>
+    </div>
+    <ul
+      slot="languages"
+      class="list-disc list-inside flex flex-row items-center gap-4"
+    >
+      <li>English (advanced)</li>
+      <li>Spanish (native)</li>
+    </ul>
     <Fragment slot="experience-cards">
       <ExperienceCard
         title={JobTitle.frontend_dev}
@@ -120,15 +162,10 @@ const lastUpdated = new Date("2024-07-22T21:05:11.401Z");
 
       <ExperienceCard
         title={JobTitle.frontend_dev}
-        ,
         startDate={new Date("2023-01-01T00:00:00.000Z")}
-        ,
         endDate={new Date("2023-06-15T00:00:00.000Z")}
-        ,
         location={JobLocation.bsas}
-        ,
         locationType={JobLocationType.remote}
-        ,
         companyName={JobCompany.cognizant}
       >
         <li>
@@ -249,6 +286,100 @@ const lastUpdated = new Date("2024-07-22T21:05:11.401Z");
         </li>
       </ExperienceCard>
     </Fragment>
-    <Fragment slot="certification-cards"> </Fragment>
+    <Fragment slot="certification-cards">
+      <CertificationCard
+        title="Understanding TypeScript"
+        issuedBy="Academind (via Udemy)"
+        issuedDate="February 2023"
+        certUrl="https://www.udemy.com/certificate/UC-7cf4e6d7-e79f-46a1-8d56-c4731b0136d8/"
+        certImage={tsCertImg.src}
+      >
+        <p class="mb-2">
+          Completed an intensive 15-hour TypeScript course, covering a wide
+          range of advanced topics including:
+        </p>
+        <ul class="list-disc list-inside flex flex-col gap-2">
+          <li>Primitive, Union, and Object Types</li>
+          <li>Tuples and Enums</li>
+          <li>Function Types and TSC Flags</li>
+          <li>Classes, Abstract Classes, and Inheritance</li>
+          <li>Interfaces and Access Modifiers</li>
+          <li>Design Patterns (e.g., Singleton)</li>
+          <li>Modern JavaScript Features (Spread Operator, Arrow Functions)</li>
+          <li>Decorators and Generics</li>
+          <li>Modules and Namespaces</li>
+        </ul>
+        <p>
+          This in-depth study enhanced Luciano&#39;s expertise in TypeScript,
+          contributing to their ability to write more robust and maintainable
+          code.
+        </p>
+        <CertificateLegacyNameNote />
+      </CertificationCard>
+      <CertificationCard
+        title="React: The Complete Guide"
+        issuedBy="Academind (via Udemy)"
+        issuedDate="July 2022"
+        certUrl="https://www.udemy.com/certificate/UC-b40f930d-d308-4c47-bd31-c3b98fcce89d/"
+        certImage={reactCertImg.src}
+      >
+        <p>
+          Completed an extensive 48-hours long React course to enhance skills
+          and stay current with best practices.
+        </p>
+
+        <p class="mb-2">
+          This self-directed learning initiative proved invaluable when joining
+          Cognizant Softvision, significantly contributing to success on a
+          high-profile client project.
+        </p>
+        <CertificateLegacyNameNote />
+      </CertificationCard>
+
+      <CertificationCard
+        title="The Complete SQL Bootcamp"
+        issuedBy="Pierian Training (via Udemy)"
+        issuedDate="January 2023"
+        certUrl="https://www.udemy.com/certificate/UC-42309009-1c9c-4107-acb5-a925218b7f83"
+        certImage={postgresCertImg.src}
+      >
+        <p>
+          Driven by a commitment to enhance and update their database skills,
+          Luciano successfully completed a comprehensive SQL course,
+          demonstrating proficiency in various aspects of SQL database
+          management.
+        </p>
+        <p>
+          <em class="italic"
+            >Note: Luciano was known as “Luciana” at that time.</em
+          >
+        </p>
+      </CertificationCard>
+
+      <CertificationCard
+        title="EF SET English Certificate"
+        issuedBy="EF Standard English Test"
+        issuedDate="February 2023"
+        certUrl="https://www.efset.org/cert/HbTawN"
+        certImage={efSetEnglishCertImg.src}
+      >
+        <p class="mb-2">
+          Demonstrating Luciano's dedication to enhancing their English
+          proficiency, they successfully completed the EF SET English
+          Certificate, which attests to their high level of fluency and
+          proficiency in both spoken and written English.
+        </p>
+
+        <ul class="list-disc list-inside flex flex-col gap-2">
+          <li>C2 Proficient 72/100</li>
+          <li>Proficient in both spoken and written language.</li>
+          <li>
+            Comprehends fast-paced speech with regional accents and a range of
+            written texts, including complex materials.
+          </li>
+        </ul>
+        <CertificateLegacyNameNote />
+      </CertificationCard>
+    </Fragment>
   </ResumeBody>
 </BaseLayout>

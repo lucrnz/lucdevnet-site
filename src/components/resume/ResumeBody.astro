@@ -5,10 +5,32 @@
     <h3
       class="text-2xl font-medium mb-4 font-display print:font-serif print:font-bold"
     >
-      Summary
+      Career Summary
     </h3>
     <div class="flex flex-col gap-2 print:items-start">
-      <slot name="summary" />
+      <slot name="career-summary" />
+    </div>
+  </section>
+
+  <section class="mb-4">
+    <h3
+      class="text-2xl font-medium mb-4 font-display print:font-serif print:font-bold"
+    >
+      Summary of Qualifications
+    </h3>
+    <div class="flex flex-col gap-2 print:items-start">
+      <slot name="qualifications-summary" />
+    </div>
+  </section>
+
+  <section class="mb-4">
+    <h3
+      class="text-2xl font-medium mb-4 font-display print:font-serif print:font-bold"
+    >
+      Languages
+    </h3>
+    <div class="flex flex-col gap-2 print:items-start">
+      <slot name="languages" />
     </div>
   </section>
 

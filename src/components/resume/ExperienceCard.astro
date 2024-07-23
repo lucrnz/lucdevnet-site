@@ -33,7 +33,9 @@ const dateFormat = DateTimeFormattingConfig.MonthLongYearOnly;
 ---
 
 <div class="flex flex-col mb-2 gap-2">
-  <div class="flex flex-row gap-2 items-start justify-between mb-4">
+  <div
+    class="flex flex-col sm:flex-row gap-2 items-start sm:justify-between mb-4"
+  >
     <div class="flex flex-col gap-2 items-start">
       <h4
         class="text-xl font-medium font-display print:font-serif print:font-bold"
@@ -41,25 +43,25 @@ const dateFormat = DateTimeFormattingConfig.MonthLongYearOnly;
         {companyName}
       </h4>
       <p>
-        {projectName ? `${title} - ${projectName} project` : title}<p></p>
-        <div class="flex flex-col gap-2 items-end">
-          <span class="flex items-center gap-2 font-medium">
-            {location} ({locationType})
-          </span>
-          <div class="flex flex-row gap-2 items-end">
-            <span class="flex items-center gap-2">
-              {
-                endDate
-                  ? `${formatDateTime(startDate, dateFormat)} - ${formatDateTime(endDate, dateFormat)}`
-                  : `${formatDateTime(startDate, dateFormat)} - Present`
-              }
-            </span>
-          </div>
-        </div>
+        {projectName ? `${title} - ${projectName} project` : title}
       </p>
-      <ul class="flex flex-col gap-2 list-disc ml-4">
-        <slot />
-      </ul>
+    </div>
+    <div class="flex flex-col gap-2 items-start sm:items-end">
+      <span class="flex items-center gap-2 font-medium">
+        {location} ({locationType})
+      </span>
+      <div class="flex flex-row gap-2 items-start sm:items-end">
+        <span class="flex items-center gap-2">
+          {
+            endDate
+              ? `${formatDateTime(startDate, dateFormat)} - ${formatDateTime(endDate, dateFormat)}`
+              : `${formatDateTime(startDate, dateFormat)} - Present`
+          }
+        </span>
+      </div>
     </div>
   </div>
+  <ul class="flex flex-col gap-2 list-disc list-inside">
+    <slot />
+  </ul>
 </div>

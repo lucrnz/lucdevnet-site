@@ -4,38 +4,27 @@ export interface Props {
   issuedBy: string;
   issuedDate: string;
   certUrl: string;
-  length?: string;
-  items: string[][];
-  itemsTitle: string;
-  includesPractice: boolean;
+  certImage?: string;
 }
 
-const { title, issuedBy, issuedDate, certUrl, length, includesPractice } =
-  Astro.props;
+const { title, issuedBy, issuedDate, certUrl, certImage } = Astro.props;
 ---
 
 <div class="flex flex-col mb-2 gap-2">
-  <div class="flex flex-row gap-2 items-start justify-between mb-4">
+  <div
+    class="flex flex-col sm:flex-row gap-2 items-start sm:justify-between mb-4"
+  >
     <div class="flex flex-col gap-2 items-start">
       <h4
         class="text-xl font-medium font-display print:font-serif print:font-bold"
       >
         {title}
       </h4>
-      <p>{issuedBy}</p>
     </div>
-    <div class="flex flex-col gap-2 items-end">
+    <div class="flex flex-col gap-2 items-start sm:items-end">
+      <p class="font-medium">{issuedBy}</p>
       <div class="flex flex-row gap-2 items-end">
-        <span class="flex items-center gap-2">
-          <span>Issued: {issuedDate}</span>
-          {
-            length && (
-              <span>
-                {`Length: ${length}${includesPractice ? " + Practice" : ""}`}
-              </span>
-            )
-          }
-        </span>
+        <p>{issuedDate}</p>
       </div>
     </div>
   </div>
@@ -45,13 +34,33 @@ const { title, issuedBy, issuedDate, certUrl, length, includesPractice } =
   <a
     href={certUrl}
     target="_blank"
-    class="underline hover:text-cyan-600 hover:dark:text-cyan-400 print:hidden"
-    >View Certificate</a
+    class="underline hover:text-cyan-600 hover:dark:text-cyan-400 max-w-fit print:hidden"
+    >Certificate Link</a
   >
-  <span class="print:inline-block hidden">Certificate:</span>
-  <a
-    href={certUrl}
-    target="_blank"
-    class="print:inline-block hidden underline text-sky-700">{certUrl}</a
-  >
+
+  <span class="hidden print:block">
+    <span>Certificate:</span>
+    <a
+      href={certUrl}
+      target="_blank"
+      class="inline-block underline text-sky-700">{certUrl}</a
+    >
+  </span>
+
+  {
+    certImage && (
+      <a
+        href={certUrl}
+        target="_blank"
+        class="max-w-fit"
+        title={`Certificate of Completion: ${title}`}
+      >
+        <img
+          src={certImage}
+          alt={`Certificate of Completion: ${title}`}
+          class="sm:max-w-[600px] rounded-lg"
+        />
+      </a>
+    )
+  }
 </div>
