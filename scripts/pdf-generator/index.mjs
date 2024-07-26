@@ -70,13 +70,16 @@ const hostContent = async (contentDir, host, port) => {
 };
 
 (async () => {
-  const host = "localhost";
-  const port = await getPort();
+  /** @type {{ urlsToVisit: { url: string, outputFile: string }[], contentDir: string, host: string, port?: number }} */
+  const {
+    host: cfgHost,
+    port: cfgPort,
+    urlsToVisit,
+    contentDir
+  } = JSON.parse(await readFile("./config.json", "utf-8"));
 
-  /** @type {{ urlsToVisit: { url: string, outputFile: string }[], contentDir: string }} */
-  const { urlsToVisit, contentDir } = JSON.parse(
-    await readFile("./config.json", "utf-8")
-  );
+  const host = cfgHost ?? "localhost";
+  const port = await getPort(cfgPort ? { port: cfgPort } : undefined);
 
   // Check if contentDir exists
   if (!existsSync(contentDir)) {
@@ -89,7 +92,7 @@ const hostContent = async (contentDir, host, port) => {
   urlsToVisit.forEach(async ({ url, outputFile }) => {
     await generatePdf(
       browser,
-      new URL(url, `http://${host}:${port}`).toString(),
+      new URL(url, `http://127.0.0.1:${port}`).toString(),
       outputFile
     );
     console.log(`Generated ${outputFile}`);
