@@ -11,9 +11,10 @@ RUN apt-get update && apt-get install -y \
     libxss1 \
     libasound2 \
     fonts-noto-color-emoji \
-    fonts-noto-emoji \
+    fonts-recommended \
     --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get -y clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY . .
 
