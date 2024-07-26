@@ -3,6 +3,7 @@ import fastifyStatic from "@fastify/static";
 import Fastify from "fastify";
 import fastifyGracefulShutdown from "fastify-graceful-shutdown";
 import * as puppeteer from "puppeteer";
+import getPort from "get-port";
 
 /**
  * @param {string} url - URL to visit
@@ -53,16 +54,22 @@ const generatePdf = async (url, outputFile) => {
  * @param {number} port - port to listen
  * @returns - Fastify instance
  */
-const hostContent = async (contentDir, address = "localhost", port = 3000) => {
+const hostContent = async (contentDir, host, port) => {
   const app = Fastify({ logger: true });
   app.register(fastifyGracefulShutdown);
   app.register(fastifyStatic, { root: resolve(contentDir) });
-  await app.listen({ host: address, port });
+  await app.listen({ host, port });
   return app;
 };
 
 (async () => {
-  const server = await hostContent("dist");
-  await generatePdf("http://localhost:3000/resume", "./dist/resume/resume.pdf");
+  const host = "localhost";
+  const port = await getPort();
+
+  const server = await hostContent("dist", host, port);
+  await generatePdf(
+    `http://${host}:${port}/resume`,
+    `./dist/resume/resume.pdf`
+  );
   server.close();
 })();

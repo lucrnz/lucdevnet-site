@@ -26,6 +26,7 @@
     "astro-robots-txt": "^1.0.0",
     "fastify": "^4.28.1",
     "fastify-graceful-shutdown": "^4.0.1",
+    "get-port": "^7.1.0",
     "mdast-util-from-markdown": "^2.0.1",
     "mdast-util-to-string": "^4.0.0",
     "puppeteer": "^22.14.0",
