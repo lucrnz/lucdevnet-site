@@ -83,7 +83,7 @@ const hostContent = async (contentDir, host, port) => {
     throw new Error(`Content directory ${contentDir} does not exist`);
   }
 
-  const server = await hostContent("dist", host, port);
+  const server = await hostContent(contentDir, host, port);
   const browser = await launchBrowser();
 
   urlsToVisit.forEach(async ({ url, outputFile }) => {
