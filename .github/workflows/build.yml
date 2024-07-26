@@ -27,6 +27,8 @@ jobs:
       run: pnpm run lint
     - name: Build project
       run: pnpm run build
+    - name: Build PDF
+      run: node scripts/build-pdf.mjs
     - name: Deploy
       run: pnpm run deploy
       env:

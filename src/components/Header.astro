@@ -2,11 +2,58 @@
 import { siteTitle } from "~/consts";
 ---
 
-<header class="mb-4 print:hidden sm:flex sm:flex-row sm:justify-between md:mb-8" data-menu-is-open="false" id="main-page-header">
+<header
+  class="mb-4 print:hidden sm:flex sm:flex-row sm:justify-between md:mb-8"
+  data-menu-is-open="false"
+  id="main-page-header"
+  data-remove-pdf
+>
   <div class="flex flex-row justify-between items-center">
     <a href="/" title="Go home" class="flex flex-row items-center gap-2">
-      <svg width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#a)"><g filter="url(#b)"><rect y="1" width="32" height="30" rx="7" fill="#1E293B"/></g><path d="m5.008 15.172 4.86 2.07-.548 1.25-6.203-2.765.547-1.25 5.688-2.649.515 1.156-4.86 2.188Z" fill="#E2E8F0"/><path d="m20.46 6.46 1.134.532-7.07 16.742-1.133-.53L20.46 6.46Z" fill="#84E1BC"/><path d="m27.96 15.148-4.858-2.07.546-1.25 6.204 2.766-.547 1.25-5.688 2.648-.515-1.156 4.859-2.188Z" fill="#E2E8F0"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h32v32H0z"/></clipPath><filter id="b" x="-1.7" y=".3" width="35.4" height="33.4" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation=".85"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.14 0"/><feBlend in2="BackgroundImageFix" result="effect1_dropShadow_115_21"/><feBlend in="SourceGraphic" in2="effect1_dropShadow_115_21" result="shape"/></filter></defs></svg>
-      <span class="text-2xl font-medium font-display hover:text-cyan-600 hover:dark:text-cyan-400 pb-1">{siteTitle}</span>
+      <svg width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"
+        ><g clip-path="url(#a)"
+          ><g filter="url(#b)"
+            ><rect y="1" width="32" height="30" rx="7" fill="#1E293B"></rect></g
+          ><path
+            d="m5.008 15.172 4.86 2.07-.548 1.25-6.203-2.765.547-1.25 5.688-2.649.515 1.156-4.86 2.188Z"
+            fill="#E2E8F0"></path><path
+            d="m20.46 6.46 1.134.532-7.07 16.742-1.133-.53L20.46 6.46Z"
+            fill="#84E1BC"></path><path
+            d="m27.96 15.148-4.858-2.07.546-1.25 6.204 2.766-.547 1.25-5.688 2.648-.515-1.156 4.859-2.188Z"
+            fill="#E2E8F0"></path></g
+        ><defs
+          ><clipPath id="a"
+            ><path fill="#fff" d="M0 0h32v32H0z"></path></clipPath
+          ><filter
+            id="b"
+            x="-1.7"
+            y=".3"
+            width="35.4"
+            height="33.4"
+            filterUnits="userSpaceOnUse"
+            color-interpolation-filters="sRGB"
+            ><feFlood flood-opacity="0" result="BackgroundImageFix"
+            ></feFlood><feColorMatrix
+              in="SourceAlpha"
+              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+              result="hardAlpha"></feColorMatrix><feOffset dy="1"
+            ></feOffset><feGaussianBlur stdDeviation=".85"
+            ></feGaussianBlur><feComposite in2="hardAlpha" operator="out"
+            ></feComposite><feColorMatrix
+              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.14 0"
+            ></feColorMatrix><feBlend
+              in2="BackgroundImageFix"
+              result="effect1_dropShadow_115_21"></feBlend><feBlend
+              in="SourceGraphic"
+              in2="effect1_dropShadow_115_21"
+              result="shape"></feBlend></filter
+          ></defs
+        ></svg
+      >
+      <span
+        class="text-2xl font-medium font-display hover:text-cyan-600 hover:dark:text-cyan-400 pb-1"
+        >{siteTitle}</span
+      >
     </a>
     <button id="mobile-menu-btn" class="sm:hidden">
       <svg
@@ -17,7 +64,8 @@ import { siteTitle } from "~/consts";
         height="24"
         viewBox="0 0 24 24"
       >
-        <path fill="currentColor" d="M3 18v-2h18v2zm0-5v-2h18v2zm0-5V6h18v2z"></path>
+        <path fill="currentColor" d="M3 18v-2h18v2zm0-5v-2h18v2zm0-5V6h18v2z"
+        ></path>
       </svg>
       <svg
         class="hover:text-sky-700 dark:hover:text-sky-400"
@@ -27,15 +75,33 @@ import { siteTitle } from "~/consts";
         height="24"
         viewBox="0 0 24 24"
       >
-        <path fill="currentColor" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z"></path>
+        <path
+          fill="currentColor"
+          d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z"
+        ></path>
       </svg>
     </button>
   </div>
-  <nav id="mobile-menu" class="absolute w-full left-0 z-20 top-[45px] rounded-b-lg flex flex-col items-center py-2 border-b-2 bg-gray-100 text-gray-900 border-neutral-600 dark:text-neutral-300 dark:border-neutral-400 dark:bg-zinc-800 border-opacity-30 gap-1 sm:p-0 sm:gap-4 sm:w-[unset] sm:relative sm:top-[unset] sm:bg-[unset] sm:rounded-none sm:flex-row sm:border-none">
-    <a class="hover:underline hover:text-sky-700 dark:hover:text-sky-400 p-2 sm:p-0" href="/">Home</a>
-    <a class="hover:underline hover:text-sky-700 dark:hover:text-sky-400 p-2 sm:p-0" href="/blog">Blog</a>
-    <a class="hover:underline hover:text-sky-700 dark:hover:text-sky-400 p-2 sm:p-0" href="/read">Read</a>
-    <a class="hover:underline hover:text-sky-700 dark:hover:text-sky-400 p-2 sm:p-0" href="/resume">Resume</a>
+  <nav
+    id="mobile-menu"
+    class="absolute w-full left-0 z-20 top-[45px] rounded-b-lg flex flex-col items-center py-2 border-b-2 bg-gray-100 text-gray-900 border-neutral-600 dark:text-neutral-300 dark:border-neutral-400 dark:bg-zinc-800 border-opacity-30 gap-1 sm:p-0 sm:gap-4 sm:w-[unset] sm:relative sm:top-[unset] sm:bg-[unset] sm:rounded-none sm:flex-row sm:border-none"
+  >
+    <a
+      class="hover:underline hover:text-sky-700 dark:hover:text-sky-400 p-2 sm:p-0"
+      href="/">Home</a
+    >
+    <a
+      class="hover:underline hover:text-sky-700 dark:hover:text-sky-400 p-2 sm:p-0"
+      href="/blog">Blog</a
+    >
+    <a
+      class="hover:underline hover:text-sky-700 dark:hover:text-sky-400 p-2 sm:p-0"
+      href="/read">Read</a
+    >
+    <a
+      class="hover:underline hover:text-sky-700 dark:hover:text-sky-400 p-2 sm:p-0"
+      href="/resume">Resume</a
+    >
   </nav>
 </header>
 <style>
@@ -43,23 +109,23 @@ import { siteTitle } from "~/consts";
     header[data-menu-is-open="false"] #mobile-menu {
       display: none;
     }
-  
+
     header[data-menu-is-open="false"] svg[data-icon="close"] {
       display: none;
     }
-  
+
     header[data-menu-is-open="false"] svg[data-icon="open"] {
       display: flex;
     }
-  
+
     header[data-menu-is-open="true"] svg[data-icon="open"] {
       display: none;
     }
-  
+
     header[data-menu-is-open="true"] svg[data-icon="close"] {
       display: flex;
     }
-  
+
     header[data-menu-is-open="true"] #mobile-menu {
       display: flex;
     }
@@ -70,7 +136,7 @@ import { siteTitle } from "~/consts";
   (async () => {
     const { setupScript } = await import("~/scripts/setupScript");
     const { setupMobileMenu } = await import("~/scripts/mobileMenuScript");
-  
+
     await setupScript({
       name: "mobile-menu",
       setup: setupMobileMenu

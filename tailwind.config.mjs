@@ -1,4 +1,5 @@
 import typographyPlugin from "@tailwindcss/typography";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -6,11 +7,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ["'Exo 2 Variable'", "sans-serif"],
-        body: ['Cabin Variable', "sans-serif"],
+        display: ["'Exo 2 Variable'", defaultTheme.fontFamily.sans],
+        body: ["Cabin Variable", defaultTheme.fontFamily.sans]
       },
       screens: {
-        ml: '425px',
+        ml: "425px",
         print: { raw: "print" }
       }
     }
