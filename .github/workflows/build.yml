@@ -31,6 +31,7 @@ jobs:
       run: |
         docker build -t pdf-generator .
         echo '{"urlsToVisit": [{"url": "/resume", "outputFile": "./output/resume.pdf"}], "contentDir": "./dist"}' > config.json
+        mkdir output
         docker run --rm -v $(pwd)/output:/app/output -v $(pwd)../../dist:/app/dist pdf-generator
       working-directory: scripts/build-pdf
     - name: Copy PDF to dist
