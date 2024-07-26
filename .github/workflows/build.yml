@@ -27,12 +27,14 @@ jobs:
       run: pnpm run lint
     - name: Build project
       run: pnpm run build
-    - name: Build PDF content
+    - name: Build pdf-generator image
+      run: docker build -t pdf-generator .
+      working-directory: scripts/build-pdf
+    - name: Generate PDF content
       run: |
-        docker build -t pdf-generator .
-        echo '{"urlsToVisit": [{"url": "/resume", "outputFile": "./output/resume.pdf"}], "contentDir": "./www"}' > config.json
         mkdir output
-        docker run --rm -v $(pwd)/output:/app/output -v $(pwd)/../../dist:/app/www pdf-generator
+        echo '{"urlsToVisit": [{"url": "/resume", "outputFile": "./output/resume.pdf"}], "contentDir": "./www"}' > config.json
+        docker run --rm -v $(pwd)/output:/app/output -v $(pwd)/../../dist:/app/www -v $(pwd)/config.json:/app/config.json pdf-generator
       working-directory: scripts/build-pdf
     - name: Copy PDF to dist
       run: cp scripts/build-pdf/output/resume.pdf dist/resume/resume.pdf
