@@ -27,8 +27,14 @@ jobs:
       run: pnpm run lint
     - name: Build project
       run: pnpm run build
-    - name: Build PDF
-      run: node scripts/build-pdf.mjs
+    - name: Build PDF content
+      run: |
+        docker build -t pdf-generator .
+        echo '{"urlsToVisit": [{"url": "/resume", "outputFile": "./output/resume.pdf"}], "contentDir": "./dist"}' > config.json
+        docker run --rm -v $(pwd)/output:/app/output pdf-generator
+      working-directory: scripts/build-pdf
+    - name: Copy PDF to dist
+      run: cp scripts/build-pdf/output/resume.pdf dist/resume/resume.pdf
     - name: Deploy
       run: pnpm run deploy
       env:

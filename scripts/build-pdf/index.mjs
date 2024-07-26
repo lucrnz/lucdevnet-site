@@ -4,12 +4,9 @@ import Fastify from "fastify";
 import fastifyGracefulShutdown from "fastify-graceful-shutdown";
 import * as puppeteer from "puppeteer";
 import getPort from "get-port";
+import { readFile } from "node:fs/promises";
 
-/**
- * @param {string} url - URL to visit
- * @param {string} outputFile - output file path for the resulting PDF.
- */
-const generatePdf = async (url, outputFile) => {
+const launchBrowser = async () => {
   const browser = await puppeteer.launch({
     args: [
       "--font-render-hinting=none",
@@ -20,6 +17,15 @@ const generatePdf = async (url, outputFile) => {
       "--disable-gpu"
     ]
   });
+  return browser;
+};
+
+/**
+ * @param {puppeteer.Browser} browser - Puppeteer browser instance
+ * @param {string} url - URL to visit
+ * @param {string} outputFile - output file path for the resulting PDF.
+ */
+const generatePdf = async (browser, url, outputFile) => {
   const page = await browser.newPage();
   page.setViewport({ width: 794, height: 1122 });
   await page.goto(url, { waitUntil: "networkidle2" });
@@ -66,10 +72,27 @@ const hostContent = async (contentDir, host, port) => {
   const host = "localhost";
   const port = await getPort();
 
-  const server = await hostContent("dist", host, port);
-  await generatePdf(
-    `http://${host}:${port}/resume`,
-    `./dist/resume/resume.pdf`
+  /** @type {{ urlsToVisit: { url: string, outputFile: string }[], contentDir: string }} */
+  const { urlsToVisit, contentDir } = JSON.parse(
+    await readFile("./config.json", "utf-8")
   );
+
+  // Check if contentDir exists
+  if (!(await exists(contentDir))) {
+    throw new Error(`Content directory ${contentDir} does not exist`);
+  }
+
+  const server = await hostContent("dist", host, port);
+  const browser = await launchBrowser();
+
+  urlsToVisit.forEach(async ({ url, outputFile }) => {
+    await generatePdf(
+      browser,
+      new URL(url, `http://${host}:${port}`).toString(),
+      outputFile
+    );
+    console.log(`Generated ${outputFile}`);
+  });
+
   server.close();
 })();
