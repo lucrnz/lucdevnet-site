@@ -5,6 +5,7 @@ import fastifyGracefulShutdown from "fastify-graceful-shutdown";
 import * as puppeteer from "puppeteer";
 import getPort from "get-port";
 import { readFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
 
 const launchBrowser = async () => {
   const browser = await puppeteer.launch({
@@ -78,7 +79,7 @@ const hostContent = async (contentDir, host, port) => {
   );
 
   // Check if contentDir exists
-  if (!(await exists(contentDir))) {
+  if (!existsSync(contentDir)) {
     throw new Error(`Content directory ${contentDir} does not exist`);
   }
 
