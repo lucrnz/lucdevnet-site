@@ -30,7 +30,7 @@ jobs:
     - name: Build pdf-generator image
       run: docker build -t pdf-generator .
       working-directory: scripts/pdf-generator
-    - name: Generate PDF content
+    - name: Run pdf-generator
       run: |
         mkdir output
         echo '{"urlsToVisit": [{"url": "/resume", "outputFile": "./output/resume.pdf"}], "contentDir": "./www"}' > config.json
