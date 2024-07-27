@@ -94,8 +94,6 @@ const hostContent = async (contentDir, host, port) => {
     if (!response.ok) {
       throw new Error(`Server returned ${response.status}`);
     }
-    const html = await response.text();
-    console.log(html);
   });
 
   return app;
