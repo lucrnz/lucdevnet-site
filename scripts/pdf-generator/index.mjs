@@ -60,10 +60,9 @@ const generatePdf = async (browser, url, outputFile) => {
  * @param {string} contentDir - directory to host as root
  * @param {string} address - bind to address
  * @param {number} port - port to listen
- * @param {string|undefined} connectingHost - host to use for connecting to the server
  * @returns - Fastify instance
  */
-const hostContent = async (contentDir, host, port, connectingHost) => {
+const hostContent = async (contentDir, host, port) => {
   const app = Fastify({ logger: true });
   app.register(fastifyGracefulShutdown);
   app.register(fastifyStatic, { root: resolve(contentDir), redirect: true });
