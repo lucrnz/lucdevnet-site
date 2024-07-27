@@ -66,6 +66,18 @@ const hostContent = async (contentDir, host, port) => {
   app.register(fastifyGracefulShutdown);
   app.register(fastifyStatic, { root: resolve(contentDir) });
   await app.listen({ host, port });
+
+  let fetchSuccess = false;
+  while (!fetchSuccess) {
+    try {
+      await fetch(`http://127.0.0.1:${port}`);
+      fetchSuccess = true;
+    } catch (e) {
+      console.log("Waiting for content to be ready...");
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+  }
+
   return app;
 };
 
