@@ -56,25 +56,25 @@ const generatePdf = async (browser, url, outputFile) => {
   await browser.close();
 };
 
-/**
- * @param {() => Promise<unknown>} getPromise Function that returns a promise
- * @param {number} awaitTimeMs Time to wait between retries in milliseconds
- * @param {number} maxRetries Max number of retries
- * @returns {Promise<void>} Resolves when the promise is successful
- */
-const retryPromise = (getPromise, awaitTimeMs = 1000, maxRetries = 10) =>
-  new Promise(async (resolve, reject) => {
-    for (let i = 0; i < maxRetries; i++) {
-      try {
-        await getPromise();
-        resolve();
-        return;
-      } catch (e) {
-        await new Promise((r) => setTimeout(r, awaitTimeMs));
-      }
-    }
-    reject(new Error("Max retries exceeded"));
-  });
+// /**
+//  * @param {() => Promise<unknown>} getPromise Function that returns a promise
+//  * @param {number} awaitTimeMs Time to wait between retries in milliseconds
+//  * @param {number} maxRetries Max number of retries
+//  * @returns {Promise<void>} Resolves when the promise is successful
+//  */
+// const retryPromise = (getPromise, awaitTimeMs = 1000, maxRetries = 10) =>
+//   new Promise(async (resolve, reject) => {
+//     for (let i = 0; i < maxRetries; i++) {
+//       try {
+//         await getPromise();
+//         resolve();
+//         return;
+//       } catch (e) {
+//         await new Promise((r) => setTimeout(r, awaitTimeMs));
+//       }
+//     }
+//     reject(new Error("Max retries exceeded"));
+//   });
 
 /**
  * @param {string} contentDir - directory to host as root
@@ -89,18 +89,18 @@ const hostContent = async (contentDir, host, port, connectingHost) => {
   app.register(fastifyStatic, { root: resolve(contentDir), redirect: true });
   await app.listen({ host, port });
 
-  // Wait for server to be ready
-  await retryPromise(async () => {
-    const url = connectingHost
-      ? `http://${connectingHost}:${port}`
-      : `http://localhost:${port}`;
-    const response = await fetch(url, {
-      redirect: "follow"
-    });
-    if (!response.ok) {
-      throw new Error(`Server returned ${response.status}`);
-    }
-  });
+  // // Wait for server to be ready
+  // await retryPromise(async () => {
+  //   const url = connectingHost
+  //     ? `http://${connectingHost}:${port}`
+  //     : `http://localhost:${port}`;
+  //   const response = await fetch(url, {
+  //     redirect: "follow"
+  //   });
+  //   if (!response.ok) {
+  //     throw new Error(`Server returned ${response.status}`);
+  //   }
+  // });
 
   return app;
 };
