@@ -15,7 +15,9 @@ const launchBrowser = async () => {
       "--disable-dev-shm-usage",
       "--no-sandbox",
       "--disable-setuid-sandbox",
-      "--disable-gpu"
+      "--disable-gpu",
+      "--disable-web-security",
+      "--enable-features=NetworkService,NetworkServiceInProcess"
     ]
   });
   return browser;
