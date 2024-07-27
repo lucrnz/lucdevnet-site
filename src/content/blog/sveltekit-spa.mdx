@@ -249,7 +249,7 @@ FROM node:lts AS builder
 WORKDIR /app
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable && corepack prepare pnpm@latest-8 --activate
+RUN corepack enable && corepack prepare pnpm@latest-9 --activate
 
 COPY . .
 
