@@ -88,7 +88,9 @@ const hostContent = async (contentDir, host, port) => {
 
   // Wait for server to be ready
   await retryPromise(async () => {
-    const response = await fetch(`http://127.0.0.1:${port}`);
+    const response = await fetch(`http://127.0.0.1:${port}`, {
+      redirect: "follow"
+    });
     if (!response.ok) {
       throw new Error(`Server returned ${response.status}`);
     }
