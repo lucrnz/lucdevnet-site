@@ -80,9 +80,10 @@ const retryPromise = (getPromise, awaitTimeMs = 1000, maxRetries = 10) =>
  * @param {string} contentDir - directory to host as root
  * @param {string} address - bind to address
  * @param {number} port - port to listen
+ * @param {string|undefined} connectingHost - host to use for connecting to the server
  * @returns - Fastify instance
  */
-const hostContent = async (contentDir, host, port) => {
+const hostContent = async (contentDir, host, port, connectingHost) => {
   const app = Fastify({ logger: true });
   app.register(fastifyGracefulShutdown);
   app.register(fastifyStatic, { root: resolve(contentDir), redirect: true });
@@ -90,7 +91,10 @@ const hostContent = async (contentDir, host, port) => {
 
   // Wait for server to be ready
   await retryPromise(async () => {
-    const response = await fetch(`http://127.0.0.1:${port}`, {
+    const url = connectingHost
+      ? `http://${connectingHost}:${port}`
+      : `http://localhost:${port}`;
+    const response = await fetch(url, {
       redirect: "follow"
     });
     if (!response.ok) {
@@ -102,29 +106,31 @@ const hostContent = async (contentDir, host, port) => {
 };
 
 (async () => {
-  /** @type {{ urlsToVisit: { url: string, outputFile: string }[], contentDir: string, host: string, port?: number }} */
+  /** @type {{ urls: { url: string, outputFile: string }[], contentDir: string, host: string, port?: number, connectingHost?: string }} */
   const {
     host: cfgHost,
     port: cfgPort,
-    urlsToVisit,
+    connectingHost: cfgConnectingHost,
+    urls,
     contentDir
   } = JSON.parse(await readFile("./config.json", "utf-8"));
 
   const host = cfgHost ?? "localhost";
   const port = await getPort(cfgPort ? { port: cfgPort } : undefined);
+  const connectingHost = cfgConnectingHost ?? "localhost";
 
   // Check if contentDir exists
   if (!existsSync(contentDir)) {
     throw new Error(`Content directory ${contentDir} does not exist`);
   }
 
-  const server = await hostContent(contentDir, host, port);
+  const server = await hostContent(contentDir, host, port, connectingHost);
   const browser = await launchBrowser();
 
-  urlsToVisit.forEach(async ({ url, outputFile }) => {
+  urls.forEach(async ({ url, outputFile }) => {
     await generatePdf(
       browser,
-      new URL(url, `http://127.0.0.1:${port}`).toString(),
+      new URL(url, `http://${connectingHost}:${port}`).toString(),
       outputFile
     );
     console.log(`Generated ${outputFile}`);

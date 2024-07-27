@@ -33,7 +33,7 @@ jobs:
     - name: Run pdf-generator
       run: |
         mkdir output
-        echo '{"urlsToVisit": [{"url": "/resume", "outputFile": "./output/resume.pdf"}], "contentDir": "./www", "host": "0.0.0.0"}' > config.json
+        echo '{"urls": [{"url": "/resume", "outputFile": "./output/resume.pdf"}], "contentDir": "./www", "host": "0.0.0.0", "connectingHost": "host.docker.internal"}' > config.json
         docker run --rm -v $(pwd)/output:/app/output -v $(pwd)/../../dist:/app/www -v $(pwd)/config.json:/app/config.json pdf-generator
       working-directory: scripts/pdf-generator
     - name: Copy PDF to dist
