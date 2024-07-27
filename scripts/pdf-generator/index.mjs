@@ -83,7 +83,7 @@ const retryPromise = (getPromise, awaitTimeMs = 1000, maxRetries = 10) =>
 const hostContent = async (contentDir, host, port) => {
   const app = Fastify({ logger: true });
   app.register(fastifyGracefulShutdown);
-  app.register(fastifyStatic, { root: resolve(contentDir) });
+  app.register(fastifyStatic, { root: resolve(contentDir), redirect: true });
   await app.listen({ host, port });
 
   // Wait for server to be ready
