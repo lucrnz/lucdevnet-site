@@ -55,7 +55,26 @@ const generatePdf = async (browser, url, outputFile) => {
 };
 
 /**
- *
+ * @param {() => Promise<unknown>} getPromise Function that returns a promise
+ * @param {number} awaitTimeMs Time to wait between retries in milliseconds
+ * @param {number} maxRetries Max number of retries
+ * @returns {Promise<void>} Resolves when the promise is successful
+ */
+const retryPromise = (getPromise, awaitTimeMs = 1000, maxRetries = 10) =>
+  new Promise(async (resolve, reject) => {
+    for (let i = 0; i < maxRetries; i++) {
+      try {
+        await getPromise();
+        resolve();
+        return;
+      } catch (e) {
+        await new Promise((r) => setTimeout(r, awaitTimeMs));
+      }
+    }
+    reject(new Error("Max retries exceeded"));
+  });
+
+/**
  * @param {string} contentDir - directory to host as root
  * @param {string} address - bind to address
  * @param {number} port - port to listen
@@ -67,16 +86,13 @@ const hostContent = async (contentDir, host, port) => {
   app.register(fastifyStatic, { root: resolve(contentDir) });
   await app.listen({ host, port });
 
-  let fetchSuccess = false;
-  while (!fetchSuccess) {
-    try {
-      await fetch(`http://127.0.0.1:${port}`);
-      fetchSuccess = true;
-    } catch (e) {
-      console.log("Waiting for content to be ready...");
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+  // Wait for server to be ready
+  await retryPromise(async () => {
+    const response = await fetch(`http://127.0.0.1:${port}`);
+    if (!response.ok) {
+      throw new Error(`Server returned ${response.status}`);
     }
-  }
+  });
 
   return app;
 };
