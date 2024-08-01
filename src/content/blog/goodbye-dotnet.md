@@ -8,8 +8,6 @@ imageAlt: "An illustration showing that I am happy working either as full-stack 
 tags: "career"
 ---
 
-> **Update as of 2023/12:** This article is dated and reflects my feelings around back-end development with .NET at that time. **Today, I am open to work using .NET 6+**.
-
 > **Disclaimer:** To any .NET/Azure developer, if you love the technology, keep using it. This article just reflects my personal interests and experiences. I have nothing against the ecosystem.
 
 The truth is I always been a Web developer, but overtime my role has fluctuated and I ended up classified as a ".NET developer".
