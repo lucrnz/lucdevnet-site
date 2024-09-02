@@ -7,6 +7,7 @@ Currently, it is an [static generated site](https://www.cloudflare.com/learning/
 
 - [Astro](https://astro.build/) - Framework for building static websites using components and TypeScript.
 - [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.js.org/) - JavaScript runtime and package manager.
+- [Caddy](https://caddyserver.com/) - For local HTTPS support.
 
 ## Development
 
@@ -16,17 +17,11 @@ This will prepare all the resources and start a local server.
 pnpm run dev
 ```
 
-If you need local HTTPS support, you can use [Caddy](https://caddyserver.com/) with the suplied [Caddyfile](./Caddyfile)
-
-```sh
-caddy run --config Caddyfile
-```
-
 Then access the site using the URL `lucdev.localhost`
 
 _Note_: Firefox users need to enable the flag `security.enterprise_roots.enabled` to `true` by accessing `about:config` in the URL bar.
 
-_Windows + WSL users:_ What I do is install Caddy with [Scoop](https://scoop.sh/#/apps?q=caddy) and then run `pwsh.exe` to invoke a Windows PowerShell session and run caddy from there.
+_Windows + WSL users:_ What I do is install Caddy with [Scoop](https://scoop.sh/#/apps?q=caddy) and then run make a symbolic link from "C:\Users\<username>\scoop\shims\caddy.exe" to "/usr/bin/caddy" for this command to work.
 
 ## Disclaimer
 
