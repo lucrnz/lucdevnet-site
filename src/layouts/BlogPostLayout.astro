@@ -39,7 +39,17 @@ const {
     datePublished={datePublished}
     dateModified={dateModified}
     isArticle={true}
-  />
+  >
+    <style is:global>
+      @media (prefers-color-scheme: dark) {
+        .astro-code,
+        .astro-code span {
+          color: var(--shiki-dark) !important;
+          background-color: var(--shiki-dark-bg) !important;
+        }
+      }
+    </style>
+  </Head>
   <BlogPostHeader
     title={title}
     summary={summary}
