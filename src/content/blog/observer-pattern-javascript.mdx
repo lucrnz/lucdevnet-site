@@ -8,7 +8,8 @@ image: "/images/blog/observer-pattern-javascript/observer-pattern-javascript.web
 imageAlt: "Observer pattern illustration"
 ---
 
-import TabContainer from "../../components/Tabs/TabContainer.astro";
+import TabContainer from "~/components/Tabs/TabContainer.astro";
+import CodeSnippet from "~/components/CodeSnippet.astro";
 
 > 🔧 You can access the source code for everything in this article [in this repository](https://github.com/lucrnz/observer-pattern-js).
 
@@ -42,6 +43,7 @@ Before we start, let me introduce some practices I used to work-around some miss
 
 First, we need to define our contracts or interfaces 📜. We'll create our own abstract classes.
 
+<CodeSnippet language="js">
 ```js
 /**
  * @abstact
@@ -56,11 +58,13 @@ class MyAbstractClass {
   }
 }
 ```
+</CodeSnippet>
 
 This runtime check makes sure that we can't instantiate the abstract class directly.
 
 To create a concrete class, we simply extend the abstract class.
 
+<CodeSnippet language="js">
 ```js
 class MyConcreteClass extends MyAbstractClass {
   constructor() {
@@ -68,6 +72,7 @@ class MyConcreteClass extends MyAbstractClass {
   }
 }
 ```
+</CodeSnippet>
 
 ### Second step: Typing & Editor autocompletion
 
@@ -75,6 +80,7 @@ To workaround the lack of types in JS, we will use [JSDoc comments](https://jsdo
 
 Here for example we will define a simple User class, making use of [JavaScript private properties](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_properties) and getters.
 
+<CodeSnippet language="js" runnable>
 ```js
 class User {
   /**
@@ -113,6 +119,7 @@ class User {
 const user = new User("Ada", "Lovelace");
 console.log(user.fullName);
 ```
+</CodeSnippet>
 
 If you hover over the `fullName` property, your editor should tell you that it is of type `string` 💪🏻
 
@@ -129,7 +136,7 @@ Think of it as a contract that outlines how all future implementations should be
 We'll begin with the `AbstractMessage` class, which acts as a contract for communication between the subject and observers. It essentially wraps the data that will be passed to the observers.
 
 <TabContainer tabs={["JavaScript", "TypeScript"]}>
-<Fragment slot="tab-1">
+<CodeSnippet language="js" slot="tab-1">
 ```js
 /**
  * @abstract
@@ -152,8 +159,8 @@ class AbstractMessage {
   }
 }
 ```
-</Fragment>
-<Fragment slot="tab-2">
+</CodeSnippet>
+<CodeSnippet language="ts" slot="tab-2">
 ```ts
 abstract class AbstractMessage<T> {
   constructor() {
@@ -167,7 +174,7 @@ abstract class AbstractMessage<T> {
   abstract get payload(): T;
 }
 ```
-</Fragment>
+</CodeSnippet>
 </TabContainer>
 
 The `payload` property is suggested to return a `Record<string, unknown>` because it is a common type for all messages, if you feel that you might need any kind of result type, I suggest you use the `unknown` type.
@@ -181,7 +188,7 @@ For the TypeScript implementation, we'll use a generic type to define the payloa
 This contract represents the observers aka any class that wants to listen to the subject's events.
 
 <TabContainer tabs={["JavaScript", "TypeScript"]}>
-<Fragment slot="tab-1">
+<CodeSnippet language="js" slot="tab-1">
 ```js
 /**
  * @abstract
@@ -213,8 +220,8 @@ class AbstractListener {
   }
 }
 ```
-</Fragment>
-<Fragment slot="tab-2">
+</CodeSnippet>
+<CodeSnippet language="ts" slot="tab-2">
 ```ts
 abstract class AbstractListener<T> {
   constructor() {
@@ -229,7 +236,7 @@ abstract class AbstractListener<T> {
   abstract get id(): string;
 }
 ```
-</Fragment>
+</CodeSnippet>
 </TabContainer>
 
 🔑 The key takeaway is that listeners receive messages and must have a unique identifier.
@@ -239,7 +246,7 @@ abstract class AbstractListener<T> {
 This class represents a Publisher, which is the entity responsible for pushing messages to its audience.
 
 <TabContainer tabs={["JavaScript", "TypeScript"]}>
-<Fragment slot="tab-1">
+<CodeSnippet language="js" slot="tab-1">
 ```js
 /**
  * @abstract
@@ -290,8 +297,8 @@ class AbstractPublisher {
   }
 }
 ```
-</Fragment>
-<Fragment slot="tab-2">
+</CodeSnippet>
+<CodeSnippet language="ts" slot="tab-2">
 ```ts
 abstract class AbstractPublisher<T> {
   constructor() {
@@ -307,7 +314,7 @@ abstract class AbstractPublisher<T> {
   abstract notifyListeners(message: AbstractMessage<T>): Promise<void>;
 }
 ```
-</Fragment>
+</CodeSnippet>
 </TabContainer>
 
 This class includes three key behaviors:
@@ -323,7 +330,7 @@ This class includes three key behaviors:
 The `Publisher` class is responsible for sending messages to its audience.
 
 <TabContainer tabs={["JavaScript", "TypeScript"]}>
-<Fragment slot="tab-1">
+<CodeSnippet language="js" slot="tab-1">
 ```js
 class Publisher extends AbstractPublisher {
   /**
@@ -366,8 +373,8 @@ class Publisher extends AbstractPublisher {
   }
 }
 ```
-</Fragment>
-<Fragment slot="tab-2">
+</CodeSnippet>
+<CodeSnippet language="ts" slot="tab-2">
 ```ts
 class Publisher<T> extends AbstractPublisher<T> {
   private listeners: Set<AbstractListener<T>> = new Set();
@@ -395,7 +402,7 @@ class Publisher<T> extends AbstractPublisher<T> {
   }
 }
 ```
-</Fragment>
+</CodeSnippet>
 </TabContainer>
 
 This simple implementation uses a [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) to store listeners, and it identifies them using their `id` property.
@@ -405,7 +412,7 @@ This simple implementation uses a [Set](https://developer.mozilla.org/en-US/docs
 The `Listener` class is the entity that listens for updates from the subject. Here is our concrete implementation:
 
 <TabContainer tabs={["JavaScript", "TypeScript"]}>
-<Fragment slot="tab-1">
+<CodeSnippet language="js" slot="tab-1">
 ```js
 class Listener extends AbstractListener {
   /**
@@ -440,8 +447,8 @@ class Listener extends AbstractListener {
   }
 }
 ```
-</Fragment>
-<Fragment slot="tab-2">
+</CodeSnippet>
+<CodeSnippet language="ts" slot="tab-2">
 ```ts
 class Listener<T> extends AbstractListener<T> {
   private readonly _id: string;
@@ -461,7 +468,7 @@ class Listener<T> extends AbstractListener<T> {
   }
 }
 ```
-</Fragment>
+</CodeSnippet>
 </TabContainer>
 
 ### Example: Implementing Message & Mailing list
@@ -469,7 +476,7 @@ class Listener<T> extends AbstractListener<T> {
 With our implementation complete, here's an example that demonstrates how to instantiate and use these classes.
 
 <TabContainer tabs={["JavaScript", "TypeScript"]}>
-<Fragment slot="tab-1">
+<CodeSnippet language="js" slot="tab-1">
 ```js
 class Message extends AbstractMessage {
   /**
@@ -499,8 +506,8 @@ class Message extends AbstractMessage {
   }
 }
 ```
-</Fragment>
-<Fragment slot="tab-2">
+</CodeSnippet>
+<CodeSnippet language="ts" slot="tab-2">
 ```ts
 type MessagePayload = { subject: string; content: string };
 
@@ -516,9 +523,8 @@ class Message extends AbstractMessage<MessagePayload> {
     return this._payload;
   }
 }
-
 ```
-</Fragment>
+</CodeSnippet>
 </TabContainer>
 
 With now all our implementation is done!
@@ -526,7 +532,7 @@ With now all our implementation is done!
 Here is the sample code that instanciates the classes and uses them.
 
 <TabContainer tabs={["JavaScript", "TypeScript"]}>
-<Fragment slot="tab-1">
+<CodeSnippet language="js" slot="tab-1">
 ```js
 const publisher = new Publisher();
 
@@ -543,8 +549,8 @@ const message = new Message(
 
 publisher.notifyListeners(message);
 ```
-</Fragment>
-<Fragment slot="tab-2">
+</CodeSnippet>
+<CodeSnippet language="ts" slot="tab-2">
 ```ts
 const publisher = new Publisher<MessagePayload>();
 
@@ -562,7 +568,7 @@ const message = new Message({
 
 publisher.notifyListeners(message);
 ```
-</Fragment>
+</CodeSnippet>
 </TabContainer>
 
 # Annex: UML Diagram & flowchart
@@ -575,4 +581,4 @@ publisher.notifyListeners(message);
 
 I hope this article has been helpful in explaining the Observer pattern and its implementation. Good luck with your project!
 
-👋🏻 Be well.
+👋 Be well.

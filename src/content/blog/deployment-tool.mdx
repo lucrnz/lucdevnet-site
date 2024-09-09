@@ -7,6 +7,9 @@ image: "/images/blog/deployment-tool/hero-image.webp"
 imageAlt: "White rocket being launched"
 tags: "devops, programming"
 ---
+import CodeSnippet from "~/components/CodeSnippet.astro";
+
+> Update: I no longer use this tool as I moved away from self-hosting, however this article is still interesting.
 
 As the title says, I decided to write my program to make deploys to my services.
 
@@ -48,10 +51,12 @@ Sure, when you try to authenticate and fail, you will get an unauthorized respon
 
 For this I decided to be as simple as possible, use a pattern in the URL as parameters:
 
-```bash
+<CodeSnippet language="misc" name="REST">
+```sh
 GET
 /{machine}/{service}/{action_name}
 ```
+</CodeSnippet>
 
 How come you are GETTING an action? This does not make sense! Indeed, it doesn't, but so does put, posting, or patching.
 
@@ -59,6 +64,7 @@ If I wanted to make this restful, I would need to call this program a deployment
 
 The output of my service is defined as a `JSON` document with the following structure:
 
+<CodeSnippet language="json">
 ```json
 {
   "returncode": 0,
@@ -66,6 +72,7 @@ The output of my service is defined as a `JSON` document with the following stru
   "stderr": "Standard error contents"
 }
 ```
+</CodeSnippet>
 
 The status code is either `200` OK, or `500` Internal Server Error if the `returncode` is not zero.
 

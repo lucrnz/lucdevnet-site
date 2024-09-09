@@ -6,6 +6,8 @@ metaDescription: "Building a .NET Core Web API with FluentValidation for Automat
 tags: "dotnet, programming"
 ---
 
+import CodeSnippet from "~/components/CodeSnippet.astro";
+
 > 🔧 This article assumes you areusing a modern version of .NET and C#, I am using .NET 8.
 
 > 🧑‍💻 This article assumes you have intermediate experience with the command line.
@@ -14,10 +16,12 @@ tags: "dotnet, programming"
 
 First launch a new console, I am using [Windows Terminal](https://learn.microsoft.com/en-us/windows/terminal/) with bash inside [WSL](https://learn.microsoft.com/en-us/windows/wsl/about). But anything works, really.
 
+<CodeSnippet language="sh">
 ```sh
 dotnet new webapi --use-controllers -o TodoApi
 code TodoApi
 ```
+</CodeSnippet>
 
 This will launch Visual Studio code on the new created project.
 
@@ -27,6 +31,7 @@ As you might see in our command line code, we are gonna use SQLite for this exam
 
 Open the integrated terminal, and start installing packages:
 
+<CodeSnippet language="sh">
 ```sh
 dotnet add package Microsoft.EntityFrameworkCore
 dotnet add package Microsoft.EntityFrameworkCore.Design
@@ -34,18 +39,22 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 dotnet add package FluentValidation
 dotnet add package SharpGrip.FluentValidation.AutoValidation.Mvc
 ```
+</CodeSnippet>
 
 This adds FluentValidation itself and a newly created package from SharpGrid that makes ASP.Net use the validators automatically, [check out their Github for more information](https://github.com/SharpGrip/FluentValidation.AutoValidation).
 
 Let's continue setting up Entity Framework Core with SQLite.
 
+<CodeSnippet language="sh">
 ```sh
 mkdir Models
 touch Models/TodoItem.cs
 ```
+</CodeSnippet>
 
 Open the newly created file `TodoItem.cs` in VSCode and write the following code:
 
+<CodeSnippet language="cs" name="TodoItem.cs">
 ```cs
 namespace TodoApi.Models;
 
@@ -56,17 +65,21 @@ public class TodoItem
     public bool IsComplete { get; set; }
 }
 ```
+</CodeSnippet>
 
 ## Setting up the database context
 
 Let's create a `DataContext.cs` file in the `Models` folder.
 
+<CodeSnippet language="sh">
 ```sh
 touch Models/DataContext.cs
 ```
+</CodeSnippet>
 
 Write the following code:
 
+<CodeSnippet language="cs" name="DataContext.cs">
 ```cs
 using Microsoft.EntityFrameworkCore;
 
@@ -76,13 +89,14 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
 {
     public DbSet<TodoItem> TodoItems { get; set; } = null!;
 }
-
 ```
+</CodeSnippet>
 
 Now we need to make use of [dependecy injection](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-8.0) to register the `DataContext` class.
 
 Update `Program.cs` with the following code:
 
+<CodeSnippet language="cs" name="Program.cs">
 ```cs
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
@@ -111,6 +125,7 @@ app.MapControllers();
 
 app.Run();
 ```
+</CodeSnippet>
 
 > 💡 Now the `DataContext` is available for depenceny-injection, making it very easy for controllers and services to access it. Addionally, we added a Connection String for the database.
 
@@ -118,12 +133,15 @@ app.Run();
 
 Create the controller file.
 
+<CodeSnippet language="sh">
 ```sh
 touch Controllers/TodoItemController.cs
 ```
+</CodeSnippet>
 
 Copy & paste the initial code:
 
+<CodeSnippet language="cs" name="TodoItemController.cs">
 ```cs
 using Microsoft.AspNetCore.Mvc;
 
@@ -136,9 +154,11 @@ public class TodoItemController : ControllerBase
 
 }
 ```
+</CodeSnippet>
 
 This is our initial code, now lets make sure to add the `DataContext` to the [primary constructor](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/primary-constructors) (which is a new feature in C# 12, btw.)
 
+<CodeSnippet language="cs" name="TodoItemController.cs">
 ```cs
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -153,9 +173,11 @@ public class TodoItemController(DataContext dataContext) : ControllerBase
     private readonly DataContext _dataContext = dataContext;
 }
 ```
+</CodeSnippet>
 
 Let's add some endpoints, this code goes inside the class.
 
+<CodeSnippet language="cs" name="TodoItemController.cs">
 ```cs
 [HttpGet("{itemId}")]
 public async Task<ActionResult<TodoItem>> GetTodoItemById(long itemId)
@@ -178,24 +200,29 @@ public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem item) {
     return CreatedAtAction(nameof(GetTodoItemById), new { itemId = item.Id }, item);
 }
 ```
+</CodeSnippet>
 
 > 💡 The first endpoint is for querying an Item using an Id, and the second item is for creating a new item.
 
 Before we can test this endpoints, we need to update our database and create the first migration:
 
+<CodeSnippet language="sh">
 ```sh
 dotnet tool install --global dotnet-ef
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
+</CodeSnippet>
 
 > 💡 This created our initial database schema and migration, now our app is ready to use the database.
 
 Open two consoles, on the first one run the api:
 
+<CodeSnippet language="sh">
 ```sh
 dotnet run
 ```
+</CodeSnippet>
 
 Take notice of the port it is running, in my case it is 5019, but it varies on project creation.
 
@@ -205,13 +232,16 @@ Take notice of the port it is running, in my case it is 5019, but it varies on p
 
 On the other one, we are gonna use `curl` to send a request:
 
+<CodeSnippet language="sh">
 ```sh
 curl -X POST -H "Content-Type: application/json" \
 -d '{"id": 0, "name": "Test the post TodoItem endpoint", "isComplete": true}' http://localhost:5019/TodoItem
 ```
+</CodeSnippet>
 
 If everything is successful, we should get a response that looks similar to this:
 
+<CodeSnippet language="json">
 ```json
 {
   "id": 3,
@@ -219,12 +249,15 @@ If everything is successful, we should get a response that looks similar to this
   "isComplete": true
 }
 ```
+</CodeSnippet>
 
 Take note of the `id`, so we can test the GET endpoint, just to make sure:
 
+<CodeSnippet language="sh">
 ```sh
 curl http://localhost:5019/TodoItem/3
 ```
+</CodeSnippet>
 
 Should print the same response.
 
@@ -234,13 +267,16 @@ Should print the same response.
 
 First we will create a validator for our TodoItem entity:
 
+<CodeSnippet language="sh">
 ```sh
 mkdir Models/Validators
 touch Models/Validators/TodoItemValidator.cs
 ```
+</CodeSnippet>
 
 Copy-paste the following code:
 
+<CodeSnippet language="cs" name="TodoItemValidator.cs">
 ```cs
 using FluentValidation;
 
@@ -254,6 +290,7 @@ public class TodoItemValidator : AbstractValidator<TodoItem>
     }
 }
 ```
+</CodeSnippet>
 
 > 💡 What this class does is validate the Entity `TodoItem` and checks that the field `Name` has a minimum length of 10 characters.
 
@@ -264,13 +301,16 @@ For now we only have one, but this can quickly scale to 10 or more than 100 depe
 
 Luckily, I came up with a solution using reflection, for this we are gona create an extension class.
 
+<CodeSnippet language="sh">
 ```sh
 mkdir Extensions
 touch Extensions/FluentValidationExtension.cs
 ```
+</CodeSnippet>
 
 Copy paste the following code:
 
+<CodeSnippet language="cs" name="FluentValidationExtension.cs">
 ```cs
 using System.Reflection;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
@@ -321,6 +361,7 @@ public static partial class ServiceCollectionExtensions
     }
 }
 ```
+</CodeSnippet>
 
 What this code does exactly:
 
@@ -334,6 +375,7 @@ What this code does exactly:
 
 To use this extension lets change our `Program.cs`
 
+<CodeSnippet language="cs" name="Program.cs">
 ```cs
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
@@ -364,6 +406,7 @@ app.MapControllers();
 
 app.Run();
 ```
+</CodeSnippet>
 
 Notice this changes:
 
@@ -372,19 +415,24 @@ Notice this changes:
 
 Let's try it out, as usual start the api:
 
+<CodeSnippet language="sh">
 ```sh
 dotnet run
 ```
+</CodeSnippet>
 
 And let's use curl to create another TodoItem, this time it will have a short item name:
 
+<CodeSnippet language="sh">
 ```sh
 curl -X POST -H "Content-Type: application/json" \
 -d '{"id": 0, "name": "short", "isComplete": false}' http://localhost:5019/TodoItem
 ```
+</CodeSnippet>
 
 You should get this error:
 
+<CodeSnippet language="json">
 ```json
 {
   "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
@@ -398,14 +446,20 @@ You should get this error:
   "traceId": "00-260592bd4ee8826b44bc7ec41694676c-36d44428bc31bf98-00"
 }
 ```
+</CodeSnippet>
 
 Now let's fix this error by creating a new item that satisfies our validation:
 
+<CodeSnippet language="sh">
 ```sh
 curl -X POST -H "Content-Type: application/json" \
 -d '{"id": 0, "name": "Setup FluentValidation", "isComplete": true}' http://localhost:5019/TodoItem
 ```
+</CodeSnippet>
 
+Here is the response:
+
+<CodeSnippet language="json">
 ```json
 {
   "id": 4,
@@ -413,6 +467,7 @@ curl -X POST -H "Content-Type: application/json" \
   "isComplete": true
 }
 ```
+</CodeSnippet>
 
 🎊 Congratulations, you just setup FluentValidation correctly.
 

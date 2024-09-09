@@ -9,8 +9,8 @@ tags: "webdev, typescript, svelte, docker"
 ---
 
 import { Tweet } from "astro-embed";
-
-import TabContainer from "../../components/Tabs/TabContainer.astro";
+import TabContainer from "~/components/Tabs/TabContainer.astro";
+import CodeSnippet from "~/components/CodeSnippet.astro";
 
 > 🧑‍💻 This article assumes you have intermediate experience with the command line.
 
@@ -33,22 +33,23 @@ I won't list the reasons [why server-side rendering is better](https://www.phind
 Let's create a new project
 
 <TabContainer tabs={["npm", "pnpm"]}>
-<div slot="tab-1">
-```
+<CodeSnippet language="sh" slot="tab-1">
+```sh
 npm create svelte@latest my-app
 ```
-</div>
-<div slot="tab-2">
-```
+</CodeSnippet>
+<CodeSnippet language="sh" slot="tab-2">
+```sh
 pnpm create svelte@latest my-app
 ```
-</div>
+</CodeSnippet>
 </TabContainer>
 
 The program will make you some questions, I will choosing the option that says "SvelteKit demo app", and I will choose to use TypeScript.
 
 I will skip any of the aditional options.
 
+<CodeSnippet language="misc" name="Console Output">
 ```
 ┌  Welcome to SvelteKit!
 │
@@ -63,22 +64,23 @@ I will skip any of the aditional options.
 │
 └  Your project is ready!
 ```
+</CodeSnippet>
 
 Open your favorite code editor with that folder. I will be using [VS Code](https://code.visualstudio.com/).
 
 Don't forget to install the packages.
 
 <TabContainer tabs={["npm", "pnpm"]}>
-<div slot="tab-1">
-```
+<CodeSnippet language="sh" slot="tab-1">
+```sh
 npm i
 ```
-</div>
-<div slot="tab-2">
-```
+</CodeSnippet>
+<CodeSnippet language="sh" slot="tab-2">
+```sh
 pnpm i
 ```
-</div>
+</CodeSnippet>
 </TabContainer>
 
 ## How to enable SPA mode
@@ -87,40 +89,45 @@ You can also consult the official documentation [in this link](https://kit.svelt
 
 Lets create the following file `src/routes/+layout.ts`
 
+<CodeSnippet language="sh">
 ```sh
 touch src/routes/+layout.ts
 ```
+</CodeSnippet>
 
 Add the following contents:
 
+<CodeSnippet language="ts" name="src/routes/+layout.ts">
 ```ts
 export const ssr = false;
 ```
+</CodeSnippet>
 
 > ⚠ Do not confuse this file with `+layout.svelte` they're different files, and only in the `.ts` this will work.
 
 Now we have to switch the adapter, to use the static one.
 
 <TabContainer tabs={["npm", "pnpm"]}>
-<div slot="tab-1">
-```
+<CodeSnippet language="sh" slot="tab-1">
+```sh
 npm remove @sveltejs/adapter-auto
 npm i -D @sveltejs/adapter-static
 ```
-</div>
-<div slot="tab-2">
-```
+</CodeSnippet>
+<CodeSnippet language="sh" slot="tab-2">
+```sh
 pnpm remove @sveltejs/adapter-auto
 pnpm add -D @sveltejs/adapter-static
 ```
-</div>
+</CodeSnippet>
 </TabContainer>
 
 Open the file that contains the svelte config `svelte.config.js`
 
 Replace the adapter to use the static one, here is how it should look like:
 
-```ts
+<CodeSnippet language="js" name="svelte.config.js">
+```js
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
@@ -139,22 +146,23 @@ const config = {
 
 export default config;
 ```
+</CodeSnippet>
 
 This should be enough to turn it into an SPA.
 
 You can run the application if you want to play around with it.
 
 <TabContainer tabs={["npm", "pnpm"]}>
-<div slot="tab-1">
-```
+<CodeSnippet language="sh" slot="tab-1">
+```sh
 npm run dev
 ```
-</div>
-<div slot="tab-2">
-```
+</CodeSnippet>
+<CodeSnippet language="sh" slot="tab-2">
+```sh
 pnpm run dev
 ```
-</div>
+</CodeSnippet>
 </TabContainer>
 
 ## How to dockerize any Single-page-application
@@ -165,6 +173,7 @@ Let's do that! For that, I will using nginx.
 
 ✍ Create a file called `nginx.conf`
 
+<CodeSnippet language="cfg" name="nginx.conf">
 ```
 events {}
 
@@ -196,17 +205,21 @@ http {
     }
 }
 ```
+</CodeSnippet>
 
 You can tune in this config if you want to, here you can see that it gives a long time cache for any static request.
 
 Create a file called `.dockerignore`
 
+<CodeSnippet language="sh">
 ```sh
 touch .dockerignore
 ```
+</CodeSnippet>
 
 Add the following contents:
 
+<CodeSnippet language="misc" name=".dockerignore">
 ```
 .git
 .gitignore
@@ -218,17 +231,20 @@ node_modules
 .env*
 .svelte*
 ```
+</CodeSnippet>
 
 Create a file called `Dockerfile`
+<CodeSnippet language="sh">
 ```sh
 touch Dockerfile
 ```
+</CodeSnippet>
 
 As expected, the contents vary depending on the package manager you are using.
 
 <TabContainer tabs={["npm", "pnpm"]}>
-<div slot="tab-1">
-```Dockerfile
+<CodeSnippet language="dockerfile" slot="tab-1">
+```dockerfile
 FROM node:lts AS builder
 WORKDIR /app
 
@@ -242,9 +258,9 @@ FROM nginx:latest as runner
 COPY --from=builder /app/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 ```
-</div>
-<div slot="tab-2">
-```Dockerfile
+</CodeSnippet>
+<CodeSnippet language="dockerfile" slot="tab-2">
+```dockerfile
 FROM node:lts AS builder
 WORKDIR /app
 ENV PNPM_HOME="/pnpm"
@@ -261,20 +277,24 @@ FROM nginx:latest as runner
 COPY --from=builder /app/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 ```
-</div>
+</CodeSnippet>
 </TabContainer>
 
 Let's build the docker image:
 
+<CodeSnippet language="sh">
 ```sh
 docker build -t my-app .
 ```
+</CodeSnippet>
 
 Run the container with the following command:
 
+<CodeSnippet language="sh">
 ```sh
 docker run -p 3000:3000 -t my-app
 ```
+</CodeSnippet>
 
 This will forward the port "3000" from the container to match :3000 on your local computer.
 

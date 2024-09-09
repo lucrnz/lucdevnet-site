@@ -8,6 +8,8 @@ imageAlt: "The Pages logo featuring a lightning bolt"
 tags: "devops, webdev"
 ---
 
+import CodeSnippet from "~/components/CodeSnippet.astro";
+
 > **Disclaimer**: I am not affiliated with Cloudflare nor they sponsor me. This article is for sharing information that I find useful.
 
 > 🧑‍💻 This post assumes you have intermediate experience with the command line and Git front-ends like GitHub.
@@ -49,18 +51,22 @@ Open your favorite **terminal emulator**, and clone it:
 
 > 🪟 For the Windows operative system, please continue on [WSL](https://learn.microsoft.com/en-us/windows/wsl/install). If you don't have it, go ahead and install it and configure it.
 
+<CodeSnippet language="sh">
 ```
 git clone git@github.com:lucrnz/my-website.git my-website
 cd my-website/
 ```
+</CodeSnippet>
 
 Now we have to log in to Cloudflare or create an account by using their command line tool.
 
 For this, you will need [Node](http://nodejs.org/) installed on your computer.
 
+<CodeSnippet language="sh">
 ```
 npx wrangler login
 ```
+</CodeSnippet>
 
 This will show you an URL that you have to copy and paste into your **web browser** to continue the login, there you can create your Cloudflare account if you don't have one.
 
@@ -70,14 +76,17 @@ We are going to create an example website to deploy, additionally, we are gonna 
 
 ✏️ Let's create our starting files:
 
+<CodeSnippet language="sh">
 ```
 touch .gitignore
 touch index.html
 touch style.scss
 ```
+</CodeSnippet>
 
 Edit the `index.html` file with the following contents:
 
+<CodeSnippet language="html" name="index.html">
 ```html
 <!doctype html>
 <html lang="en">
@@ -171,9 +180,11 @@ Edit the `index.html` file with the following contents:
   </body>
 </html>
 ```
+</CodeSnippet>
 
 💅 Let's now give it a stylesheet, edit the file `style.scss`
 
+<CodeSnippet language="scss" name="style.scss">
 ```scss
 $border-radius: 8px;
 
@@ -345,27 +356,34 @@ footer {
   }
 }
 ```
+</CodeSnippet>
 
 > 💡 This code defines a simple personal website that is about a fake person. You can replace the text if you want.
 > The website uses a layout known as "hero" which is a large image at the top of the page. The image is responsive and will adapt to the size of the screen.
 
 Let's now compile the stylesheet, and run the following command:
 
-```bash
+<CodeSnippet language="sh">
+```sh
 npx sass style.scss style.css
 ```
+</CodeSnippet>
 
 You can also use the `--watch` option to automatically recompile the stylesheet when you edit the file.
 
-```bash
+<CodeSnippet language="sh">
+```sh
 npx sass --watch style.scss style.css
 ```
+</CodeSnippet>
 
 For being able to preview the website, we will use Python's built-in HTTP server.
 
-```bash
+<CodeSnippet language="sh">
+```sh
 python -m http.server
 ```
+</CodeSnippet>
 
 You can now open the website at [http://localhost:8000](http://localhost:8000)
 
@@ -377,21 +395,25 @@ It should look like this:
 
 🧰 Let's create a simple script that takes care of building the website.
 
-```bash
-mkdir -p scripts
+<CodeSnippet language="sh">
+```sh
+mkdir -p scripts && \
 touch scripts/build.sh
 ```
-
+</CodeSnippet>
 Edit the file `scripts/build.sh`:
 
+<CodeSnippet language="sh" name="build.sh">
 ```bash
-mkdir -p dist
-npx sass style.scss dist/style.css
+mkdir -p dist && \
+npx sass style.scss dist/style.css && \
 cp index.html dist/index.html
 ```
+</CodeSnippet>
 
 For making git ignore any built files, edit the file `.gitignore`:
 
+<CodeSnippet language="misc" name=".gitignore">
 ```
 # Ignore dist folder
 dist/
@@ -402,31 +424,39 @@ style.css
 # Ignore css maps
 *.css.map
 ```
+</CodeSnippet>
 
 We will commit the changes to git.
 
+<CodeSnippet language="sh">
 ```bash
 git add .
 git commit -m "Initial commit"
 ```
+</CodeSnippet>
 
 Let's create a new Cloudflare pages project.
 
+<CodeSnippet language="sh">
 ```bash
 npx wrangler pages project create my-website
 ```
+</CodeSnippet>
 
 Now we only need to tell Cloudflare Pages to run this script when deploying the website.
 
 For this let's create our GitHub Actions workflow.
 
-```bash
+<CodeSnippet language="sh">
+```sh
 mkdir -p .github/workflows
 touch .github/workflows/build.yml
 ```
+</CodeSnippet>
 
 Edit the file `.github/workflows/build.yml`:
 
+<CodeSnippet language="yaml" name="build.yml">
 ```yaml
 name: Build and deploy
 
@@ -463,6 +493,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         working-directory: dist
 ```
+</CodeSnippet>
 
 > ⚠️ Don't forget to replace `my-website` with the name of your website, this is shown in your Cloudflare Pages dashboard.
 
@@ -495,11 +526,13 @@ Click the `Add secret` button.
 
 Now we will push the code to GitHub and let GitHub Actions do the rest.
 
-```bash
+<CodeSnippet language="sh">
+```sh
 git add .
 git commit -m "Add GitHub actions workflow"
 git push origin main
 ```
+</CodeSnippet>
 
 ## Conclusion
 

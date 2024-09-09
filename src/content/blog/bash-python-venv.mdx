@@ -8,6 +8,8 @@ imageAlt: "Illustration showing the Bash logo and the Python logo"
 tags: "python, bash"
 ---
 
+import CodeSnippet from "~/components/CodeSnippet.astro";
+
 > 💡 Info: This article assumes you have intermediate knowledge of Linux/Bash shell and Python.
 >
 > If you use the Windows operating system, please check out a guide on how to set up WSL2. This will not work otherwise!
@@ -36,11 +38,13 @@ First, go to your project folder. I'll assume your virtual environment is in a f
 
 Now create a file called `run.sh` and open it in your favorite text editor:
 
+<CodeSnippet language="sh" name="run.sh">
 ```bash
 export PATH="$(pwd)/.venv/bin:$PATH"
 
 python main.py
 ```
+</CodeSnippet>
 
 This will activate the `venv` and run the `main.py` script.
 
@@ -52,43 +56,55 @@ Hope you find this information useful! 🙌
 
 Make a folder for your project:
 
-```
+<CodeSnippet language="sh">
+```sh
 mkdir simple-api
 ```
+</CodeSnippet>
 
 Open the folder in your favorite code editor, and launch a `terminal` from it.
 
 Let's get a `venv`
 
-```
+<CodeSnippet language="sh">
+```sh
 python3 -m venv .venv
 source .venv/bin/activate
 ```
+</CodeSnippet>
 
 Add `flask`, the library we are gonna use to build this API
 
-```
+<CodeSnippet language="sh">
+```sh
 pip install flask
 ```
+</CodeSnippet>
 
 We will also add `gunicorn` a production-ready `appserver`
 
-```
+<CodeSnippet language="sh">
+```sh
 pip install gunicorn
 ```
+</CodeSnippet>
 
 Create a lockfile
 
-```
+<CodeSnippet language="sh">
+```sh
 pip freeze > requirements.txt
 ```
+</CodeSnippet>
 
 Create a `src` folder and your initial `main.py` file
 
-```
+<CodeSnippet language="sh">
+```sh
 mkdir src
 touch src/main.py
 ```
+</CodeSnippet>
 
 > This is how the folder structure should look like:
 >
@@ -96,6 +112,7 @@ touch src/main.py
 
 Let's start coding:
 
+<CodeSnippet language="py" name="main.py">
 ```python
 from os import getenv
 from flask import Flask, jsonify
@@ -112,6 +129,7 @@ def index():
 if __name__ == '__main__':
     app.run(host=getenv('HOST') or '127.0.0.1', port=getenv('PORT') or '5000')
 ```
+</CodeSnippet>
 
 Now, I will explain the code:
 
@@ -123,30 +141,38 @@ The imports are self-explanatory:
 
 This line initializes the library
 
+<CodeSnippet language="py">
 ```python
 app = Flask(__name__)
 ```
+</CodeSnippet>
 
 Here we store multiple ways to say hello:
 
+<CodeSnippet language="py">
 ```python
 greetings = ["Hello", "Hola", "Bonjour", "Hallo", "こんにちは", "Hei", "Привіт"]
 ```
+</CodeSnippet>
 
 This code says, hey: the following function is an `GET` route for the endpoint `/`
 
+<CodeSnippet language="py">
 ```python
 @app.route(f'/')
 def index():
 ```
+</CodeSnippet>
 
 Here we first choose a random item from our greeting list, then store it in a dictionary, and lastly return it as a `JSON` text.
 
 Wow, that was a lot in just one line of code!
 
+<CodeSnippet language="py">
 ```python
     return jsonify({'msg': choice(greetings)})
 ```
+</CodeSnippet>
 
 Lastly, we run the `API` so we can listen to requests.
 
@@ -156,28 +182,36 @@ The next line grabs the environment variables and provides some defaults to them
 
 Then we launch our program! 🚀
 
+<CodeSnippet language="py">
 ```python
     if __name__ == '__main__':
         app.run(host=getenv('HOST') or '::', port=getenv('PORT') or '5000')
 ```
+</CodeSnippet>
 
 Let's test it!
 
-```
+<CodeSnippet language="sh">
+```sh
 python main.py
 ```
+</CodeSnippet>
 
 Let's call it! Use another terminal
 
-```
+<CodeSnippet language="sh">
+```sh
 curl http://localhost:5000/
 ```
+</CodeSnippet>
 
 You should see this:
 
+<CodeSnippet language="json">
 ```json
 { "msg": "Hello" }
 ```
+</CodeSnippet>
 
 ✨ It works! Nice
 
@@ -191,17 +225,21 @@ To make our program start automatically with the system we need to create a syst
 
 But first, let's make a bash script for starting our API:
 
-```
+<CodeSnippet language="sh">
+```sh
 touch launch.sh
 ```
+</CodeSnippet>
 
 > Info: We are creating this file outside of the src directory.
 
+<CodeSnippet language="sh" name="launch.sh">
 ```bash
 export PATH="$(pwd)/.venv/bin:$PATH"
 
 python -m gunicorn --chdir src main:app -w 4 --threads 2 -b [::]:5000
 ```
+</CodeSnippet>
 
 I will explain what happens in this script:
 
@@ -215,22 +253,28 @@ You can test this by running the script.
 
 > Before this, close your existing terminal if it already has a venv activated
 
-```
+<CodeSnippet language="sh">
+```sh
+chmod +x launch.sh && \
 ./launch.sh
 ```
+</CodeSnippet>
 
-When you finish testing it, please close it by pressing `Ctrl+C` (or `Command+C`)
+When you finish testing it, please close it by pressing `Ctrl+C`
 
 Let's set up the service unit:
 
-```
+<CodeSnippet language="sh">
+```sh
 mkdir -p ~/.config/systemd/user
 cd ~/.config/systemd/user
 touch simple-api.service
 ```
+</CodeSnippet>
 
 Open the file `simple-api.service` with your text/code editor:
 
+<CodeSnippet language="misc" name="simple-api.service">
 ```
 [Unit]
 Description=My flask API
@@ -242,33 +286,42 @@ ExecStart=bash launch.sh
 [Install]
 WantedBy=default.target
 ```
+</CodeSnippet>
 
 > ✅ You need to replace `/home/user/simple-api` with your project path.
 
 Enable the unit:
 
-```
+<CodeSnippet language="sh">
+```sh
 systemctl --user daemon-reload
 systemctl --user enable --now simple-api.service
 ```
+</CodeSnippet>
 
 Recommended for server/VPS (not your dev machine):
 
-```
+<CodeSnippet language="sh">
+```sh
 sudo loginctl enable-linger $(whoami)
 ```
+</CodeSnippet>
 
 This will make it so all your user's services will start even when you haven't logged in.
 
 Let's try to call it!
 
-```
+<CodeSnippet language="sh">
+```sh
 curl http://localhost:5000/
 ```
+</CodeSnippet>
 
-```sh
+<CodeSnippet language="json">
+```json
 {"msg":"Bonjour"}
 ```
+</CodeSnippet>
 
 Hope you enjoyed this article! Have a wonderful day! ☺️
 
@@ -278,14 +331,32 @@ Hope you enjoyed this article! Have a wonderful day! ☺️
 
 Disable the service unit:
 
-```
+<CodeSnippet language="sh">
+```sh
 systemctl disable --user simple-api.service
 ```
+</CodeSnippet>
 
 Remove it:
 
-```
+<CodeSnippet language="sh">
+```sh
 rm ~/.config/systemd/user/simple-api.service
 ```
+</CodeSnippet>
 
 Delete the `simple-api` folder.
+
+<CodeSnippet language="sh">
+```sh
+rm -rf simple-api
+```
+</CodeSnippet>
+
+# Conclusion
+
+You have successfully created a Python API using Flask and Gunicorn.
+
+You can now use this API to build your own projects, or use it as a starting point for your own API.
+
+👋 Take care & happy coding!

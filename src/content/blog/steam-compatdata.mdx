@@ -7,6 +7,7 @@ image: "/images/blog/steam-compatdata/steam-compatdata-hero.webp"
 imageAlt: "Steam logo showing a compress icon"
 tags: "linux, steam"
 ---
+import CodeSnippet from "~/components/CodeSnippet.astro"
 
 > 💡 Info: This article is for the GNU/Linux operative system, It might work on SteamOS, but I haven't tried since I do not own that device.
 > This also assumes you have intermediate knowledge using the command line.
@@ -40,87 +41,109 @@ So this will be 40 \* 600 = 24000M . Which is around **24GB**.
 
 **Note:** the compressed size for each folder will be smaller, so you can tune in this "600" number down if you want to experiment a bit.
 
-```
+<CodeSnippet language="sh">
+```sh
 cd /mnt/games_drive/SteamLibrary # Go to your library folder
 fallocate -l 24G compatdata.btrfs # Allocate space in drive
 sudo mkfs.btrfs -L "steamcompat" compatdata.btrfs
 ```
+</CodeSnippet>
 
 Create a temporary folder to mount the filesystem
 
-```
+<CodeSnippet language="sh">
+```sh
 mkdir compat_temp
 ```
+</CodeSnippet>
 
 Mount the filesystem
 
 For this you will need to [choose a compression level for zstd](https://duckduckgo.com/?q=zstd+compression+level+comparison), I am going with 5.
 
-```
+<CodeSnippet language="sh">
+```sh
 sudo mount -t btrfs -o loop,compress-force=zstd:5 compatdata.btrfs compat_temp
 ```
+</CodeSnippet>
 
 Take ownership of the root folder from the loop device
 
-```
+<CodeSnippet language="sh">
+```sh
 sudo chown $(id -u):$(id -g) compat_temp
 ```
+</CodeSnippet>
 
 Copy all the prefixes to the loop device
 
-```
+<CodeSnippet language="sh">
+```sh
 for d in steamapps/compatdata/*; do test -d "$d" && cp -av "$d" compat_temp/; done
 ```
+</CodeSnippet>
 
 Now we will rename the actual compatdata to have a backup (you can remove it later if it works!)
 
-```
+<CodeSnippet language="sh">
+```sh
 mv steamapps/compatdata steamapps/compatdata.backup
 ```
+</CodeSnippet>
 
 Create an empty folder to mount the loop-device in
 
-```
+<CodeSnippet language="sh">
+```sh
 mkdir steamapps/compatdata
 ```
+</CodeSnippet>
 
 Unmount the loop-device
 
-```
+<CodeSnippet language="sh">
+```sh
 sudo umount compat_temp
 ```
+</CodeSnippet>
 
 Edit /etc/fstab
 
 For this you can open your favorite editor, to be friendly here will show nano.
 
-```
+<CodeSnippet language="sh">
+```sh
 sudo nano /etc/fstab
 ```
+</CodeSnippet>
 
 Add this at the end
 
 **Make sure to replace the folder paths correctly and use your compression level**
 
+<CodeSnippet language="misc" name="/etc/fstab">
 ```
 # Steam compat data
 /mnt/games_drive/SteamLibrary/compatdata.btrfs /mnt/games_drive/SteamLibrary/steamapps/compatdata btrfs defaults,loop,compress-force=zstd:5,x-gvfs-hide 0 0
 ```
+</CodeSnippet>
 
 Note: You can also use [systemd mounts](https://duckduckgo.com/?q=how+to+create+systemd+mount) instead of fstab.
 
 Mount all and reload systemd daemon
 
-```
+<CodeSnippet language="sh">
+```sh
 sudo mount -a && sudo systemctl daemon-reload
 ```
+</CodeSnippet>
 
 # The results
 
-Looking at the ext4 folder, for 29 games, there is around 8 GiB of files.
+Looking at the ext4 folder, for **29 games**, there is around 8 GiB of files.
 
-Checking current disk usage of the loop-device folder (thanks to Thunar, by right-clicking the compatdata), around 3.7 GiB used (15%).
+Checking current disk usage of the loop-device folder *(thanks to Thunar, by right-clicking the compatdata)*, around **3.7 GiB** used (15%).
 
 I hope you find this information useful.
 
-Take care
+👋Take care
