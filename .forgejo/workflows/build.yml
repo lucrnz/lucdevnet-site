@@ -1,0 +1,53 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-and-deploy:
+    runs-on: docker
+    container:
+      image: ghcr.io/catthehacker/ubuntu:act-22.04
+    steps:
+    - name: Test connectivity
+      run: curl -v https://git.lucdev.net
+    - name: Checkout code
+      uses: actions/checkout@v4
+      env:
+        GIT_TRACE: 1
+        GIT_CURL_VERBOSE: 1
+    - name: Install pnpm
+      uses: https://github.com/pnpm/action-setup@v4
+      with:
+        version: 9
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'pnpm'
+    - name: Install dependencies
+      run: pnpm install
+    - name: Lint
+      run: pnpm run lint
+    - name: Build project
+      run: pnpm run build
+    # TODO: Make this work on Forgejo Actions
+    #- name: Build pdf-generator image
+    #  run: docker build -t pdf-generator .
+    #  working-directory: scripts/pdf-generator
+    #- name: Run pdf-generator
+    #  run: |
+    #    mkdir output
+    #    echo '{"urls": [{"url": "/resume", "outputFile": "./output/resume.pdf"}], "contentDir": "./www", "host": "0.0.0.0"}' > config.json
+    #    docker run --rm --network host -v $(pwd)/output:/app/output -v $(pwd)/../../dist:/app/www -v $(pwd)/config.json:/app/config.json pdf-generator
+    #  working-directory: scripts/pdf-generator
+    #- name: Copy PDF to dist
+    #  run: cp scripts/pdf-generator/output/resume.pdf dist/resume/resume.pdf
+    - name: Fetch PDF
+      run: curl https://0c2ecf90.lucdev.pages.dev/resume/resume.pdf -L -O
+      working-directory: dist/resume
+    - name: Deploy
+      run: pnpm run deploy
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
