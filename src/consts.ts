@@ -16,9 +16,10 @@ export const authorSocialMedia = [
 ];
 export const authorGender = "Other";
 export const authorDescription = [
-  "Entrepreneur and Web Developer, passionate about building software.",
-  "I write posts to help others build their products more easily."
+  "Software developer, focusing on the web platform",
+  "I enjoy sharing what I learn with the community and help others build 🙂"
 ];
+
 export const authorProfilePicture = "/images/author/lhillcoat_picture.webp";
 export const authorProfilePictureSmall =
   "/images/author/lhillcoat_picture_small.webp";
