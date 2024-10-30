@@ -38,9 +38,8 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
       </h1>
       <h2
         class="font-display text-3xl sm:text-6xl lg:text-7xl font-medium bg-gradient-to-r from-sky-600 to-emerald-800 dark:from-sky-400 dark:to-emerald-600 text-transparent bg-clip-text pb-1"
-        data-type-values="Web developer,Entrepreneur"
       >
-        <span data-type-content>Web developer</span>
+        <span>Web developer</span>
       </h2>
     </div>
   </div>
@@ -164,46 +163,3 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
     </ul>
   </article>
 </BaseLayout>
-
-<script>
-  (async () => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    const { homePageScript } = await import("~/scripts/homePageScript");
-    const { setupScript } = await import("~/scripts/setupScript");
-
-    const setupScriptWrapped = async () => {
-      const { cleanup, setup } = homePageScript();
-
-      await setupScript({
-        name: "home-script",
-        setup,
-        cleanup
-      });
-    };
-
-    let setupTriggered = false;
-    let timer: ReturnType<typeof setTimeout>;
-    const initialDelayMs = 5000;
-
-    const triggerSetup = async () => {
-      if (!setupTriggered) {
-        setupTriggered = true;
-        clearTimeout(timer);
-        await setupScriptWrapped();
-      }
-    };
-
-    document.addEventListener("touchstart", triggerSetup, { once: true });
-    document.addEventListener("scroll", triggerSetup, { once: true });
-    document.addEventListener("mousemove", triggerSetup, { once: true });
-
-    timer = setTimeout(triggerSetup, initialDelayMs);
-  })();
-</script>
