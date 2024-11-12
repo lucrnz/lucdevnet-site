@@ -14,13 +14,13 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/mdx": "^3.1.8",
+    "@astrojs/mdx": "^3.1.9",
     "@astrojs/rss": "^4.0.9",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.2",
     "@fontsource-variable/cabin": "^5.1.0",
     "@fontsource-variable/exo-2": "^5.1.0",
-    "astro": "^4.16.7",
+    "astro": "^4.16.8",
     "astro-embed": "^0.7.4",
     "astro-robots-txt": "^1.0.0",
     "mdast-util-from-markdown": "^2.0.2",
@@ -36,6 +36,6 @@
     "reading-time": "^1.5.0",
     "sharp": "0.33.4",
     "typescript": "^5.6.3",
-    "wrangler": "^3.83.0"
+    "wrangler": "^3.84.1"
   }
 }
