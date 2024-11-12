@@ -11,7 +11,12 @@ export interface Props {
   url: string;
 }
 
-const { date, title, url } = Astro.props;
+const { date, title, url: providedUrl } = Astro.props;
+
+// Mix the query params with the provided url
+const url = new URL(providedUrl);
+url.searchParams.set("utm_source", Astro.site!.toString());
+url.searchParams.set("utm_medium", "blog");
 
 const dateFormatted = formatDateTime(
   date,
@@ -36,7 +41,7 @@ const dateFormatted = formatDateTime(
       >
       <span>{dateFormatted}</span>
     </span>
-    <a href={url} target="_blank" class="mb-2 max-w-fit"
+    <a href={url.toString()} target="_blank" class="mb-2 max-w-fit"
       ><h2
         class="text-2xl underline font-medium hover:text-cyan-600 hover:dark:text-cyan-400"
       >
