@@ -15,24 +15,6 @@ const shareTextWithURL = `${shareText} - ${shareURL}`;
 
 <div class="flex flex-row items-center gap-2 max-w-min print:hidden">
   <a
-    title="Share on X"
-    href={`https://x.com/intent/tweet?${new URLSearchParams({ text: `${title} - ${siteTitle}`, url: shareURL })}`}
-    target="_blank"
-    class="hover:text-cyan-600 hover:dark:text-cyan-400"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="aspect-square w-[22px] md:w-[32px]"
-      width="32"
-      height="32"
-      viewBox="0 0 24 24"
-      ><path
-        fill="currentColor"
-        d="M18.205 2.25h3.308l-7.227 8.26l8.502 11.24H16.13l-5.214-6.817L4.95 21.75H1.64l7.73-8.835L1.215 2.25H8.04l4.713 6.231zm-1.161 17.52h1.833L7.045 4.126H5.078z"
-      ></path></svg
-    >
-  </a>
-  <a
     title="Share on Bluesky"
     href={`https://bsky.app/intent/compose?${new URLSearchParams({ text: shareTextWithURL })}`}
     target="_blank"
@@ -51,6 +33,24 @@ const shareTextWithURL = `${shareText} - ${shareURL}`;
         stroke-linejoin="round"
         stroke-width="2"
         d="M6.335 5.144C4.681 3.945 2 3.017 2 5.97c0 .59.35 4.953.556 5.661C3.269 14.094 5.686 14.381 8 14c-4.045.665-4.889 3.208-2.667 5.41C6.363 20.428 7.246 21 8 21c2 0 3.134-2.769 3.5-3.5q.5-1 .5-1.5q0 .5.5 1.5c.366.731 1.5 3.5 3.5 3.5c.754 0 1.637-.571 2.667-1.59C20.889 17.207 20.045 14.664 16 14c2.314.38 4.73.094 5.444-2.369c.206-.708.556-5.072.556-5.661c0-2.953-2.68-2.025-4.335-.826C15.372 6.806 12.905 10.192 12 12c-.905-1.808-3.372-5.194-5.665-6.856"
+      ></path></svg
+    >
+  </a>
+  <a
+    title="Share on X"
+    href={`https://x.com/intent/tweet?${new URLSearchParams({ text: `${title} - ${siteTitle}`, url: shareURL })}`}
+    target="_blank"
+    class="hover:text-cyan-600 hover:dark:text-cyan-400"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="aspect-square w-[22px] md:w-[32px]"
+      width="32"
+      height="32"
+      viewBox="0 0 24 24"
+      ><path
+        fill="currentColor"
+        d="M18.205 2.25h3.308l-7.227 8.26l8.502 11.24H16.13l-5.214-6.817L4.95 21.75H1.64l7.73-8.835L1.215 2.25H8.04l4.713 6.231zm-1.161 17.52h1.833L7.045 4.126H5.078z"
       ></path></svg
     >
   </a>
