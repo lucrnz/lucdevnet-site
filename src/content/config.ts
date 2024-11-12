@@ -5,7 +5,7 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     // Description for Search engines
-    metaDescription: z.string(),
+    metaDescription: z.string().optional(),
     // Description for Users
     summary: z.string(),
     // Transform string to Date object
