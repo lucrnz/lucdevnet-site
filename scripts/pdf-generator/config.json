@@ -1,0 +1,5 @@
+{
+  "urls": [{ "url": "/resume", "outputFile": "./output/resume.pdf" }],
+  "contentDir": "./www",
+  "host": "0.0.0.0"
+}
