@@ -13,9 +13,9 @@
     "fastify": "^4.28.1",
     "fastify-graceful-shutdown": "^4.0.1",
     "get-port": "^7.1.0",
-    "puppeteer": "^22.14.0"
+    "puppeteer": "^23.9.0"
   },
   "devDependencies": {
-    "@types/node": "^20.14.12"
+    "@types/node": "^20.17.9"
   }
 }
