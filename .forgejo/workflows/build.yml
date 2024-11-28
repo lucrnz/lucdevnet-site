@@ -44,9 +44,6 @@ jobs:
     #  working-directory: scripts/pdf-generator
     #- name: Copy PDF to dist
     #  run: cp scripts/pdf-generator/output/resume.pdf dist/resume/resume.pdf
-    - name: Fetch PDF
-      run: curl https://0c2ecf90.lucdev.pages.dev/resume/resume.pdf -L -O
-      working-directory: dist/resume
     - name: Deploy
       run: pnpm run deploy
       env:
