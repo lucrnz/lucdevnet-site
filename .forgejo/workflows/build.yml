@@ -32,18 +32,6 @@ jobs:
       run: pnpm run lint
     - name: Build project
       run: pnpm run build
-    # TODO: Make this work on Forgejo Actions
-    #- name: Build pdf-generator image
-    #  run: docker build -t pdf-generator .
-    #  working-directory: scripts/pdf-generator
-    #- name: Run pdf-generator
-    #  run: |
-    #    mkdir output
-    #    echo '{"urls": [{"url": "/resume", "outputFile": "./output/resume.pdf"}], "contentDir": "./www", "host": "0.0.0.0"}' > config.json
-    #    docker run --rm --network host -v $(pwd)/output:/app/output -v $(pwd)/../../dist:/app/www -v $(pwd)/config.json:/app/config.json pdf-generator
-    #  working-directory: scripts/pdf-generator
-    #- name: Copy PDF to dist
-    #  run: cp scripts/pdf-generator/output/resume.pdf dist/resume/resume.pdf
     - name: Deploy
       run: pnpm run deploy
       env:
