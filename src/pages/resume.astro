@@ -15,7 +15,9 @@ import tsCertImgJpg from "~/assets/resume/certificates/understanding-typescript.
 import reactCertImgJpg from "~/assets/resume/certificates/react-complete-guide.jpg";
 import postgresCertImgJpg from "~/assets/resume/certificates/complete-sql-bootcamp.jpg";
 import efSetEnglishCertImgPng from "~/assets/resume/certificates/ef-set-english.png";
+import reactTestingJestCertImgPng from "~/assets/resume/certificates/react-testing-jest.png";
 
+const reactTestingJestCertImg = await compressImage(reactTestingJestCertImgPng);
 const tsCertImg = await compressImage(tsCertImgJpg);
 const reactCertImg = await compressImage(reactCertImgJpg);
 const postgresCertImg = await compressImage(postgresCertImgJpg);
@@ -162,46 +164,6 @@ const lastUpdated = new Date("2024-07-22T21:05:11.401Z");
       </ExperienceCard>
 
       <ExperienceCard
-        title={JobTitle.fullstack_dev}
-        companyName={JobCompany.free}
-        startDate={new Date("2023-10-01T00:00:00.000Z")}
-        endDate={new Date("2024-08-01T00:00:00.000Z")}
-        location={JobLocation.mdq}
-        locationType={JobLocationType.remote}
-        projectName="CommentsApp"
-      >
-        <li>
-          Pioneered an in-progress platform to empower developers to integrate
-          widgets into their products, built with Next.js, TypeScript, Tailwind
-          CSS, and PostgreSQL database
-        </li>
-        <li>
-          Implemented best React.js optimization practices, such as memorizing
-          components and callbacks
-        </li>
-        <li>
-          Leveraged a code editor using Monaco for enhanced development
-          experience
-        </li>
-        <li>
-          Created custom components including a Toaster notification using
-          Framer Motion for swift animations
-        </li>
-        <li>
-          Utilized Next.js App Router and Zustand for efficient state management
-        </li>
-        <li>
-          Developed authentication and authorization manually using JWT tokens
-          and Next.js API routes
-        </li>
-        <li>
-          Validated forms using react-hook-form and Zod for robust schema
-          checking
-        </li>
-        <li>Leveraged Docker containers for streamlined deployment</li>
-      </ExperienceCard>
-
-      <ExperienceCard
         title={JobTitle.frontend_dev}
         startDate={new Date("2023-01-01T00:00:00.000Z")}
         endDate={new Date("2023-06-15T00:00:00.000Z")}
@@ -210,32 +172,33 @@ const lastUpdated = new Date("2024-07-22T21:05:11.401Z");
         companyName={JobCompany.cognizant}
       >
         <li>
-          Developed a responsive web application to track employees' career
-          history, training, and skills, built using Next.js, TypeScript, and
-          CSS Modules
+          Built a responsive web application to track employee career history,
+          training sessions, and skills using Next.js, TypeScript, and CSS
+          Modules.
         </li>
         <li>
-          Collaborated in an Agile team (Kanban style) using Azure DevOps board
-          for project management
+          Worked in a Kanban-driven Agile environment, managing tasks through
+          Azure DevOps boards.
         </li>
         <li>
-          Translated Figma UI designs into efficient, type-safe React components
+          Translated Figma designs into high-quality, type-safe React
+          components.
         </li>
         <li>
-          Proactively assisted team members to deliver high-quality features on
-          schedule
+          Assisted team members in delivering polished features within
+          deadlines.
         </li>
         <li>
-          Implemented Webpack module federation to integrate remote Web
-          Components into the React application
+          Integrated remote Web Components into the React application via
+          Webpack module federation.
         </li>
         <li>
-          Utilized React Context for state management and Vercel's SWR for
-          efficient data fetching
+          Applied React Context for managing application state and utilized
+          Vercel's SWR for data fetching.
         </li>
         <li>
-          Implemented Docker containerization to enhance deployment efficiency
-          and environment reproducibility
+          Used Docker containerization to enhance deployment workflows and
+          ensure consistent environments.
         </li>
       </ExperienceCard>
 
@@ -248,52 +211,47 @@ const lastUpdated = new Date("2024-07-22T21:05:11.401Z");
         locationType={JobLocationType.remote}
       >
         <li>
-          Contributed to the development and success of a Single Page
-          Application (SPA) for document management, built in React.js, for a
-          major client in the audits sector (Big 4)
+          Contributed to the development and mantainence of a Single Page
+          Application (SPA) for document management using React.js, developed
+          for a leading client in the audit industry (Big 4).
         </li>
         <li>
-          Collaborated in an international, English-speaking Agile team using
-          Kanban methodology and Azure DevOps for project management
+          Worked as part of an international Agile team, communicating in
+          English and following Kanban methodology with Azure DevOps for task
+          management.
         </li>
         <li>
-          Estimated user stories and authored in-depth technical design
-          documents prior to assignment commencement
+          Prepared detailed technical design documents and estimated user
+          stories to streamline the development process.
         </li>
-
         <li>
-          Delivered high-quality React components and refactored legacy code to
-          adhere to new functional component standards and best practices
+          Delivered high-quality React components and modernized legacy code to
+          align with functional component standards and best practices.
         </li>
-
         <li>
-          Implemented and normalized React-Redux store for efficient state
-          management
+          Designed and maintained a normalized React-Redux store to ensure
+          efficient state management.
         </li>
-
         <li>
-          Utilized Axios and Axios interceptors for fetching back-end API data
+          Leveraged Axios and custom interceptors to seamlessly handle API data
+          from the back-end.
         </li>
-
         <li>
-          Styled components atomically using styled-components library with SCSS
-          pre-processor
+          Created atomic styles using the styled-components library, combined
+          with SCSS for flexible and scalable styling.
         </li>
-
         <li>
-          Utilized modern Web Platform APIs to capture desktop screenshots,
-          enabling users to annotate and incorporate images into documents
+          Used modern Web Platform APIs to enable desktop screenshot capture,
+          allowing users to annotate and embed images into documents.
         </li>
-
         <li>
-          Developed a print-friendly page for specific components to meet
-          client's physical documentation needs
+          Built a print-friendly interface for specific components to support
+          the client's need for physical documentation.
         </li>
-
         <li>
-          Mentored a new team member in React.js and modern web development
-          practices, accelerating their onboarding and enhancing overall team
-          productivity
+          Guided a new team member in learning React.js and modern development
+          practices, accelerating their integration and boosting team
+          efficiency.
         </li>
       </ExperienceCard>
 
@@ -305,19 +263,37 @@ const lastUpdated = new Date("2024-07-22T21:05:11.401Z");
         location={JobLocation.mdq}
         locationType={JobLocationType.insite}
       >
-        <li>
-          Navigated and refactored extensive legacy codebase for an insurance
-          system, enhancing system performance and maintainability while
-          developing advanced problem-solving and debugging skills
-        </li>
-        <li>
-          Fixing front-end bugs in a big legacy codebase using PHP, HTML4 and
-          CSS
-        </li>
+        <li>Refactored legacy codebase for an insurance system</li>
+        <li>Fixing front-end bugs using PHP, HTML4 and CSS</li>
         <li>Porting old jQuery code into efficient vanilla JavaScript</li>
       </ExperienceCard>
     </Fragment>
     <Fragment slot="certification-cards">
+      <CertificationCard
+        title="React Testing Library and Jest: The Complete Guide"
+        issuedBy="Stephen Grider (via Udemy)"
+        issuedDate="December 2024"
+        certUrl="https://www.udemy.com/certificate/UC-b8ee67fd-9812-4d35-b0e3-1c7550f8979e/"
+        certImage={reactTestingJestCertImg.src}
+      >
+        <p class="mb-2">
+          In order to understand more Unit testing in Web UI applications,
+          Luciano took a self-paced course on React Testing Library and Jest.
+        </p>
+        <ul class="list-disc list-inside flex flex-col gap-2">
+          <li>Finding elements using accesible names and roles</li>
+          <li>When to use the different query functions</li>
+          <li>Jest Matchers</li>
+          <li>Mocking modules</li>
+          <li>Solving Act errors</li>
+          <li>Debugging tests</li>
+          <li>Mocking network requests using MSW</li>
+          <li>Tests around authentication</li>
+          <li>Fixing third-party libraries to run on test environments</li>
+          <li>Hands-on experience adding tests to an existing application</li>
+        </ul>
+      </CertificationCard>
+
       <CertificationCard
         title="Understanding TypeScript"
         issuedBy="Academind (via Udemy)"
