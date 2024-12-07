@@ -20,8 +20,8 @@ export const authorDescription = [
   "I enjoy sharing what I learn with the community and help others build 🙂"
 ];
 
-export const authorProfilePicture = "/images/author/lhillcoat_picture.webp";
+export const authorProfilePicture = "/images/author/lhillcoat_picture_v2.webp";
 export const authorProfilePictureSmall =
-  "/images/author/lhillcoat_picture_small.webp";
+  "/images/author/lhillcoat_picture_v2_small.webp";
 export const authorProfilePictureAlt = `${authorName[0]} photo, a person with short hair and glasses`;
 export const xUserName = "lucrnz";
