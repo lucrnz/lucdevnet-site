@@ -11,7 +11,6 @@ export const authorEmail = "me@lucdev.net";
 export const authorSocialMedia = [
   "https://linkedin.com/in/lhillcoat",
   "https://bsky.app/profile/lucdev.net",
-  "https://x.com/lucrnz",
   "https://github.com/lucrnz"
 ];
 export const authorGender = "Other";
