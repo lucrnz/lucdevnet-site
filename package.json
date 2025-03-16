@@ -37,5 +37,13 @@
     "sharp": "0.33.4",
     "typescript": "^5.7.2",
     "wrangler": "^3.91.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "lefthook",
+      "sharp",
+      "workerd"
+    ]
   }
 }
