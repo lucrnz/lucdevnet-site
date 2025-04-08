@@ -17,7 +17,7 @@ export async function GET(context) {
       pubDate: post.data.datePublished,
       author: authorName.join(" "),
       description: post.data.summary,
-      link: `/blog/${post.slug}/`
+      link: `/blog/${post.id}/`
     }))
   });
 }
