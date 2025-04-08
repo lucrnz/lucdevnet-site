@@ -1,12 +1,10 @@
-# To learn more about how to use Nix to configure your environment
-# see: https://developers.google.com/idx/guides/customize-idx-env
+# https://developers.google.com/idx/guides/customize-idx-env
 { pkgs, ... }: {
-  # Which nixpkgs channel to use.
-  channel = "stable-23.11"; # or "unstable"
+  channel = "stable-24.11";
 
   # Use https://search.nixos.org/packages to find packages
   packages = [
-    pkgs.nodejs_20
+    pkgs.nodejs_22
     pkgs.corepack
   ];
 
@@ -18,6 +16,7 @@
       "astro-build.astro-vscode"
       "esbenp.prettier-vscode"
       "yoavbls.pretty-ts-errors"
+      "bradlc.vscode-tailwindcss"
       "GitHub.vscode-github-actions"
     ];
 
