@@ -1,5 +1,4 @@
-#   Refer for explanation to following link:
-#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+# https://lefthook.dev/configuration/
 
 pre-commit:
   commands:
@@ -11,5 +10,8 @@ pre-commit:
 pre-push:
   parallel: true
   commands:
+    audit:
+      run: pnpm audit
+
     lint:
       run: pnpm run lint
