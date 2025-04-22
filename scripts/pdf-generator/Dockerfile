@@ -2,7 +2,7 @@ FROM node:lts
 WORKDIR /app
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable && corepack prepare pnpm@latest-9 --activate
+RUN corepack enable && corepack prepare pnpm@latest-10 --activate
 
 # Install puppeteer dependencies
 # https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-doesnt-launch-on-linux

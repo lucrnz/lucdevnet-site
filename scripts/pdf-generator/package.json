@@ -17,5 +17,10 @@
   },
   "devDependencies": {
     "@types/node": "^20.17.9"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "puppeteer"
+    ]
   }
 }
