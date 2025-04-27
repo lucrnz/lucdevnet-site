@@ -11,4 +11,9 @@
   --font-display: "Exo 2 Variable", var(--font-sans-fallback);
   --font-body: "Cabin Variable", var(--font-sans-fallback);
   --breakpoint-ml: 425px;
+  --color-theme-1: #4a2277;
+  --color-theme-2: #4f409d;
+  --color-theme-3: #8941b5;
+  --color-theme-4: #c858c0;
+  --color-theme-5: #a1a0f3;
 }
