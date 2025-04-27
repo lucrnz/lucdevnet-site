@@ -69,7 +69,9 @@ type JSONLDItem<T> = JSONLDThing & T;
 const schema = (() => {
   const currentDate = new Date();
   const authorRef = { "@id": `${Astro.site}#${authorSlug}` };
-  const copyrightNotice = `© ${currentDate.getFullYear()} ${authorName.join(" ")}. All rights reserved.`;
+  const copyrightNotice =
+    `© ${currentDate.getFullYear()} ${authorName.join(" ")}. ` +
+    `Content licensed under CC BY-NC-SA 4.0.`;
 
   const commonSchema = {
     copyrightNotice: copyrightNotice,
