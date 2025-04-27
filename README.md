@@ -18,6 +18,6 @@ I keep my right to not give support/accept pull requests or give documentation.
 
 ## Copying
 
-Read the [LICENSE](./LICENSE) file for more information.
+Read the [LICENSE](./LICENSE.md) file for more information.
 
 **Spoiler:** It's not your every-day open source situation.
