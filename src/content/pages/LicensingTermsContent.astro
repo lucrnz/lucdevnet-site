@@ -1,0 +1,78 @@
+---
+interface Props {
+  siteTitle: string;
+  siteAuthorFullName: string;
+  siteSourceCodeUrl: string;
+}
+
+const { siteTitle, siteAuthorFullName, siteSourceCodeUrl } = Astro.props;
+---
+
+<p>
+  Welcome to {siteTitle}, operated by {siteAuthorFullName}, hereinafter referred
+  to as "the website owner." This policy explains the licensing terms for
+  materials available on this site.
+</p>
+
+<h2>Source Code Licensing</h2>
+<p>
+  The source code that powers this website, including all backend logic, build
+  scripts, and functional components, is licensed under the
+  <a
+    href="https://www.gnu.org/licenses/agpl-3.0.html"
+    target="_blank"
+    rel="noopener noreferrer"
+    >GNU Affero General Public License v3.0 (AGPL-3.0)</a
+  >.
+  <br />
+  You can access the complete source code, including instructions on how to comply
+  with its license, at:
+  <br />
+  <a href={siteSourceCodeUrl} target="_blank" rel="noopener noreferrer"
+    >{siteSourceCodeUrl}</a
+  >
+</p>
+
+<h2>Creative Content Licensing</h2>
+<p>
+  All creative content on this website—including blog posts, documentation,
+  articles, images, and icons—is licensed under the
+  <a
+    href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"
+    target="_blank"
+    rel="noopener noreferrer"
+    >Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC
+    BY-NC-SA 4.0)</a
+  >.
+  <br />
+  This means you are free to share and adapt the content for non-commercial purposes,
+  provided that you give appropriate credit and distribute your contributions under
+  the same license.
+</p>
+
+<h2>Use of Code Snippets in Blog Posts</h2>
+<p>
+  Individual code snippets shared within blog posts are freely available for
+  both non-commercial and commercial use without requiring attribution.
+  <br />
+  This permission applies only to explicitly shared code examples in the body of
+  articles and posts.
+  <br />
+  It does not apply to the source code that powers the operation of the website itself,
+  which remains under the AGPL-3.0 license as described above.
+</p>
+
+<h2>Unauthorized Use</h2>
+<p>
+  Unauthorized commercial use of creative content or violation of the <strong
+    >AGPL-3.0</strong
+  > terms regarding the source code may result in legal action. Please respect the
+  licenses associated with each type of material.
+</p>
+
+<h2>Changes to This Policy</h2>
+<p>
+  The website owner reserves the right to update or modify this policy at any
+  time without prior notice. Please review this page periodically for any
+  changes.
+</p>

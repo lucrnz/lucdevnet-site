@@ -1,0 +1,40 @@
+---
+import {
+  DateTimeFormattingConfig,
+  formatDateTime
+} from "~/helpers/formatDateTime";
+import { authorName, siteTitle, siteSourceCodeUrl } from "~/consts";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Head from "~/components/Head.astro";
+import ProseContainer from "~/components/ProseContainer.astro";
+import LicensingTermsContent from "~/content/pages/LicensingTermsContent.astro";
+const title = "Licensing Terms";
+const datePublished = new Date("2024-07-16T20:08:40.899Z");
+const dateModified = new Date("2025-04-27T22:36:57.152Z");
+
+const siteAuthorFullName = authorName.join(" ");
+
+const lastUpdatedFormatted = formatDateTime(
+  dateModified,
+  DateTimeFormattingConfig.DayShortMonthYear
+);
+---
+
+<BaseLayout>
+  <Head
+    slot="head"
+    title={title}
+    metaDescription=`${siteTitle} - Learn about our licensing terms`
+    datePublished={datePublished}
+    dateModified={dateModified}
+  />
+  <h1 class="font-display text-3xl font-medium mb-4">{title}</h1>
+  <ProseContainer tagElement="article">
+    <em>Last Updated: {lastUpdatedFormatted}</em>
+    <LicensingTermsContent
+      siteTitle={siteTitle}
+      siteAuthorFullName={siteAuthorFullName}
+      siteSourceCodeUrl={siteSourceCodeUrl}
+    />
+  </ProseContainer>
+</BaseLayout>
