@@ -3,7 +3,6 @@
   "type": "module",
   "author": "lucdev <me@lucdev.net>",
   "private": true,
-  "license": "UNLICENSED",
   "scripts": {
     "dev": "concurrently \"astro dev\" \"caddy run --config Caddyfile --adapter caddyfile\"",
     "build": "astro build",
