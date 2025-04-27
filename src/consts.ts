@@ -5,6 +5,8 @@ export const siteCreationDate = new Date("2022-10-01T16:51:12Z");
 export const siteDescription =
   "My personal website including all my projects, contact links and my blog.";
 
+export const siteSourceCodeUrl = "https://git.lucdev.net/lucdev/site";
+
 /* Author values */
 export const authorName = ["Luciano", "Hillcoat"];
 export const authorEmail = "me@lucdev.net";
@@ -23,5 +25,5 @@ export const authorDescription = [
 export const authorProfilePicture = "/images/author/lhillcoat_picture_v3.webp";
 export const authorProfilePictureSmall =
   "/images/author/lhillcoat_picture_v3_small.webp";
-export const authorProfilePictureAlt = `${authorName[0]} photo, a person with short hair and glasses`;
+export const authorProfilePictureAlt = `${authorName[0]} photo, a person with medium-length hair and glasses`;
 export const xUserName = "lucdevnet";
