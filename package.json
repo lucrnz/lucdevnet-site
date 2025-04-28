@@ -5,10 +5,11 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"astro dev\" \"caddy run --config Caddyfile --adapter caddyfile\"",
-    "build": "astro build",
+    "build": "astro build && node scripts/patch-bundle/index.mjs",
     "lint": "astro check",
     "preview": "astro preview",
-    "prepare": "lefthook install"
+    "prepare": "lefthook install",
+    "install": "concurrently \"cd scripts/pdf-generator && pnpm install\" \"cd scripts/patch-bundle && pnpm install\""
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

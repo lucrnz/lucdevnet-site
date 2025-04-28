@@ -1,0 +1,9 @@
+{
+  "name": "@lucdev-scripts/patch-bundle",
+  "private": true,
+  "type": "module",
+  "main": "index.mjs",
+  "dependencies": {
+    "fast-glob": "^3.3.3"
+  }
+}
