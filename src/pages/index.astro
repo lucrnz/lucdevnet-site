@@ -1,13 +1,6 @@
 ---
 import Head from "~/components/Head.astro";
-import {
-  siteTitle,
-  siteDescription,
-  authorName,
-  authorProfilePicture,
-  authorProfilePictureAlt,
-  siteCreationDate
-} from "~/consts";
+import { siteTitle, siteDescription, siteCreationDate } from "~/consts";
 import IndexPageContent from "~/content/pages/IndexPageContent.astro";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 ---
@@ -19,30 +12,5 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
     metaDescription={siteDescription}
     datePublished={siteCreationDate}
   />
-  <div
-    class="w-full flex flex-col gap-2 items-center ml:gap-4 ml:flex-row mb-4"
-  >
-    <div>
-      <img
-        decoding="async"
-        loading="lazy"
-        src={authorProfilePicture}
-        alt={authorProfilePictureAlt}
-        class="aspect-square rounded-full w-[100px] sm:w-[150px] md:w-[200px] border-emerald-600 border-2 bg-gray-400"
-      />
-    </div>
-    <div class="flex flex-col gap-1 items-center ml:items-start">
-      <h1 class="font-display text-2xl sm:text-3xl lg:text-4xl ml-[2px]">
-        {authorName.join(" ")}
-      </h1>
-      <h2
-        class="font-display text-3xl sm:text-6xl lg:text-7xl font-medium bg-gradient-to-r from-sky-600 to-emerald-800 dark:from-sky-400 dark:to-emerald-600 text-transparent bg-clip-text pb-1"
-      >
-        <span>Web developer</span>
-      </h2>
-    </div>
-  </div>
-  <article>
-    <IndexPageContent />
-  </article>
+  <IndexPageContent />
 </BaseLayout>
