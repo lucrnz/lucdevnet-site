@@ -22,24 +22,50 @@ embeddedFileProvider.GetDirectoryContents(string.Empty).ToList().ForEach(file =>
     Console.WriteLine($"Embedded file: {file.Name}");
 });
 
+// Redirect configuration
+var redirectConfig = new Dictionary<string, string>
+{
+    { "/about", "/" },
+    { "/copyright-policy", "/licensing-terms" },
+    { "/blog/tagged", "/blog" }
+};
+
+// Add redirect paths handlers
+foreach (var kv in redirectConfig)
+{
+    // Direct path
+    app.MapGet(kv.Key, (string path) =>
+    {
+        Console.WriteLine($"Redirecting {path} to {kv.Value}");
+        return Results.Redirect(kv.Value, false);
+    });
+
+    // With forward slash
+    app.MapGet($"{kv.Key}/", (string path) =>
+    {
+        Console.WriteLine($"Redirecting {path} to {kv.Value}");
+        return Results.Redirect(kv.Value, false);
+    });
+}
+
+// Matrix void request
+app.MapGet("/.well-known/matrix/client", (string path) =>
+{
+    Console.WriteLine($"Matrix request: {path}");
+    return Results.Ok();
+});
+
+// Serve static files from the embedded file provider
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = embeddedFileProvider,
 });
 
+// Fallback for redirects and serving HTML files
 app.MapFallback(async context =>
 {
     Console.WriteLine($"[fallback handler] Request path: {context.Request.Path}");
     string path = context.Request.Path.Value?.TrimStart('/') ?? "";
-
-    if (path.Contains(".well-known/matrix"))
-    {
-        // For now disable any matrix request
-        // If I want to get back to matrix, I can comment this code again.
-        context.Response.StatusCode = StatusCodes.Status200OK;
-        return;
-    }
-
     string fileToServe;
 
     // If path is empty, serve the index.html file
