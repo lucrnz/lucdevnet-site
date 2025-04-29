@@ -28,7 +28,8 @@ var redirectConfig = new Dictionary<string, string>
     { "/favicon.ico", "/favicon.svg"},
     { "/about", "/" },
     { "/copyright-policy", "/licensing-terms" },
-    { "/blog/tagged", "/blog" }
+    { "/blog/tagged", "/blog" },
+    { "/blog/goodbye-dotnet", "/blog/web-first" }
 };
 
 // Handle redirects using MapWhen to ensure proper precedence
