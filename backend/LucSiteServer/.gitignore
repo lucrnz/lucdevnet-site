@@ -4,7 +4,7 @@
 ## Get latest from `dotnet new gitignore`
 
 # built static files
-wwwroot/
+dist/
 
 # dotenv files
 .env

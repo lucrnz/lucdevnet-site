@@ -25,27 +25,23 @@ embeddedFileProvider.GetDirectoryContents(string.Empty).ToList().ForEach(file =>
 // Redirect configuration
 var redirectConfig = new Dictionary<string, string>
 {
+    { "/favicon.ico", "/favicon.svg"},
     { "/about", "/" },
     { "/copyright-policy", "/licensing-terms" },
     { "/blog/tagged", "/blog" }
 };
 
-// Add redirect paths handlers
+// Handle redirects using MapWhen to ensure proper precedence
 foreach (var kv in redirectConfig)
 {
-    // Direct path
-    app.MapGet(kv.Key, (string path) =>
-    {
-        Console.WriteLine($"Redirecting {path} to {kv.Value}");
-        return Results.Redirect(kv.Value, false);
-    });
-
-    // With forward slash
-    app.MapGet($"{kv.Key}/", (string path) =>
-    {
-        Console.WriteLine($"Redirecting {path} to {kv.Value}");
-        return Results.Redirect(kv.Value, false);
-    });
+    app.MapWhen(
+        context => context.Request.Path.Equals(kv.Key) || context.Request.Path.Equals($"{kv.Key}/"),
+        builder => builder.Run(async context =>
+        {
+            context.Response.Redirect(kv.Value, false);
+            await Task.CompletedTask;
+        })
+    );
 }
 
 // Matrix void request
