@@ -13,9 +13,8 @@ import {
   DateTimeFormattingConfig
 } from "~/helpers/formatDateTime";
 
-export type Props = Pick<BlogPost, "title" | "summary" | "datePublished"> & {
-  slug: string;
-};
+// prettier-ignore
+export type Props = Pick<BlogPost, "title" | "summary" | "datePublished"> & {slug: string;};
 
 const { title, summary, datePublished, slug } = Astro.props;
 ---
