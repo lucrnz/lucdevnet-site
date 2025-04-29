@@ -26,6 +26,15 @@ app.MapFallback(async context =>
 {
     Console.WriteLine($"[fallback handler] Request path: {context.Request.Path}");
     string path = context.Request.Path.Value?.TrimStart('/') ?? "";
+
+    if (path.Contains(".well-known/matrix"))
+    {
+        // For now disable any matrix request
+        // If I want to get back to matrix, I can comment this code again.
+        context.Response.StatusCode = StatusCodes.Status200OK;
+        return;
+    }
+
     string fileToServe;
 
     // If path is empty, serve the index.html file
@@ -62,7 +71,7 @@ app.MapFallback(async context =>
     }
 
     context.Response.ContentType = "text/html";
-    
+
     using var stream = fileInfo.CreateReadStream();
     await stream.CopyToAsync(context.Response.Body);
 });
