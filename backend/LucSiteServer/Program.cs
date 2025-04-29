@@ -15,7 +15,7 @@ builder.WebHost.ConfigureKestrel(options =>
 
 var app = builder.Build();
 var assembly = Assembly.GetExecutingAssembly();
-var embeddedFileProvider = new EmbeddedFileProvider(assembly, $"{assembly.GetName().Name!}.wwwroot");
+var embeddedFileProvider = new EmbeddedFileProvider(assembly, $"{assembly.GetName().Name!}.dist");
 
 embeddedFileProvider.GetDirectoryContents(string.Empty).ToList().ForEach(file =>
 {
