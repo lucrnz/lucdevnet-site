@@ -1,15 +1,23 @@
 ---
+/*
+ * SPDX-FileCopyrightText: 2025 Luciano Hillcoat <me@lucdev.net>
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 import { type CollectionEntry } from "astro:content";
 import BlogPostShareButtons from "./BlogPostShareButtons.astro";
 import BlogPostSubtitle from "./BlogPostSubtitle.astro";
 
-type BlogPost = CollectionEntry<"blog">['data'];
+type BlogPost = CollectionEntry<"blog">["data"];
 
-export type Props = Pick<BlogPost, "title" | "summary" | "image" | "imageAlt" | "datePublished">  & { readTimeMinutes: number; }
+export type Props = Pick<
+  BlogPost,
+  "title" | "summary" | "image" | "imageAlt" | "datePublished"
+> & { readTimeMinutes: number };
 
 const { datePublished, title, summary, imageAlt, image, readTimeMinutes } =
   Astro.props;
-  
+
 const coverImageAvailable =
   image && imageAlt && image.length > 0 && imageAlt.length > 0;
 ---
@@ -18,7 +26,13 @@ const coverImageAvailable =
   {
     coverImageAvailable && (
       <div class="mb-8">
-        <img src={image} alt={imageAlt} decoding="async" loading="lazy" class="rounded-lg" />
+        <img
+          src={image}
+          alt={imageAlt}
+          decoding="async"
+          loading="lazy"
+          class="rounded-lg"
+        />
       </div>
     )
   }

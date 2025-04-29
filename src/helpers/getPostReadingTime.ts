@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2025 Luciano Hillcoat <me@lucdev.net>
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 import getReadingTime from "reading-time";
 import { toString } from "mdast-util-to-string";
 import { fromMarkdown } from "mdast-util-from-markdown";
