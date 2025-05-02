@@ -1,6 +1,7 @@
 ---
 title: "Create an SPA with SvelteKit including Docker"
 datePublished: "2024-04-12"
+dateModified: "2025-05-02"
 summary: "A hands-on on how to create a Single-Page-Application with SvelteKit"
 metaDescription: "Learn to create a single-page-application with SvelteKit, TypeScript and deploy it using Docker"
 image: "/images/blog/sveltekit-spa/sveltekit-hero.png"
@@ -35,12 +36,12 @@ Let's create a new project
 <TabContainer tabs={["npm", "pnpm"]}>
 <CodeSnippet language="sh" slot="tab-1">
 ```sh
-npm create svelte@latest my-app
+npx sv create my-app
 ```
 </CodeSnippet>
 <CodeSnippet language="sh" slot="tab-2">
 ```sh
-pnpm create svelte@latest my-app
+pnpm dlx sv create my-app
 ```
 </CodeSnippet>
 </TabContainer>
@@ -223,13 +224,13 @@ Add the following contents:
 ```
 .git
 .gitignore
+.svelte-kit
 dist
 build
 Dockerfile*
 node_modules
 *.md
 .env*
-.svelte*
 ```
 </CodeSnippet>
 
@@ -303,3 +304,5 @@ This will forward the port "3000" from the container to match :3000 on your loca
 That should be all!
 
 👋 Happy coding!
+
+**Updated:** Thank you! anurag for poiting out the incorrect Dockerignore entry.
