@@ -10,7 +10,7 @@
     "preview": "astro preview",
     "prepare": "lefthook install",
     "install": "concurrently \"cd scripts/pdf-generator && pnpm install\" \"cd scripts/patch-bundle && pnpm install\"",
-    "transfer": "rsync -avh dist/ luxlibre:/home/lucdev/infra/site/server/dist --delete"
+    "deploy": "sh ./scripts/deploy.sh"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
