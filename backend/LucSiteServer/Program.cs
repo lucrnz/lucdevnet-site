@@ -4,7 +4,9 @@
 */
 
 using Microsoft.Extensions.FileProviders;
+using Lucdev.SiteServer.Entities;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +53,38 @@ app.MapGet("/.well-known/matrix/client", (string path) =>
     Console.WriteLine($"Matrix request: {path}");
     return Results.Ok();
 });
+
+// Store claims
+var claims = new VerifiedClaim[]
+{
+    new(
+        "register-fedi",
+        "Register an Akkoma account",
+        "Luc is trying to make an account on https://pleroma.envs.net/",
+        new DateOnly(2025, 6, 5)
+    )
+};
+
+// Serve claims
+foreach (var claim in claims)
+{
+    app.MapWhen(
+        context => context.Request.Path.Equals($"/.claims/{claim.Slug}") || context.Request.Path.Equals($"/.claims/{claim.Slug}/"),
+        builder => builder.Run(async context =>
+        {
+            context.Response.ContentType = "text/plain; charset=utf-8";
+            var sbResult = new StringBuilder();
+            
+            sbResult.AppendLine($"Title: {claim.Title}");
+            sbResult.AppendLine($"Claimed at: {claim.ClaimedAt.ToLongDateString()}");
+            sbResult.AppendLine();
+            sbResult.AppendLine(claim.Content);
+
+            await context.Response.WriteAsync(sbResult.ToString());
+            await Task.CompletedTask;
+        })
+    );
+}
 
 // Serve static files from the embedded file provider
 app.UseStaticFiles(new StaticFileOptions
