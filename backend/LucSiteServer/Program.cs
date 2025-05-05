@@ -61,7 +61,7 @@ var claims = new VerifiedClaim[]
         "register-fedi",
         "Register an Akkoma account",
         "Luc is trying to make an account on https://pleroma.envs.net/",
-        new DateOnly(2025, 6, 5)
+        new DateOnly(2025, 5, 5)
     )
 };
 
