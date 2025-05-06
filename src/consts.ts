@@ -26,8 +26,9 @@ export const authorDescription = [
   "I enjoy sharing what I learn with the community and help others build 🙂"
 ];
 
-export const authorProfilePicture = "/images/author/lucdev_picture_v4.webp";
+export const authorProfilePicture = "/images/author/luc_fursona_v1.webp";
 export const authorProfilePictureSmall =
-  "/images/author/lucdev_picture_v4_small.webp";
-export const authorProfilePictureAlt = `${authorName[0]} photo, anime character with glasses and cat ears`;
+  "/images/author/luc_fursona_v1_small.webp";
+export const authorProfilePictureAlt = `Luc's fursona, anthropomorphic character red panda-raccoon hybrid with rust-orange fur, short tousled hair, glasses, and a soft smile, shown in a warm indoor setting.`;
+
 export const xUserName = "lucdevnet";
