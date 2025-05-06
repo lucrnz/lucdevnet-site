@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2025 Luciano Hillcoat <me@lucdev.net>
+# SPDX-License-Identifier: AGPL-3.0-only
 # Exit on any non-zero return code
 set -e
 
