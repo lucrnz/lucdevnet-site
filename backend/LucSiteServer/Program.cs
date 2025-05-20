@@ -7,6 +7,7 @@ using Microsoft.Extensions.FileProviders;
 using Lucdev.SiteServer.Entities;
 using System.Reflection;
 using System.Text;
+using Lucdev.SiteServer.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,10 +20,7 @@ var app = builder.Build();
 var assembly = Assembly.GetExecutingAssembly();
 var embeddedFileProvider = new EmbeddedFileProvider(assembly, $"Lucdev.SiteServer.dist");
 
-embeddedFileProvider.GetDirectoryContents(string.Empty).ToList().ForEach(file =>
-{
-    Console.WriteLine($"Embedded file: {file.Name}");
-});
+Console.WriteLine($"Loaded: {embeddedFileProvider.GetDirectoryContents(string.Empty).ToList().Count} embedded files");
 
 // Redirect configuration
 var redirectConfig = new Dictionary<string, string>
@@ -55,26 +53,18 @@ app.MapGet("/.well-known/matrix/client", (string path) =>
 });
 
 // Store claims
-var claims = new VerifiedClaim[]
-{
-    new(
-        "register-fedi",
-        "Register an Akkoma account",
-        "Luc is trying to make an account on https://pleroma.envs.net/",
-        new DateOnly(2025, 5, 5)
-    )
-};
+var claims = ClaimsHelper.LoadClaims();
 
 // Serve claims
 foreach (var claim in claims)
 {
     app.MapWhen(
-        context => context.Request.Path.Equals($"/.claims/{claim.Slug}") || context.Request.Path.Equals($"/.claims/{claim.Slug}/"),
+        context => context.Request.Path.Equals($"/.claims/{claim.Slug}"),
         builder => builder.Run(async context =>
         {
             context.Response.ContentType = "text/plain; charset=utf-8";
             var sbResult = new StringBuilder();
-            
+
             sbResult.AppendLine($"Title: {claim.Title}");
             sbResult.AppendLine($"Claimed at: {claim.ClaimedAt.ToLongDateString()}");
             sbResult.AppendLine();
@@ -84,6 +74,13 @@ foreach (var claim in claims)
             await Task.CompletedTask;
         })
     );
+    
+    // Permanently redirect to without forward slash
+    app.MapWhen(context => context.Request.Path.Equals($"/.claims/{claim.Slug}/"), builder => builder.Run(async context =>
+    {
+        context.Response.Redirect($"/.claims/{claim.Slug}", true);
+        await Task.CompletedTask;
+    }));
 }
 
 // Serve static files from the embedded file provider
