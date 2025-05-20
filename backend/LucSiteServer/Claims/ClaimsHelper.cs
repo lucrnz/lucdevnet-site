@@ -32,15 +32,31 @@ public static class ClaimsHelper
     {
       if (string.IsNullOrEmpty(fileName)) continue;
 
-      // remove file extension correctly here and use it as slug
-      var slug = Path.GetFileNameWithoutExtension(fileName).ToLowerInvariant();
-
       string fileTextContent = File.ReadAllText(fileName, Encoding.UTF8);
       var claimYml = deserializer.Deserialize<VerifiedClaimYamlContent>(fileTextContent);
 
       if (claimYml is null)
       {
-        Console.WriteLine($"Warning: Skipping null claim: {fileName}");
+        Console.WriteLine($"Warning: Skipping invalid claim: {fileName}");
+        Console.WriteLine($"Warning: Reason: object is null");
+        continue;
+      }
+
+      // remove file extension correctly here and use it as slug
+      var pathPrefix = claimYml.PathGuard.Trim().ToLowerInvariant();
+      var pathSuffix = Path.GetFileNameWithoutExtension(fileName).ToLowerInvariant();
+
+      if (pathPrefix.Length > 26)
+      {
+        Console.WriteLine($"Warning: Skipping invalid claim: {fileName}");
+        Console.WriteLine($"Reason: Path guard too long. Maximum is 26 characters.");
+        continue;
+      }
+
+      if (pathPrefix.Length < 12)
+      {
+        Console.WriteLine($"Warning: Skipping invalid claim: {fileName}");
+        Console.WriteLine($"Reason: Path guard too long. Minimum is 12 characters.");
         continue;
       }
 
@@ -50,7 +66,7 @@ public static class ClaimsHelper
         continue;
       }
 
-      var claim = new VerifiedClaim(slug, claimYml.Title, claimYml.Content, claimedAt);
+      var claim = new VerifiedClaim($"{pathPrefix}/{pathSuffix}", claimYml.Title, claimYml.Content, claimedAt);
       result.Add(claim);
     }
 

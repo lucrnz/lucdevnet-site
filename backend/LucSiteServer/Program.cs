@@ -59,7 +59,7 @@ var claims = ClaimsHelper.LoadClaims();
 foreach (var claim in claims)
 {
     app.MapWhen(
-        context => context.Request.Path.Equals($"/.claims/{claim.Slug}"),
+        context => context.Request.Path.Equals($"/.claims/{claim.Path}"),
         builder => builder.Run(async context =>
         {
             context.Response.ContentType = "text/plain; charset=utf-8";
@@ -76,9 +76,9 @@ foreach (var claim in claims)
     );
     
     // Permanently redirect to without forward slash
-    app.MapWhen(context => context.Request.Path.Equals($"/.claims/{claim.Slug}/"), builder => builder.Run(async context =>
+    app.MapWhen(context => context.Request.Path.Equals($"/.claims/{claim.Path}/"), builder => builder.Run(async context =>
     {
-        context.Response.Redirect($"/.claims/{claim.Slug}", true);
+        context.Response.Redirect($"/.claims/{claim.Path}", true);
         await Task.CompletedTask;
     }));
 }

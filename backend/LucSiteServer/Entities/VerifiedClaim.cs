@@ -8,12 +8,15 @@ using YamlDotNet.Serialization;
 
 namespace Lucdev.SiteServer.Entities;
 
-public record VerifiedClaim(string Slug, string Title, string Content, DateOnly ClaimedAt);
+public record VerifiedClaim(string Path, string Title, string Content, DateOnly ClaimedAt);
 
 public class VerifiedClaimYamlContent
 {
   [YamlMember(Alias = "title")]
   public required string Title { get; set; }
+
+  [YamlMember(Alias = "path_guard")]
+  public required string PathGuard { get; set; }
 
   [YamlMember(Alias = "content", ScalarStyle = ScalarStyle.Literal)]
   public required string Content { get; set; }
