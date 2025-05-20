@@ -36,8 +36,7 @@ export default defineConfig({
       policy: [
         {
           userAgent: "*",
-          allow: "/",
-          disallow: ["/404"]
+          disallow: ["/404", "/.claims/"]
         }
       ]
     })
