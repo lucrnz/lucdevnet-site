@@ -1,0 +1,80 @@
+---
+title: "AI and Large Language Models"
+datePublished: "2025-05-21"
+summary: "Let's talk about LLM models, their ethics, implications and effictive usage"
+tags: "ai,llm"
+published: false
+---
+
+import { Image } from 'astro:assets';
+import companiesTrainingDataChart from "~/assets/blog/llms/companies-training-data-chart.svg";
+
+## Disclaimer
+
+I am not an expert on this topic, I merely know the basics of it, however I have some information that I think it can be useful for you to understand how it works and not see it as an *all-knowing computer that is plotting to rule the world*. **Do your own research**.
+
+I also do not endorse the use of AI for content farms, spam, scamming or other unethical use cases. AI-generated art cannot replace artists that put care and passion in their work and same goes with AI for software development and writing.
+
+## Large Language Models - What are they?
+
+Whether you love them or hate them, AI *or rather, large-language models, which is a more accurate term* is here to annoy us or to help us.
+
+At its core, an LLM is pretty much an auto-complete algorithm; it uses complex math to determine which words or sentences are most likely to follow a given input. Think of it like the predictive text on your phone, but instead of predicting the next word, it goes on to write entire sentences or paragraphs.
+
+In simple terms: Someone puts a bunch of text into a computer, converts it into a numerical format, and uses it to train the model. This process is usually ultra expensive and requires an absurd amount of data. I will come back to where this data comes from later and explore the implications of it.
+
+The model transforms whatever input you provide into a **completion** of what's next *or what it feels should be next* for that input
+
+Let's see a simple example: "Hey, how are you?" will most likely output "I'm good, thanks! How about you?".
+
+Of course, there are more details to consider, such as the fact that the input is usually given in a turn-based conversation or chat. This allows the model to maintain a sense of context and respond accordingly.
+
+Unfortunately, because it does predict stuff they're not always 100% correct in their responses, this is known as hallucinations. Hallucinations happen when the model generates text that is not based on actual facts or context, but rather on patterns it learned from it's training data.
+
+## Where does the data come from?
+
+Now in the topic of training data, let's explore where companies that train AI gather their data. The answer is simple: **everywhere they can put their hands on**, especially on the internet, if a website is public, it will definitevily be crawled.
+
+For within their products too, for example Meta has their platform ecosystem, including Instagram, Facebook and WhatsApp, which likely contribute to the training data for their flagship model Llama [*I haven't fact-checked this*](https://duckduckgo.com/?q=Does+meta+train+Llama+on+users+data), OpenAI trains data from ChatGPT users.
+
+However, the most annoying thing is when companies literally [DDOS small communities' websites](https://lunnova.dev/articles/crawlers-please-stop-destroying-the-commons/) for constantly checking if there are new data. They visit the internet, take everything for granted, and revisit the sites every couple of milliseconds, just to check if anything changes. This is devastating for small internet authors and sysadmins.
+
+<Image src={companiesTrainingDataChart} alt="Diagram showing multiple companies as rectangles fetching data from multiple sources including personal blogs, wikipedia, reddit, video game fan-made wikis, forums, reddit, stack overflow and developer documentation sites" />
+
+As a result, many websites, including my own, have started using bot detection software *(shoutout to [open-source program Anubis](https://anubis.techaro.lol/) for making this accesible)* to mitigate the effects of these aggresive crawlers.
+
+If you've visited any website in the last few months, you might noticed these programs or "Checking if you are not a robot" screens in general.
+
+Then there's the copyright implications, which is really complex and I don't understand it much, However, it's clear that companies training AI models are often pushing the limits of what's considered acceptable when it comes to using copyrighted material - if the data is there, they use it, and then [deploy their lawyers](https://www.saverilawfirm.com/our-cases/github-copilot-intellectual-property-litigation) to do [whatever is necesary](https://www.deeplearning.ai/the-batch/judge-dismisses-key-arguments-in-ai-copyright-lawsuit-against-github-microsoft-and-openai/).
+
+## How I use it
+
+I use LLM as an assistant and information seeker, acting as a complement tool along search engines.
+
+When working on software projects, It helps me draft scripts or code snipets, particulary in languages where I struggle the most *like Bash*. It is also been helpful for understanding complex code, optimization advices and sometimes debugging. My experience with it is mixed: it's sometimes a complete waste of time, but other times it gives me something close to or even exactly what I need.
+
+When writing blog posts, documentation or emails, It use it to provide simple suggestions and help with grammatical and syntax corrections.
+
+On my free time, I have found that it is useless for providing help in videogames 🥲 giving the spotlight to fan-made wiki pages and search engines queries ending with 'reddit'. **If you know, you know.**
+
+A more personal use case I found is making it role-play as a therapist, of course this can sound as a terrible advice, and mind you it is, so if you need help **please contact a real human professional**, in my personal experience it helped me navigate issues in my life and understand them better.
+
+## In the topic of "Vibe coding"
+
+I really hate this topic, if you don't know what this means, it means [authoring software without reading the code it generates](https://en.wikipedia.org/wiki/Vibe_coding) and just keep asking the AI to fix the bugs.
+
+Honestly, I don't think this should be celerabrated or cherished, at least in the context of authoring products that are being sold or are mission critical.
+
+I understand and I enjoy seeing the results of experimenting with prompting, however it is far for being that useful, and again, it cannot replace hand-crafted coding.
+
+Be free to experiment with it and use their results as a draft, that is for sure.
+
+## Conclusion
+
+I do not wish for AI models to go away, however I really wish companies will try better ways of gathering data, we need some sort of opt-in mechanism.
+
+At the end of the day, I think that open-source models, especially locally run or at infraestructure that is private **it can really empower users** in their needs.
+
+However, be sure to approach it with a critical eye, otherwise you might start hallucinating too 😉
+
+Shotout to Arch for writing [this article that inspired me](https://arch.dog/bark/large-language-models).
