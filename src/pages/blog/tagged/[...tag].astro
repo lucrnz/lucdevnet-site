@@ -15,7 +15,9 @@ type Props = { posts: BlogPost[] };
 
 export async function getStaticPaths() {
   // First get all tags from all posts
-  const posts = await getCollection("blog");
+  const posts = (await getCollection("blog")).filter((post) =>
+    import.meta.env.PROD ? post.data.published : true
+  );
   const tags = posts.flatMap((post) =>
     post.data.published ? post.data.tags : []
   );
