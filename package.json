@@ -4,7 +4,7 @@
   "author": "lucdev <me@lucdev.net>",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"astro dev\" \"caddy run --config Caddyfile --adapter caddyfile\"",
+    "dev": "astro dev",
     "build": "astro build && node scripts/patch-bundle/index.mjs",
     "lint": "astro check",
     "preview": "astro preview",
