@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import JSONLdSchema from "./JSONLdSchema.astro";
 import type { CollectionEntry } from "astro:content";
 import "~/styles/global.css";
 import "@fontsource-variable/cabin";
@@ -53,16 +52,6 @@ const heroImageUrl = image && imageAlt ? new URL(image, baseUrl) : undefined;
 {
   description && articleTitle && (
     <>
-      <JSONLdSchema
-        title={articleTitle}
-        metaDescription={description}
-        image={image}
-        imageAlt={imageAlt}
-        datePublished={datePublished}
-        dateModified={dateModified}
-        keywords={keywords}
-        isArticle={isArticle}
-      />
       <meta name="description" content={description} />
       <link rel="canonical" href={canonicalURL} />
 

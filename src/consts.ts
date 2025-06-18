@@ -16,11 +16,9 @@ export const siteSourceCodeUrl = "https://git.lucdev.net/lucdev/site";
 export const authorName = ["Luciano", "Hillcoat"];
 export const authorEmail = "me@lucdev.net";
 export const authorSocialMedia = [
-  "https://bsky.app/profile/lucdev.net",
   "https://linkedin.com/in/lhillcoat",
   "https://github.com/lucrnz"
 ];
-export const authorGender = "Other";
 export const authorDescription = [
   "Software developer, focusing on the web platform",
   "I enjoy sharing what I learn with the community and help others build 🙂"
