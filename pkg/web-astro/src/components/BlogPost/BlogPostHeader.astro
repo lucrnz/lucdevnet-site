@@ -10,10 +10,9 @@ import BlogPostSubtitle from "./BlogPostSubtitle.astro";
 type BlogPost = CollectionEntry<"blog">["data"];
 
 // prettier-ignore
-export type Props = Pick<BlogPost,"title" | "summary" | "image" | "imageAlt" | "datePublished"> & { readTimeMinutes: number };
+export type Props = Pick<BlogPost,"title" | "image" | "imageAlt" | "datePublished"> & { readTimeMinutes: number };
 
-const { datePublished, title, summary, imageAlt, image, readTimeMinutes } =
-  Astro.props;
+const { datePublished, title, imageAlt, image, readTimeMinutes } = Astro.props;
 
 const coverImageAvailable =
   image && imageAlt && image.length > 0 && imageAlt.length > 0;

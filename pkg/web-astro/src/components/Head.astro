@@ -11,21 +11,17 @@ import "@fontsource-variable/exo-2";
 
 type BlogPost = CollectionEntry<"blog">["data"];
 
-import { siteCreationDate, siteTitle, xUserName } from "~/consts";
+import { siteTitle, xUserName } from "~/consts";
 import type { MetaHeadSEO } from "~/types/head-seo";
 
 // prettier-ignore
-export type Props = Partial<Pick<BlogPost, "title" | "metaDescription" | "image" | "imageAlt" | "datePublished" | "dateModified"> & MetaHeadSEO>;
+export type Props = Partial<Pick<BlogPost, "title" | "metaDescription" | "image" | "imageAlt"> & MetaHeadSEO>;
 
 const {
   metaDescription: description,
   image,
   imageAlt,
-  title: articleTitle,
-  datePublished = siteCreationDate,
-  dateModified,
-  keywords,
-  isArticle = false
+  title: articleTitle
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
