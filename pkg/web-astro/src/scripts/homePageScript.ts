@@ -135,7 +135,9 @@ class Typewriter {
         );
 
         return () => {
-          clearInterval(interval);
+          // We are running this script on the browser, so the interval is a number
+          // TypeScript is not aware of this
+          clearInterval(interval as unknown as number);
           stopCycle();
         };
       })
