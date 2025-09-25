@@ -6,6 +6,9 @@
   "bin": {
     "patch-bundle": "./src/index.mjs"
   },
+  "scripts": {
+    "start": "node ./src/index.mjs"
+  },
   "dependencies": {
     "fast-glob": "^3.3.3",
     "commander": "^14.0.0"
