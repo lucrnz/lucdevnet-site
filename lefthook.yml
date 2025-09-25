@@ -3,6 +3,7 @@
 pre-commit:
   commands:
     format:
+      root: pkg/web-astro
       glob: "*.{astro,ts,js,css,cjs,mjs,jsx,tsx,json}"
       run: pnpm exec prettier --write --ignore-unknown {staged_files}
       stage_fixed: true
@@ -14,4 +15,5 @@ pre-push:
       run: pnpm audit
 
     lint:
+      root: pkg/web-astro
       run: pnpm run lint

@@ -1,0 +1,11 @@
+packages:
+  - pkg/*
+
+minimumReleaseAge: 1440
+
+onlyBuiltDependencies:
+  - '@tailwindcss/oxide'
+  - esbuild
+  - lefthook
+  - puppeteer
+  - sharp

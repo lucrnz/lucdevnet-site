@@ -5,7 +5,7 @@ This project includes both source code and creative content. Different parts are
 - **Priority**: When possible, a comment at the top of the file will indicate that it qualifies as creative content. If no such comment is present, follow the rules below.
 - **Scope**:  
   - Markdown files (`.md`, `.mdx`)
-  - All files inside the `docs/`, `content/`, or `src/content/` directories
+  - For any application (inside the `pkg/` directory), all files inside the `docs/`, `content/`, or `src/content/` directories.
   - HTML content (text inside `<body>`, excluding scripts)
   - Images, icons, and other text-based assets
 - **License**: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)  

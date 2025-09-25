@@ -1,0 +1,38 @@
+{
+  "name": "web-astro",
+  "type": "module",
+  "author": "lucdev <me@lucdev.net>",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "lint": "astro check",
+    "preview": "astro preview",
+    "prepare": "lefthook install"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.2.6",
+    "@astrojs/rss": "^4.0.11",
+    "@astrojs/sitemap": "^3.3.1",
+    "@fontsource-variable/cabin": "^5.2.5",
+    "@fontsource-variable/exo-2": "^5.2.5",
+    "@tailwindcss/vite": "^4.1.5",
+    "astro": "^5.7.10",
+    "astro-embed": "^0.7.4",
+    "astro-robots-txt": "^1.0.0",
+    "mdast-util-from-markdown": "^2.0.2",
+    "mdast-util-to-string": "^4.0.0",
+    "tailwindcss": "^4.1.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "concurrently": "^8.2.2",
+    "prettier": "3.3.0",
+    "prettier-plugin-astro": "^0.14.1",
+    "reading-time": "^1.5.0",
+    "sharp": "0.33.4",
+    "typescript": "^5.8.3",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}
