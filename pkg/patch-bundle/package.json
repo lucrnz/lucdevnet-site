@@ -3,7 +3,11 @@
   "private": true,
   "type": "module",
   "main": "index.mjs",
+  "bin": {
+    "patch-bundle": "./src/index.mjs"
+  },
   "dependencies": {
-    "fast-glob": "^3.3.3"
+    "fast-glob": "^3.3.3",
+    "commander": "^14.0.0"
   }
 }

@@ -1,21 +1,28 @@
+#!/usr/bin/env node
 /*
  * SPDX-FileCopyrightText: 2025 Luciano Hillcoat <me@lucdev.net>
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { fileURLToPath } from "url";
 import path from "node:path";
 import fs from "node:fs";
 import fg from "fast-glob";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { Command } from "commander";
 
 // License configuration
 const licensePrefix = `// @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0`;
 const licenseSuffix = `// @license-end`;
 
-const distDirectory = path.join(__dirname, "..", "..", "dist");
+// Setup CLI
+const program = new Command();
+program
+  .name('patch-bundle')
+  .description('Add license headers to JavaScript files in a directory')
+  .version('1.0.0')
+  .argument('<dist-path>', 'path to the dist directory containing JavaScript files')
+  .parse();
+
+const distDirectory = path.resolve(program.args[0]);
 
 if (!fs.existsSync(distDirectory)) {
   console.error(`The dist directory does not exist: ${distDirectory}`);
