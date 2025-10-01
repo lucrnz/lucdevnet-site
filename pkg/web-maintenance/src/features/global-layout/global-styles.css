@@ -1,0 +1,17 @@
+/* @preserve
+* SPDX-FileCopyrightText: 2025 Luciano Hillcoat <me@lucdev.net>
+* SPDX-License-Identifier: AGPL-3.0-only
+*/
+
+@import 'tailwindcss';
+
+:root {
+  --font-sans-fallback:
+    system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+}
+
+@theme inline {
+  --font-display: 'Exo 2 Variable', var(--font-sans-fallback);
+  --font-body: 'Cabin Variable', var(--font-sans-fallback);
+}

@@ -2,10 +2,16 @@
 
 pre-commit:
   commands:
-    format:
+    format-web-astro:
       root: pkg/web-astro
       glob: "*.{astro,ts,js,css,cjs,mjs,jsx,tsx,json}"
       run: pnpm exec prettier --write --ignore-unknown {staged_files}
+      stage_fixed: true
+
+    format-web-maintenance:
+      root: pkg/web-maintenance
+      glob: "*.{html,ts,js,scss,css,cjs,mjs,d.cts,d.mts,jsx,tsx,json}"
+      run: pnpm exec prettier --ignore-unknown --write {staged_files}
       stage_fixed: true
 
 pre-push:
