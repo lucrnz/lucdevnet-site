@@ -20,6 +20,10 @@ pkg/**/*-error.log*
 pkg/**/.env*
 !pkg/**/.env*.example
 
+# Cloudflare
+.wrangler
+pkg/**/.wrangler
+
 # VSCode
 .vscode/*
 !.vscode/launch.json
