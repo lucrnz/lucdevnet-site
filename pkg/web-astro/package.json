@@ -1,36 +1,36 @@
 {
   "name": "web-astro",
   "type": "module",
-  "author": "lucdev <me@lucdev.net>",
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && patch-bundle ./dist",
     "lint": "astro check",
     "preview": "astro preview",
     "deploy": "wrangler pages deploy dist --project-name lucsite-ssg --branch upload"
   },
   "dependencies": {
+    "@fontsource-variable/cabin": "^5.2.8",
+    "@fontsource-variable/exo-2": "^5.2.8"
+  },
+  "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^4.3.6",
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.6.0",
-    "@fontsource-variable/cabin": "^5.2.8",
-    "@fontsource-variable/exo-2": "^5.2.8",
+    "@lucdev-scripts/patch-bundle": "workspace:*",
+    "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.13",
-    "astro": "^5.14.1",
     "astro-embed": "^0.7.4",
     "astro-robots-txt": "^1.0.0",
+    "astro": "^5.14.1",
     "mdast-util-from-markdown": "^2.0.2",
     "mdast-util-to-string": "^4.0.0",
-    "tailwindcss": "^4.1.13"
-  },
-  "devDependencies": {
-    "@tailwindcss/typography": "^0.5.19",
-    "prettier": "3.3.0",
     "prettier-plugin-astro": "^0.14.1",
+    "prettier": "3.3.0",
     "reading-time": "^1.5.0",
     "sharp": "0.33.4",
+    "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2",
     "vite-tsconfig-paths": "^5.1.4"
   }
