@@ -14,7 +14,6 @@ export const siteSourceCodeUrl = "https://github.com/lucrnz/lucdevnet-site";
 
 /* Author values */
 export const authorName = ["Luciano", "Hillcoat"];
-export const authorEmail = "me@lucdev.net";
 
 export const authorDescription = [
   "Software developer, focusing on the web platform",
