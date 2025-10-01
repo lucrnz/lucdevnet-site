@@ -11,7 +11,7 @@ import "@fontsource-variable/exo-2";
 
 type BlogPost = CollectionEntry<"blog">["data"];
 
-import { siteTitle, xUserName } from "~/consts";
+import { siteTitle } from "~/consts";
 import type { MetaHeadSEO } from "~/types/head-seo";
 
 // prettier-ignore
@@ -59,8 +59,6 @@ const heroImageUrl = image && imageAlt ? new URL(image, baseUrl) : undefined;
       <meta property="og:title" content={articleTitle} />
 
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:site" content={`@${xUserName}`} />
-      <meta name="twitter:creator" content={`@${xUserName}`} />
       <meta property="twitter:title" content={articleTitle} />
       <meta property="twitter:description" content={description} />
       {heroImageUrl && <meta name="twitter:image" content={heroImageUrl} />}

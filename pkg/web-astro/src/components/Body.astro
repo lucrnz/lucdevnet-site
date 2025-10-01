@@ -6,7 +6,9 @@
 ---
 
 <body
-  class="relative font-body tracking-wider p-4 sm:m-auto sm:max-w-[80ch] lg:max-w-[100ch] bg-gray-100 text-neutral-800 dark:bg-zinc-800 dark:text-neutral-300 print:m-2 print:max-w-[unset] print:bg-[unset] print:text-[unset] print:font-serif print:leading-relaxed print:tracking-wide"
+  class="relative font-body tracking-wider p-4 bg-gray-100 text-neutral-800 dark:bg-zinc-800 dark:text-neutral-300 print:m-2 print:max-w-[unset] print:bg-[unset] print:text-[unset] print:font-serif print:leading-relaxed print:tracking-wide"
 >
-  <slot />
+  <div class="contents sm:block sm:mx-auto sm:max-w-[80ch] lg:max-w-[100ch]">
+    <slot />
+  </div>
 </body>

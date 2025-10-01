@@ -4,7 +4,7 @@
  */
 
 /* Site values */
-export const siteUrl = import.meta.env.SITE;
+export const siteUrl = "https://lucdev.net";
 export const siteTitle = "Lucdev Website";
 export const siteCreationDate = new Date("2022-10-01T16:51:12Z");
 export const siteDescription =
@@ -12,20 +12,9 @@ export const siteDescription =
 
 export const siteSourceCodeUrl = "https://github.com/lucdev/site";
 
-export const authorProfilePicture = "/images/author/luc_fursona_v1.webp";
-export const authorProfilePictureSmall =
-  "/images/author/luc_fursona_v1_small.webp";
-export const authorProfilePictureAlt = `Luc's fursona, anthropomorphic character red panda-raccoon hybrid with rust-orange fur, short tousled hair, glasses, and a soft smile, shown in a warm indoor setting.`;
-export const xUserName = "lucdevnet";
-
 /* Author values */
 export const authorName = ["Luciano", "Hillcoat"];
 export const authorEmail = "me@lucdev.net";
-export const authorSocialMedia = [
-  `https://x.com/${xUserName}`,
-  "https://linkedin.com/in/lhillcoat",
-  "https://github.com/lucrnz"
-];
 
 export const authorDescription = [
   "Software developer, focusing on the web platform",

@@ -5,11 +5,7 @@
  */
 
 import { type CollectionEntry } from "astro:content";
-import {
-  authorName,
-  authorProfilePictureAlt,
-  authorProfilePictureSmall
-} from "~/consts";
+import { authorName } from "~/consts";
 import {
   formatDateTime,
   DateTimeFormattingConfig
@@ -28,21 +24,7 @@ const minuteWord = readTimeMinutes === 1 ? "minute" : "minutes";
 
 <section class="mb-8 ml-2 flex flex-col gap-2 max-w-fit">
   <div class="flex flex-row items-center gap-2">
-    <img
-      src={authorProfilePictureSmall}
-      alt={authorProfilePictureAlt}
-      height={32}
-      width={32}
-      class="rounded-full"
-      loading="lazy"
-      decoding="async"
-    />
-    <a
-      href="/"
-      target="_blank"
-      class="underline hover:text-cyan-600 hover:dark:text-cyan-400"
-      >By: {authorName.join(" ")}</a
-    >
+    <p>By: {authorName.join(" ")}</p>
   </div>
   <span
     >{formatDateTime(datePublished, DateTimeFormattingConfig.DayShortMonthYear)}

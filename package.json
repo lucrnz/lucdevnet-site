@@ -1,10 +1,8 @@
 {
   "name": "lucdev-site",
-  "description": "All the applications and services that compose my personal website",
-  "author": "lucdev <me@lucdev.net>",
+  "private": true,
   "scripts": {
-    "prepare": "test -d .git && lefthook install",
-    "build": ""
+    "prepare": "test -d .git && lefthook install"
   },
   "devDependencies": {
     "lefthook": "^1.13.0"

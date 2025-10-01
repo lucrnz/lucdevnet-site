@@ -26,10 +26,9 @@ type Language =
 export interface Props {
   name?: string;
   language?: Language;
-  runnable?: boolean;
 }
 
-const { name, language = "js", runnable: allowRunning = false } = Astro.props;
+const { name, language = "js" } = Astro.props;
 
 const prettyPrintLanguage: Record<Language, string> = {
   js: "JavaScript",
@@ -50,14 +49,11 @@ const prettyPrintLanguage: Record<Language, string> = {
   cfg: "Config file",
   ini: "INI file"
 };
-
-const runnableLanguages = ["js", "ts"];
-const runnable = runnableLanguages.includes(language) && allowRunning;
 ---
 
 <form
   class="flex flex-col gap-2 my-6 rounded-lg border border-gray-600"
-  data-code-snippet={JSON.stringify({ runnable, language })}
+  data-code-snippet={JSON.stringify({ language })}
 >
   <div class="px-4 py-2 flex flex-row justify-between items-center not-prose">
     <div class="flex flex-row gap-2 items-center">
@@ -361,46 +357,11 @@ const runnable = runnableLanguages.includes(language) && allowRunning;
           <span>Copied!</span>
         </div>
       </button>
-      {
-        runnable && (
-          <button
-            data-run-btn
-            type="submit"
-            class="w-fit transition-all flex flex-row gap-2 items-center duration-200 ease-in-out cursor-pointer hover:text-cyan-600 hover:dark:text-cyan-400 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="1em"
-              height="1em"
-              viewBox="0 0 512 512"
-            >
-              <path
-                fill="currentColor"
-                d="M133 440a35.37 35.37 0 0 1-17.5-4.67c-12-6.8-19.46-20-19.46-34.33V111c0-14.37 7.46-27.53 19.46-34.33a35.13 35.13 0 0 1 35.77.45l247.85 148.36a36 36 0 0 1 0 61l-247.89 148.4A35.5 35.5 0 0 1 133 440"
-              />
-            </svg>
-            <span>Run code</span>
-          </button>
-        )
-      }
     </div>
   </div>
   <div class="contents" data-code-container>
     <slot />
   </div>
-
-  {
-    runnable && (
-      <div
-        class="not-prose hidden data-[script-console=visible]:flex flex-col rounded-lg bg-white text-[#24292e] dark:bg-[#27272A] dark:text-slate-200 pl-4 text-sm py-2"
-        data-script-console
-      >
-        <pre data-script-output />
-        <pre data-script-stats />
-      </div>
-    )
-  }
 </form>
 
 <style is:global>
@@ -426,43 +387,17 @@ const runnable = runnableLanguages.includes(language) && allowRunning;
 </style>
 
 <script>
-  import type { ExecuteCodeSnippetRequirements } from "~/types/codeSnippet";
-  let execFn:
-    | ((req: ExecuteCodeSnippetRequirements) => Promise<void>)
-    | undefined;
-
-  const executeCodeSnippet = async (req: ExecuteCodeSnippetRequirements) => {
-    if (!execFn) {
-      const importData = await import("~/scripts/executeCodeSnippet.ts");
-      execFn = importData.default;
-    }
-    return await execFn(req);
-  };
-
   const forms = Array.from(
     document.querySelectorAll("[data-code-snippet]")
   ) as HTMLFormElement[];
 
   for (const form of forms) {
-    const metadata = JSON.parse(form.dataset.codeSnippet!) as {
-      runnable: boolean;
-    };
     const codeElement = form.querySelector(
       "[data-code-container] .astro-code > code"
     )! as HTMLElement;
     const copyBtn = form.querySelector("[data-copy-btn]")! as HTMLButtonElement;
 
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      if (!metadata.runnable) {
-        return;
-      }
-
-      await executeCodeSnippet({
-        form,
-        codeElement
-      });
-    });
+    form.addEventListener("submit", (e) => e.preventDefault());
 
     copyBtn.addEventListener("click", async (ev) => {
       ev.preventDefault();

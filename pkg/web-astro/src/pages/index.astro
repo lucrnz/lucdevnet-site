@@ -4,18 +4,14 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import Head from "~/components/Head.astro";
-import { siteTitle, siteDescription, siteCreationDate } from "~/consts";
-import IndexPageContent from "~/content/pages/IndexPageContent.astro";
 import BaseLayout from "~/layouts/BaseLayout.astro";
+import Head from "~/components/Head.astro";
 ---
 
-<BaseLayout>
-  <Head
-    slot="head"
-    title={siteTitle}
-    metaDescription={siteDescription}
-    datePublished={siteCreationDate}
-  />
-  <IndexPageContent />
+<BaseLayout title="Home">
+  <Fragment slot="head">
+    <Head title="Home" />
+    <meta http-equiv="refresh" content="0;url=/blog" />
+  </Fragment>
+  <p>You are being redirected, please wait...</p>
 </BaseLayout>
