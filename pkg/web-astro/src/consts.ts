@@ -10,7 +10,7 @@ export const siteCreationDate = new Date("2022-10-01T16:51:12Z");
 export const siteDescription =
   "My personal website including all my projects, contact links and my blog.";
 
-export const siteSourceCodeUrl = "https://github.com/lucdev/site";
+export const siteSourceCodeUrl = "https://github.com/lucrnz/lucdevnet-site";
 
 /* Author values */
 export const authorName = ["Luciano", "Hillcoat"];
