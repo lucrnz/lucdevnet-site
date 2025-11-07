@@ -1,0 +1,24 @@
+---
+/*
+ * SPDX-FileCopyrightText: 2025 Luciano Hillcoat <me@lucdev.net>
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Head from "~/components/Head.astro";
+import { siteCreationDate } from "~/consts";
+import ReadArticlesContent from "~/content/pages/ReadArticlesContent.astro";
+
+const lastUpdated = new Date("2024-07-22T05:43:06.715Z");
+---
+
+<BaseLayout>
+  <Head
+    slot="head"
+    title="Read Articles"
+    metaDescription="Page containing links to articles I read and a comment on those posts."
+    datePublished={siteCreationDate}
+    dateModified={lastUpdated}
+  />
+  <ReadArticlesContent />
+</BaseLayout>
