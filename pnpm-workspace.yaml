@@ -10,3 +10,6 @@ onlyBuiltDependencies:
   - puppeteer
   - sharp
   - workerd
+
+overrides:
+  "tar": "^7.5.2"
